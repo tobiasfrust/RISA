@@ -8,8 +8,8 @@
  *
  */
 
-#include <recoLibrary/Copy/H2D.h>
-#include <recoLibrary/ConfigReader/ConfigReader.h>
+#include <risa/Copy/H2D.h>
+#include <risa/ConfigReader/ConfigReader.h>
 
 #include <ddrf/cuda/Coordinates.h>
 #include <ddrf/cuda/Check.h>
@@ -22,7 +22,7 @@
 #include <exception>
 #include <pthread.h>
 
-namespace recoLib {
+namespace risa {
 namespace cuda {
 
 H2D::H2D(const std::string& configFile) : lastDevice_{0}, worstCaseTime_{0.0}, bestCaseTime_{std::numeric_limits<double>::max()},
