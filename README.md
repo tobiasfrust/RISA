@@ -1,10 +1,10 @@
 # RISA - Rofex In-Situ Analysis
 
 Prerequisites:
-- cmake (> 3.5)
+- cmake (>= 3.5)
 - CUDA and compatible host compiler (e.g. gcc)
 - libconfig++
-- Boost (> 1.58)
+- Boost (>= 1.58)
 - LibTiff
 
 Installation on Ubuntu 16.04
