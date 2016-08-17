@@ -23,9 +23,9 @@ Building the software:
 - move into this path and enter following command in terminal:
     ```ccmake <path_to_src>```
     e.g.
-    ```ccmake ../src/.```
+    ```ccmake ../RISA/.```
 - check if everything could be found and enter ```CMAKE_BUILD_TYPE```, options are:
     ```Debug, RelWithDebInfo, Release```
 - if everything workout, make the project
     ```make -j all```
-- if build was successful, there is a executable in the build/bin folder
+- if build was successful, there is an executable in the build/bin folder
