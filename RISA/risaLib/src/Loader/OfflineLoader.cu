@@ -122,8 +122,7 @@ namespace risa {
     * @return returns true, if configuration file could be read successfully, else false
     */
    auto OfflineLoader::readConfig(const std::string& configFile) -> bool {
-      recoLib::ConfigReader configReader = recoLib::ConfigReader(
-            configFile.data());
+      ConfigReader configReader = ConfigReader(configFile.data());
       int samplingRate, scanRate;
       if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
             && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)

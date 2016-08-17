@@ -23,25 +23,11 @@
 namespace risa {
 namespace cuda {
 
-template<typename T>
-__host__  __device__
- inline T lerp(T v0, T v1, T t) {
-   return fma(t, v1, fma(-t, v0, v0));
-}
-
 __global__ void backProjectLinear(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors);
 
 __global__ void backProjectNearest(const float* const __restrict__ sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors);
-
-__global__ void backProjectNearSymm(const float*  __restrict__ const sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors);
-
-__global__ void backProjectNearest3D(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors);
 
@@ -224,8 +210,7 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
 }
 
 auto Backprojection::readConfig(const std::string& configFile) -> bool {
-   recoLib::ConfigReader configReader = recoLib::ConfigReader(
-         configFile.data());
+   ConfigReader configReader = ConfigReader(configFile.data());
    std::string interpolationStr;
    if (configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)
          && configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
@@ -284,44 +269,6 @@ __global__ void backProjectLinear(const float* const __restrict__ sinogram,
    image[x + y * numberOfPixels] = sum * normalizationFactor[0];
 }
 
-__global__ void backProjectNearSymm(const float*  __restrict__ const sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors) {
-
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
-
-   if (x >= numberOfPixels || y >= numberOfPixels)
-      return;
-
-   float sum = 0.0;
-
-   float *p_cosLookup = cosLookup;
-   float *p_sinLookup = sinLookup;
-
-   const float scale = numberOfPixels / (float) numberOfDetectors;
-   const int centerIndex = numberOfDetectors * 0.5;
-
-   const float xp = (x - (numberOfPixels - 1.0) * 0.5) / scale;
-   const float yp = (y - (numberOfPixels - 1.0) * 0.5) / scale;
-
-#pragma unroll 4
-   for (auto projectionInd = 0; projectionInd < numberOfProjections/2; projectionInd++) {
-      const float cosVal = *p_cosLookup;
-      const float sinVal = *p_sinLookup;
-      //const int t = round(xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd]) + centerIndex;
-      const int t1 = round(xp * cosVal + yp * sinVal) + centerIndex;
-      const int t2 = round(yp * cosVal - xp * sinVal) + centerIndex;
-      ++p_cosLookup; ++p_sinLookup;
-      if (t1 >= 0 && t1 < numberOfDetectors)
-         sum += sinogram[projectionInd * numberOfDetectors + t1];
-      if (t2 >= 0 && t2 < numberOfDetectors)
-         sum += sinogram[(projectionInd+numberOfProjections/2) * numberOfDetectors + t2];
-   }
-   image[x + y * numberOfPixels] = sum * normalizationFactor[0];
-}
-
-
 __global__ void backProjectNearest(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors) {
@@ -353,35 +300,6 @@ __global__ void backProjectNearest(const float* const __restrict__ sinogram,
          sum += sinogram[projectionInd * numberOfDetectors + t];
    }
    image[x + y * numberOfPixels] = sum * M_PI / numberOfProjections * scale;
-}
-
-__global__ void backProjectNearest3D(const float* const __restrict__ sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors) {
-
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
-   const auto z = ddrf::cuda::getZ();
-
-   if (x >= numberOfPixels || y >= numberOfPixels || z >= numberOfProjections)
-      return;
-
-   const int WARP_SIZE = 32;
-
-   __shared__ float sumValues[WARP_SIZE];
-
-   float sum = 0.0;
-
-   const float scale = numberOfPixels / (float) numberOfDetectors;
-   const int centerIndex = numberOfDetectors * 0.5;
-
-   const float xp = (x - (numberOfPixels - 1.0) * 0.5) / scale;
-   const float yp = (y - (numberOfPixels - 1.0) * 0.5) / scale;
-
-   const int t = round(xp * cosLookup[z] + yp * sinLookup[z]) + centerIndex;
-   if (t >= 0 && t < numberOfDetectors)
-      sum = sinogram[z * numberOfDetectors + t];
-   atomicAdd(&image[x + y * numberOfPixels], sum * M_PI / numberOfProjections * scale);
 }
 
 }

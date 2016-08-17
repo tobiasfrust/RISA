@@ -578,8 +578,7 @@ auto Fan2Para::transferToDevice(unsigned int deviceID) -> void {
 auto Fan2Para::readConfig(const std::string& configFile) -> bool {
    int scanRate, samplingRate;
 
-   recoLib::ConfigReader configReader = recoLib::ConfigReader(
-         configFile.data());
+   ConfigReader configReader = ConfigReader(configFile.data());
    if (configReader.lookupValue("numberOfParallelProjections", params_.numberOfParallelProjections_)
          && configReader.lookupValue("numberOfParallelDetectors", params_.numberOfParallelDetectors_)
          && configReader.lookupValue("numberOfFanDetectors", params_.numberOfFanDetectors_)

@@ -173,8 +173,7 @@ auto H2D::processor(int deviceID) -> void {
  * @return returns true, if configuration file could be read successfully, else false
  */
 auto H2D::readConfig(const std::string& configFile) -> bool {
-   recoLib::ConfigReader configReader = recoLib::ConfigReader(
-         configFile.data());
+   ConfigReader configReader = ConfigReader(configFile.data());
    int samplingRate, scanRate;
    if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
          && configReader.lookupValue("memPoolSize_H2D", memPoolSize_)

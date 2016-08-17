@@ -209,8 +209,7 @@ auto Filter::designFilter() -> void {
  * @return returns true, if configuration file could be read successfully, else false
  */
 auto Filter::readConfig(const std::string& configFile) -> bool {
-   recoLib::ConfigReader configReader = recoLib::ConfigReader(
-         configFile.data());
+   ConfigReader configReader = ConfigReader(configFile.data());
    std::string filterType;
    if (configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)
          && configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)

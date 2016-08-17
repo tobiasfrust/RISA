@@ -127,8 +127,7 @@ auto CropImage::processor(const int deviceID) -> void {
  * @return returns true, if configuration file could be read successfully, else false
  */
 auto CropImage::readConfig(const std::string& configFile) -> bool {
-   recoLib::ConfigReader configReader = recoLib::ConfigReader(
-         configFile.data());
+   ConfigReader configReader = ConfigReader(configFile.data());
    if (configReader.lookupValue("numberOfPixels", numberOfPixels_))
       return EXIT_SUCCESS;
 
