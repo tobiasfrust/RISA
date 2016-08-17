@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 include_directories(
    "${CMAKE_SOURCE_DIR}/ddrf/include"
-   "${CMAKE_SOURCE_DIR}/risa/include"
+   "${CMAKE_SOURCE_DIR}/risaLib/include"
    ${Boost_INCLUDE_DIRS}
    ${TIFF_INCLUDE_DIR}
 )
