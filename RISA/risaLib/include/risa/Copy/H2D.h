@@ -16,7 +16,7 @@
 #include <ddrf/Queue.h>
 #include <ddrf/cuda/Memory.h>
 
-#include <recoLibrary/Basics/performance.h>
+#include "../Basics/performance.h"
 
 #include <thread>
 #include <vector>

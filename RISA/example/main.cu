@@ -5,8 +5,7 @@
 
 #include <risa/Filter/Filter.h>
 #include <risa/Backprojection/Backprojection.h>
-#include <risa/Attenutation/Attenuation.h>
-#include <risa/Reconstruction/Fbp.h>
+#include <risa/Attenuation/Attenuation.h>
 #include <risa/Copy/D2H.h>
 #include <risa/Copy/H2D.h>
 #include <risa/Fan2Para/Fan2Para.h>

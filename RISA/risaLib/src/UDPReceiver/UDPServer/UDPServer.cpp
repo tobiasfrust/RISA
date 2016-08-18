@@ -42,7 +42,7 @@
  * \param[in] port  The port we receive from.
  */
 
-#include <recoLibrary/UDPServer/UDPServer.h>
+#include <risa/UDPServer/UDPServer.h>
 
 #include <string.h>
 #include <unistd.h>
@@ -51,7 +51,7 @@
 #define SOCK_CLOEXEC 0
 #endif
 
-namespace recoLib {
+namespace risa {
 
 UDPServer::UDPServer(const std::string& addr, int port)
     : f_port(port)
