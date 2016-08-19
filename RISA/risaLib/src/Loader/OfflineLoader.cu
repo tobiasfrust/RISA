@@ -18,13 +18,13 @@
 
 namespace risa {
 
-   OfflineLoader::OfflineLoader(const std::string& configFile) :worstCaseTime_{0.0}, bestCaseTime_{std::numeric_limits<double>::max()}{
+   OfflineLoader::OfflineLoader(const std::string& address, const std::string& configFile) :worstCaseTime_{0.0}, bestCaseTime_{std::numeric_limits<double>::max()}{
       if (readConfig(configFile)) {
          throw std::runtime_error(
                "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
       }
 
-      stopFrame_ = 1000u;
+      stopFrame_ = 50000;
       index_ = 1000u;
 
       memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage((numberOfFrames_+1)*numberOfPlanes_, numberOfProjections_*numberOfDetectors_);

@@ -22,7 +22,7 @@ namespace ddrf
 			/*
 			 * The default constructed Queue has limit 2, hence the member is 2.
 			 */
-			Queue() : limit_{4u}, count_{0u} {}
+			Queue() : limit_{40u}, count_{0u} {}
 			explicit Queue(std::size_t limit) : limit_{limit}, count_{0u} {}
 
 			/*

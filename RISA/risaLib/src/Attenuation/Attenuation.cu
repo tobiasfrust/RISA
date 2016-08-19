@@ -29,13 +29,6 @@
 namespace risa {
 namespace cuda {
 
-__global__ void computeAttenuation(
-      const unsigned short* __restrict__ sinogram_in,
-      const float* __restrict__ mask, float* __restrict__ sinogram_out,
-      const float* __restrict__ avgReference, const float* __restrict__ avgDark,
-      const float temp, const int numberOfDetectors,
-      const int numberOfProjections, const int planeId);
-
 Attenuation::Attenuation(const std::string& configFile) {
 
    if (readConfig(configFile)) {
@@ -104,14 +97,6 @@ auto Attenuation::wait() -> output_type {
    return results_.take();
 }
 
-/**
- * The processor()-Method takes one sinogram from the queue. Via the cuFFT-Library
- * it is transformed into frequency space for applying the filter function.
- * After filtering the transformation is reverted via the inverse fourier transform.
- * Finally, the filtered sinogram is pushed back into the output queue for
- * further processing.
- *
- */
 auto Attenuation::processor(const int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "Attenuation");
    CHECK(cudaSetDevice(deviceID));
@@ -340,14 +325,6 @@ auto Attenuation::relevantAreaMask(std::vector<T>& mask) -> void {
          mask.end(), 0.0);
 }
 
-/**
- * All values needed for setting up the class are read from the config file
- * in this function.
- *
- * @param[in] configFile path to config file
- *
- * @return returns true, if configuration file could be read successfully, else false
- */
 auto Attenuation::readConfig(const std::string& configFile) -> bool {
    ConfigReader configReader = ConfigReader(configFile.data());
    int samplingRate, scanRate;
@@ -378,21 +355,6 @@ auto Attenuation::readConfig(const std::string& configFile) -> bool {
 }
 
 
-/**
- *  This function computes the attenuation values and converts the measuring input
- *  from short to floating point values
- *
- *  @in  sinogram_in          ordered raw sinogram
- *  @in  mask                 precomputed mask for hiding the unrelevant region (a-priori knowledge)
- *  @out sinogram_out         fan sinogram after attenuation computation
- *  @in  avgReference         precomputed average values of reference measurement
- *  @in  avgDark              precomputed average values of dark measurement
- *  @in  temp                 value for
- *  @in  numberOfDetector     number of fan detectors
- *  @in  numberOfProjections  number of fan projections
- *  @in  planeId              id of plane, to which the sinogram belongs
- *
- */
 __global__ void computeAttenuation(
       const unsigned short* __restrict__ sinogram_in,
       const float* __restrict__ mask, float* __restrict__ sinogram_out,

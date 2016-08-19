@@ -63,12 +63,12 @@ int main(int argc, char **argv) {
    auto address = std::string { "10.0.0.10" };
 
    //using tiffLoader = ddrf::ImageLoader<ddrf::loaders::TIFF<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>>;
-   //using offlineLoader = ddrf::ImageLoader<recoLib::OfflineLoader>;
-   using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
+   using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
+   //using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
    //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;
    using offlineSaver = ddrf::ImageSaver<risa::OfflineSaver>;
 
-   using sourceStage = ddrf::pipeline::SourceStage<onlineReceiver>;
+   using sourceStage = ddrf::pipeline::SourceStage<offlineLoader>;
    using copyStageH2D = ddrf::pipeline::Stage<risa::cuda::H2D>;
    using attenuationStage = ddrf::pipeline::Stage<risa::cuda::Attenuation>;
    using fan2ParaStage = ddrf::pipeline::Stage<risa::cuda::Fan2Para>;
