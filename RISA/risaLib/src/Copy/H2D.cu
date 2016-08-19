@@ -79,10 +79,8 @@ auto H2D::process(input_type&& sinogram) -> void {
       if(sinogram.index() > 0)
          tmr_.stop();
       BOOST_LOG_TRIVIAL(debug) << "H2D: Image arrived with Index: " << sinogram.index() << "to device " << lastDevice_;
-      if(sinogram.index() % 5 == 0) sinograms_[1].push(std::move(sinogram));
-      else sinograms_[0].push(std::move(sinogram));
-      //sinograms_[lastDevice_].push(std::move(sinogram));
-      //lastDevice_ = (lastDevice_ + 1) % numberOfDevices_;
+      sinograms_[lastDevice_].push(std::move(sinogram));
+      lastDevice_ = (lastDevice_ + 1) % numberOfDevices_;
       double time = tmr_.elapsed();
       if(sinogram.index() > 0){
          if(time < bestCaseTime_)
