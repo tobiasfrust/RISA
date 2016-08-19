@@ -28,4 +28,5 @@ Building the software:
     ```Debug, RelWithDebInfo, Release```
 - if everything workout, make the project
     ```make -j all```
-- if build was successful, there is an executable in the build/bin folder
+- if build was successful, there is an executable in the ```build/bin``` folder
+- the documentation can be found in the ```doc/html``` folder
