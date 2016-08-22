@@ -7,7 +7,7 @@
  *      Author: Tobias Frust (t.frust@hzdr.de)
  */
 
-#include <risa/CropImage/CropImage.h>
+#include <risa/Masking/Masking.h>
 #include <risa/ConfigReader/ConfigReader.h>
 #include <risa/Basics/performance.h>
 
@@ -25,9 +25,15 @@
 namespace risa {
 namespace cuda {
 
-__global__ void cropImage(float* __restrict__ img, const float value, const int numberOfPixels);
+//!   This CUDA kernel multiplies the mask and the reconstructed image
+/**
+ * @param[in,out] img            the reconstructed image, that is multiplied with the mask in-place
+ * @param[in]     value          the value, the pixels shall be replaced with
+ * @param[in]     numberOfPixels the number of pixels in the reconstruction grid in one dimension
+ */
+__global__ void mask(float* __restrict__ img, const float value, const int numberOfPixels);
 
-CropImage::CropImage(const std::string& configFile) {
+Masking::Masking(const std::string& configFile) {
 
    if (readConfig(configFile)) {
       throw std::runtime_error(
@@ -47,12 +53,12 @@ CropImage::CropImage(const std::string& configFile) {
 
    //initialize worker threads
    for (auto i = 0; i < numberOfDevices_; i++) {
-      processorThreads_[i] = std::thread { &CropImage::processor, this, i };
+      processorThreads_[i] = std::thread { &Masking::processor, this, i };
    }
    BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::CropImage: Running " << numberOfDevices_ << " Threads.";
 }
 
-CropImage::~CropImage() {
+Masking::~Masking() {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       CHECK(cudaStreamDestroy(streams_[i]));
@@ -60,7 +66,7 @@ CropImage::~CropImage() {
    BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::CropImage: Destroyed.";
 }
 
-auto CropImage::process(input_type&& img) -> void {
+auto Masking::process(input_type&& img) -> void {
    if (img.valid()) {
       BOOST_LOG_TRIVIAL(debug)<< "CropImage: Image arrived with Index: " << img.index() << "to device " << img.device();
       imgs_[img.device()].push(std::move(img));
@@ -81,19 +87,11 @@ auto CropImage::process(input_type&& img) -> void {
    }
 }
 
-auto CropImage::wait() -> output_type {
+auto Masking::wait() -> output_type {
    return results_.take();
 }
 
-/**
- * The processor()-Method takes one sinogram from the queue. Via the cuFFT-Library
- * it is transformed into frequency space for applying the filter function.
- * After filtering the transformation is reverted via the inverse fourier transform.
- * Finally, the filtered sinogram is pushed back into the output queue for
- * further processing.
- *
- */
-auto CropImage::processor(const int deviceID) -> void {
+auto Masking::processor(const int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "CropImage");
    CHECK(cudaSetDevice(deviceID));
    dim3 blocks(16, 16);
@@ -106,7 +104,7 @@ auto CropImage::processor(const int deviceID) -> void {
          break;
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::CropImage: CropImageing image with Index " << img.index();
 
-      cropImage<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(),
+      mask<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(),
             0.0 ,numberOfPixels_);
       CHECK(cudaPeekAtLastError());
 
@@ -118,15 +116,7 @@ auto CropImage::processor(const int deviceID) -> void {
    }
 }
 
-/**
- * All values needed for setting up the class are read from the config file
- * in this function.
- *
- * @param[in] configFile path to config file
- *
- * @return returns true, if configuration file could be read successfully, else false
- */
-auto CropImage::readConfig(const std::string& configFile) -> bool {
+auto Masking::readConfig(const std::string& configFile) -> bool {
    ConfigReader configReader = ConfigReader(
          configFile.data());
    if (configReader.lookupValue("numberOfPixels", numberOfPixels_))
@@ -135,7 +125,7 @@ auto CropImage::readConfig(const std::string& configFile) -> bool {
    return EXIT_FAILURE;
 }
 
-__global__ void cropImage(float* __restrict__ img, const float value, const int numberOfPixels) {
+__global__ void mask(float* __restrict__ img, const float value, const int numberOfPixels) {
    const auto x = ddrf::cuda::getX();
    const auto y = ddrf::cuda::getY();
    if (x >= numberOfPixels || y >= numberOfPixels)

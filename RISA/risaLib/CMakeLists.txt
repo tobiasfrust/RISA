@@ -16,7 +16,7 @@ set(SOURCES
    "${CMAKE_SOURCE_DIR}/risaLib/src/Copy/H2D.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Fan2Para/Fan2Para.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Backprojection/Backprojection.cu"
-   "${CMAKE_SOURCE_DIR}/risaLib/src/CropImage/CropImage.cu"
+   "${CMAKE_SOURCE_DIR}/risaLib/src/Masking/Masking.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Attenuation/Attenuation.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Loader/OfflineLoader.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Saver/OfflineSaver.cu"

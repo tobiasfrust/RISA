@@ -11,7 +11,7 @@
 #include <risa/Copy/D2H.h>
 #include <risa/Copy/H2D.h>
 #include <risa/Fan2Para/Fan2Para.h>
-#include <risa/CropImage/CropImage.h>
+#include <risa/Masking/Masking.h>
 #include <risa/Loader/OfflineLoader.h>
 #include <risa/Saver/OfflineSaver.h>
 #include <risa/Receiver/Receiver.h>
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
    using fan2ParaStage = ddrf::pipeline::Stage<risa::cuda::Fan2Para>;
    using filterStage = ddrf::pipeline::Stage<risa::cuda::Filter>;
    using backProjectionStage = ddrf::pipeline::Stage<risa::cuda::Backprojection>;
-   using croppingStage = ddrf::pipeline::Stage<risa::cuda::CropImage>;
+   using maskingStage = ddrf::pipeline::Stage<risa::cuda::Masking>;
    using copyStageD2H = ddrf::pipeline::Stage<risa::cuda::D2H>;
    using sinkStage = ddrf::pipeline::SinkStage<offlineSaver>;
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
       auto fan2Para = pipeline.create<fan2ParaStage>(configFile);
       auto filter = pipeline.create<filterStage>(configFile);
       auto backProjection = pipeline.create<backProjectionStage>(configFile);
-      auto cropImage = pipeline.create<croppingStage>(configFile);
+      auto masking = pipeline.create<maskingStage>(configFile);
       auto d2h = pipeline.create<copyStageD2H>(configFile);
       auto sink = pipeline.create<sinkStage>(outputPath, prefix, configFile);
 
@@ -106,11 +106,11 @@ int main(int argc, char **argv) {
       pipeline.connect(attenuation, fan2Para);
       pipeline.connect(fan2Para, filter);
       pipeline.connect(filter, backProjection);
-      pipeline.connect(backProjection, cropImage);
-      pipeline.connect(cropImage, d2h);
+      pipeline.connect(backProjection, masking);
+      pipeline.connect(masking, d2h);
       pipeline.connect(d2h, sink);
 
-      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, cropImage, d2h, sink);
+      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, masking, d2h, sink);
 
       BOOST_LOG_TRIVIAL(info) << "Initialization finished.";
 

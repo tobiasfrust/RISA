@@ -145,7 +145,7 @@ private:
    template <typename T>
    auto relevantAreaMask(std::vector<T>& mask) -> void;
 
-   int numberOfDevices_;
+   int numberOfDevices_;         //!<  the number of available CUDA devices in the system
 
    //configuration values
    int numberOfDetectorModules_; //!<  the number of detector modules

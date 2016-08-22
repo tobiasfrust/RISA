@@ -14,23 +14,42 @@
 
 #include <chrono>
 
-namespace risa{
+namespace risa {
 
-class Timer
-{
+class Timer {
+
+   /**
+    * This class provides a high precision timer based on the chrono-library of C++11.
+    * It can be used, to measure the elapsed time.
+    */
+
 public:
-    Timer(){}
-    void start() { beg_ = clock_::now(); }
-    void stop()  { end_ = clock_::now(); }
-    double elapsed() const {
-        return std::chrono::duration_cast<second_>
-            (end_ - beg_).count(); }
+   Timer() {
+   }
+
+   //! Start the time duration measurement.
+   void start() {
+      beg_ = clock_::now();
+   }
+
+   //! Stop the time duration measurement.
+   void stop() {
+      end_ = clock_::now();
+   }
+
+   //! Computes the elapsed time between #start() and #stop()
+   /**
+    * @return  the elapsed time duration between #start() and #stop()
+    */
+   double elapsed() const {
+      return std::chrono::duration_cast < second_ > (end_ - beg_).count();
+   }
 
 private:
-    typedef std::chrono::high_resolution_clock clock_;
-    typedef std::chrono::duration<double, std::ratio<1> > second_;
-    std::chrono::time_point<clock_> beg_;
-    std::chrono::time_point<clock_> end_;
+   typedef std::chrono::high_resolution_clock clock_;
+   typedef std::chrono::duration<double, std::ratio<1> > second_;
+   std::chrono::time_point<clock_> beg_;
+   std::chrono::time_point<clock_> end_;
 };
 
 }

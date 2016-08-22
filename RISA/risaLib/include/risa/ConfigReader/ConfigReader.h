@@ -19,18 +19,40 @@
 
 namespace risa {
 class ConfigReader {
-public:
-   ConfigReader(const char* configFile);
-   ConfigReader(const ConfigReader& configReader) {
-   }
 
+   /**
+    * This class takes the file path to a configuration file as input and reads it
+    * using the libconfig++-Library
+    */
+
+public:
+
+   ConfigReader(const char* configFile);
+
+   ConfigReader(const ConfigReader& configReader) {}
+
+   //! Reads the configuration value identified by the identifier-string
+   /**
+    * @param[in]  identifier  the string used to identify the desired parameter in the configuration file
+    * @param[out] value       the value, that was passed in the configuration file
+    * @retval true   the parameter could be read successfully
+    * @retval false  the parameter could not be read successfully
+    */
    template<typename T>
    bool lookupValue(const std::string& identifier, T& value) {
 	  bool ret = cfg.lookupValue(identifier.c_str(), value);
 	  BOOST_LOG_TRIVIAL(debug) << "Configuration value " << identifier << ": " << value;
-      return ret;
+     return ret;
    }
 
+   //! Reads the configuration value list identified by the identifier-string and returns the value stored at position index
+   /**
+    * @param[in]  identifier  the string used to identify the desired parameter in the configuration file
+    * @param[in]  index       the position at which the desired value shall be read
+    * @param[out] value       the value, that was passed in the configuration file
+    * @retval true   the parameter could be read successfully
+    * @retval false  the parameter could not be read successfully
+    */
    template<typename T>
    bool lookupValue(const std::string& identifier, int index, T& value) {
 	   libconfig::Setting& s = cfg.lookup(identifier.c_str());
@@ -44,7 +66,6 @@ public:
 
 private:
    libconfig::Config cfg;
-   float cudaTest();
 };
 }
 

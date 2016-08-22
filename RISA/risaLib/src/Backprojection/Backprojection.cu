@@ -23,28 +23,6 @@
 namespace risa {
 namespace cuda {
 
-template<typename T>
-__host__  __device__
- inline T lerp(T v0, T v1, T t) {
-   return fma(t, v1, fma(-t, v0, v0));
-}
-
-__global__ void backProjectLinear(const float* const __restrict__ sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors);
-
-__global__ void backProjectNearest(const float* const __restrict__ sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors);
-
-__global__ void backProjectNearSymm(const float*  __restrict__ const sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors);
-
-__global__ void backProjectNearest3D(const float* const __restrict__ sinogram,
-      float* __restrict__ image, const int numberOfPixels,
-      const int numberOfProjections, const int numberOfDetectors);
-
 __constant__ float sinLookup[2048];
 __constant__ float cosLookup[2048];
 __constant__ float normalizationFactor[1];
@@ -106,11 +84,6 @@ Backprojection::~Backprojection() {
    BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::Backprojection: Destroyed.";
 }
 
-/**
- *  Main method of each stage. Is called, when new input data arrives.
- *  Pushes input data into local queue; for processing in processor method.
- *
- */
 auto Backprojection::process(input_type&& sinogram) -> void {
    if (sinogram.valid()) {
       BOOST_LOG_TRIVIAL(debug)<< "BP: Image arrived with Index: " << sinogram.index() << "to device " << sinogram.device();
@@ -136,15 +109,6 @@ auto Backprojection::wait() -> output_type {
    return results_.take();
 }
 
-/**
- * Takes sinogram from the input queue and performs the forward projection
- * using a sparse-matrix-vector multiplication from the cuSparse-Library.
- * Uses the MemoryPool, thus, now expensive memory allocation needs to be
- * performed. No blocking of device.
- * Finally, the reconstructed image is pushed back into the output queue
- * for further processing.
- *
- */
 auto Backprojection::processor(const int deviceID, const int streamID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "Reco");
    CHECK(cudaSetDevice(deviceID));
