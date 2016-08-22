@@ -19,7 +19,7 @@ namespace risa {
 
 Receiver::Receiver(const std::string& address, const std::string& configPath) :
    numberOfDetectorModules_{27},
-   bufferSize_{1999},
+   bufferSize_{2000},
    notification_{0}{
 
    if (readConfig(configPath)) {
@@ -62,16 +62,23 @@ auto Receiver::loadImage() -> ddrf::Image<manager_type> {
    if(index == -1) return ddrf::Image<manager_type>();
    auto sino = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
 
-#pragma omp parallel for collapse(2)
-   for (auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++) {
-      for (auto projInd = 0; projInd < numberOfProjections_; projInd++) {
-         std::size_t startIndex = projInd * numberOfDetectorsPerModule
-               + (index%bufferSize_) * numberOfDetectorsPerModule * numberOfProjections_;
-         std::size_t indexSorted = detModInd * numberOfDetectorsPerModule + projInd * numberOfDetectors_;
-         std::copy(buffers_[detModInd].begin() + startIndex, buffers_[detModInd].begin() + startIndex
-               + numberOfDetectorsPerModule, sino.container().get() + indexSorted);
-      }
+   for(auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++){
+      std::size_t startIndex = (index%bufferSize_) * numberOfDetectorsPerModule*numberOfProjections_;
+      std::copy(buffers_[detModInd].cbegin() + startIndex,
+            buffers_[detModInd].cbegin() + startIndex + numberOfDetectorsPerModule*numberOfProjections_,
+            sino.container().get() + detModInd * numberOfDetectorsPerModule * numberOfProjections_);
    }
+
+//#pragma omp parallel for collapse(2)
+//   for (auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++) {
+//      for (auto projInd = 0; projInd < numberOfProjections_; projInd++) {
+//         std::size_t startIndex = projInd * numberOfDetectorsPerModule
+//               + (index%bufferSize_) * numberOfDetectorsPerModule * numberOfProjections_;
+//         std::size_t indexSorted = detModInd * numberOfDetectorsPerModule + projInd * numberOfDetectors_;
+//         std::copy(buffers_[detModInd].begin() + startIndex, buffers_[detModInd].begin() + startIndex
+//               + numberOfDetectorsPerModule, sino.container().get() + indexSorted);
+//      }
+//   }
    sino.setIdx(index);
    sino.setPlane(index%2);
 

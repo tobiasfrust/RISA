@@ -7,14 +7,14 @@
  *      Author: Tobias Frust (t.frust@hzdr.de)
  */
 
-#include <risa/ConfigReader/ConfigReader.h>
-
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
 
-namespace risa {
+#include <risa/ConfigReader/ConfigReader.h>
 
+namespace risa {
+  
 ConfigReader::ConfigReader(const char* configFile) {
    try {
       cfg.readFile(configFile);

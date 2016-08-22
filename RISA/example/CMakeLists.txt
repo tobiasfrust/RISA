@@ -18,6 +18,6 @@ set(SOURCES
    main.cu
 )
 
-CUDA_ADD_EXECUTABLE(risaExample ${SOURCES})
+CUDA_ADD_EXECUTABLE(example ${SOURCES})
 
-target_link_libraries(risaExample ${LIBRARIES})
+target_link_libraries(example ${LIBRARIES})

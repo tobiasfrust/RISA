@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Tobias Frust
+ * Copyright 2016
  *
  * OfflineSaver.h
  *

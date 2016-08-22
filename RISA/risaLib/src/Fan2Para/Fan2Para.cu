@@ -577,7 +577,6 @@ auto Fan2Para::transferToDevice(unsigned int deviceID) -> void {
  */
 auto Fan2Para::readConfig(const std::string& configFile) -> bool {
    int scanRate, samplingRate;
-
    ConfigReader configReader = ConfigReader(configFile.data());
    if (configReader.lookupValue("numberOfParallelProjections", params_.numberOfParallelProjections_)
          && configReader.lookupValue("numberOfParallelDetectors", params_.numberOfParallelDetectors_)

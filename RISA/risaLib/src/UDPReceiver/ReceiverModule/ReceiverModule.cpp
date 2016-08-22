@@ -19,7 +19,7 @@ using boost::asio::ip::tcp;
 
 ReceiverModule::ReceiverModule(const std::string& address, const std::string& configPath, const int moduleID,
       std::vector<unsigned short>& buffer, OnlineReceiverNotification& notification) :
-   bufferSize_{1999},
+   bufferSize_{2000},
    numberOfDetectorModules_{27},
    moduleID_{moduleID},
    buffer_(buffer),

@@ -56,37 +56,43 @@ public:
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 public:
 
-   //! Initializes everything, that needs to be done only once
+   //!   Initializes everything, that needs to be done only once
    /**
     *
+    *    Runs as many processor-thread as CUDA devices are available in the system. Allocates memory using the
+    *    MemoryPool for all CUDA devices.
+    *
+    *    @param[in]  configFile  path to configuration file
     */
    Attenuation(const std::string& configFile);
 
-   //!
+   //!   Destroys everything that is not destroyed automatically
    /**
-    *
+    *    Tells MemoryPool to free the allocated memory.
+    *    Destroys the cudaStreams.
     */
    ~Attenuation();
 
    //! Pushes the sinogram to the processor-threads
    /**
-    *
+    *    @param[in]  img   input data that arrived from previous stage
     */
    auto process(input_type&& img) -> void;
 
+   //! Takes one sinogram from the output queue #results_ and transfers it to the neighbored stage.
    /**
-    *
+    *    @return  the oldest sinogram in the output queue #results_
     */
    auto wait() -> output_type;
 
 private:
 
-   std::map<int, ddrf::Queue<input_type>> sinograms_;
-   ddrf::Queue<output_type> results_;
+   std::map<int, ddrf::Queue<input_type>> sinograms_; //!<  one separate input queue for each available CUDA device
+   ddrf::Queue<output_type> results_;                 //!<  the output queue in which the processed sinograms are stored
 
-   std::map<int, std::thread> processorThreads_;
-   std::map<int, cudaStream_t> streams_;
-   std::map<int, unsigned int> memoryPoolIdxs_;
+   std::map<int, std::thread> processorThreads_;      //!<  stores the processor()-threads
+   std::map<int, cudaStream_t> streams_;              //!<  stores the cudaStreams that are created once
+   std::map<int, unsigned int> memoryPoolIdxs_;       //!<  stores the indeces received when regisitering in MemoryPool
 
    //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
    /**
@@ -127,9 +133,14 @@ private:
    template <typename T>
    auto readInput(std::string& path, std::vector<T>& values) -> void;
 
-   //!
+   //!   Computes a mask to hide the unrelevant areas in the fan beam sinogram.
    /**
+    *    Due to the special geometry of ROFEX (e.g. limited angle) there are areas
+    *    where it is known from a priori knowledge that all values need to be zero.
+    *    This mask is multiplied with the fan beam sinogramm after the attenuation
+    *    computation.
     *
+    *    @param[out] mask  contains the values of the mask
     */
    template <typename T>
    auto relevantAreaMask(std::vector<T>& mask) -> void;
@@ -137,12 +148,12 @@ private:
    int numberOfDevices_;
 
    //configuration values
-   int numberOfDetectorModules_; //!<  number of detector modules
-   int numberOfDetectors_;       //!<  number of detectors in the fan beam sinogram
-   int numberOfProjections_;     //!<  number of projections in the fan beam sinogram
-   int numberOfPlanes_;          //!<  number of detector planes
-   int numberOfDarkFrames_;      //!<  number of frames in the dark measurement
-   int numberOfRefFrames_;       //!<  number of frames in the reference measurement
+   int numberOfDetectorModules_; //!<  the number of detector modules
+   int numberOfDetectors_;       //!<  the number of detectors in the fan beam sinogram
+   int numberOfProjections_;     //!<  the number of projections in the fan beam sinogram
+   int numberOfPlanes_;          //!<  the number of detector planes
+   int numberOfDarkFrames_;      //!<  the number of frames in the dark measurement
+   int numberOfRefFrames_;       //!<  the number of frames in the reference measurement
    std::string pathDark_;        //!<  file path to dark measurement data
    std::string pathReference_;   //!<  file path to reference measurement data
 

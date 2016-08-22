@@ -1,4 +1,4 @@
-/*
+/* 
  *  Copyright 2016
  *
  *  H2D.cu
@@ -68,12 +68,6 @@ H2D::~H2D() {
    BOOST_LOG_TRIVIAL(info) << "Could not reconstruct " << lostSinos_ << " elements; " << lostSinos_/(double)lastIndex_*100.0 << "% loss";
 }
 
-/**
- *
- *
- *
- *
- */
 auto H2D::process(input_type&& sinogram) -> void {
    if (sinogram.valid()) {
       if(sinogram.index() > 0)
@@ -121,13 +115,6 @@ auto H2D::wait() -> output_type {
    return results_.take();
 }
 
-/**
- * Anytime, when there is a new input image in the input queue
- * this function takes it and transfers it asynchronously to the device.
- * No Memory Allocation is needed, due to use of MemoryPool.
- * Thus, no cudaFree or cudaMalloc is performed and device will not be loced.
- * Finally, the image is pushed into the output queue for further processing.
- */
 auto H2D::processor(int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "H2D");
    CHECK(cudaSetDevice(deviceID));
@@ -164,16 +151,9 @@ auto H2D::processor(int deviceID) -> void {
    }
 }
 
-/**
- * All values needed for setting up the class are read from the config file
- * in this function.
- *
- * @param[in] configFile path to config file
- *
- * @return returns true, if configuration file could be read successfully, else false
- */
 auto H2D::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
+   ConfigReader configReader = ConfigReader(
+         configFile.data());
    int samplingRate, scanRate;
    if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
          && configReader.lookupValue("memPoolSize_H2D", memPoolSize_)

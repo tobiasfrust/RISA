@@ -326,7 +326,8 @@ auto Attenuation::relevantAreaMask(std::vector<T>& mask) -> void {
 }
 
 auto Attenuation::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
+   ConfigReader configReader = ConfigReader(
+         configFile.data());
    int samplingRate, scanRate;
    if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
          && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)
@@ -353,7 +354,6 @@ auto Attenuation::readConfig(const std::string& configFile) -> bool {
 
    return EXIT_FAILURE;
 }
-
 
 __global__ void computeAttenuation(
       const unsigned short* __restrict__ sinogram_in,

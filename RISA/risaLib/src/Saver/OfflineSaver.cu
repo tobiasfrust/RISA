@@ -62,13 +62,13 @@ OfflineSaver::OfflineSaver(const std::string& configFile) {
       //outputBuffers_[i].reserve(numberOfFrames_);
    }
 
-//   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
-//         numberOfPlanes_ * (circularBufferSize_+1),
-//         numberOfPixels_ * numberOfPixels_);
-
    memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
          numberOfPlanes_ * (circularBufferSize_+1),
-         256*1024);
+         numberOfPixels_ * numberOfPixels_);
+
+//   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
+//         numberOfPlanes_ * (circularBufferSize_+1),
+//         432*500);
 
    for(auto i = 0; i < numberOfPlanes_; i++){
       tmrs_.emplace_back();

@@ -1,5 +1,7 @@
 /*
- * Copyright 2016 Tobias Frust
+ * Copyright 2016
+ *
+ * Author: Tobias Frust (t.frust@hzdr.de)
  *
  */
 
@@ -13,6 +15,7 @@
 #include <risa/Loader/OfflineLoader.h>
 #include <risa/Saver/OfflineSaver.h>
 #include <risa/Receiver/Receiver.h>
+#include <risa/Reordering/Reordering.h>
 
 #include <ddrf/Image.h>
 #include <ddrf/ImageLoader.h>
@@ -63,13 +66,14 @@ int main(int argc, char **argv) {
    auto address = std::string { "10.0.0.10" };
 
    //using tiffLoader = ddrf::ImageLoader<ddrf::loaders::TIFF<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>>;
-   using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
-   //using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
+   //using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
+   using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
    //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;
    using offlineSaver = ddrf::ImageSaver<risa::OfflineSaver>;
 
-   using sourceStage = ddrf::pipeline::SourceStage<offlineLoader>;
+   using sourceStage = ddrf::pipeline::SourceStage<onlineReceiver>;
    using copyStageH2D = ddrf::pipeline::Stage<risa::cuda::H2D>;
+   using reorderingStage = ddrf::pipeline::Stage<risa::cuda::Reordering>;
    using attenuationStage = ddrf::pipeline::Stage<risa::cuda::Attenuation>;
    using fan2ParaStage = ddrf::pipeline::Stage<risa::cuda::Fan2Para>;
    using filterStage = ddrf::pipeline::Stage<risa::cuda::Filter>;
@@ -87,6 +91,7 @@ int main(int argc, char **argv) {
 
       auto source = pipeline.create<sourceStage>(address, configFile);
       auto h2d = pipeline.create<copyStageH2D>(configFile);
+      auto reordering = pipeline.create<reorderingStage>(configFile);
       auto attenuation = pipeline.create<attenuationStage>(configFile);
       auto fan2Para = pipeline.create<fan2ParaStage>(configFile);
       auto filter = pipeline.create<filterStage>(configFile);
@@ -96,7 +101,8 @@ int main(int argc, char **argv) {
       auto sink = pipeline.create<sinkStage>(outputPath, prefix, configFile);
 
       pipeline.connect(source, h2d);
-      pipeline.connect(h2d, attenuation);
+      pipeline.connect(h2d, reordering);
+      pipeline.connect(reordering, attenuation);
       pipeline.connect(attenuation, fan2Para);
       pipeline.connect(fan2Para, filter);
       pipeline.connect(filter, backProjection);
@@ -104,7 +110,7 @@ int main(int argc, char **argv) {
       pipeline.connect(cropImage, d2h);
       pipeline.connect(d2h, sink);
 
-      pipeline.run(source, h2d, attenuation, fan2Para, filter, backProjection, cropImage, d2h, sink);
+      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, cropImage, d2h, sink);
 
       BOOST_LOG_TRIVIAL(info) << "Initialization finished.";
 

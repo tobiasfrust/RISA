@@ -24,7 +24,7 @@
 namespace risa {
 namespace cuda {
 
-D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0), averageCounter_{0} {
+D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
 
    if (!readConfig(configFile)) {
       throw std::runtime_error(
@@ -39,7 +39,7 @@ D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0),
 
 //   memoryPoolIdx_ =
 //         ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
-//               256*1024);
+//               432*500);
 
    //custom streams are necessary, because profiling with nvprof not possible with
    //-default-stream per-thread option
@@ -103,14 +103,6 @@ auto D2H::wait() -> output_type {
    return results_.take();
 }
 
-/**
- * Takes an image from the input queue and transfers it asynchronously
- * from device to host. No Memory allocation is performed, due to use
- * of MemoryPool. Thus, no expensive cudaMalloc or cudaFree operations
- * are necessary. Device is not blocked, different cudaStreams, may be
- * executed in parallel.
- *
- */
 auto D2H::processor(const int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "D2H");
    CHECK(cudaSetDevice(deviceID));
@@ -141,14 +133,6 @@ auto D2H::processor(const int deviceID) -> void {
    }
 }
 
-/**
- * All values needed for setting up the class are read from the config file
- * in this function.
- *
- * @param[in] configFile path to config file
- *
- * @return returns true, if configuration file could be read successfully, else false
- */
 auto D2H::readConfig(const std::string& configFile) -> bool {
    ConfigReader configReader = ConfigReader(configFile.data());
 

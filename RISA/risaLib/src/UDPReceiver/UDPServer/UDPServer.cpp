@@ -4,7 +4,7 @@
  * UDPServer.cpp
  *
  *  Created on: 29.06.2016
- *      Author: Tobias Frust (t.frust@hzdr.de)
+ *      Author: Tobias Frust
  */
 
 // ========================= SEVER =========================

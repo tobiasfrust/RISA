@@ -127,7 +127,8 @@ auto CropImage::processor(const int deviceID) -> void {
  * @return returns true, if configuration file could be read successfully, else false
  */
 auto CropImage::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
+   ConfigReader configReader = ConfigReader(
+         configFile.data());
    if (configReader.lookupValue("numberOfPixels", numberOfPixels_))
       return EXIT_SUCCESS;
 
@@ -150,3 +151,4 @@ __global__ void cropImage(float* __restrict__ img, const float value, const int 
 
 }
 }
+

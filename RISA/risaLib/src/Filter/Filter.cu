@@ -1,6 +1,4 @@
 /*
- *  Copyright 2016
- *
  *  Filter.cu
  *
  *  Created on: 28.04.2016
@@ -90,10 +88,10 @@ auto Filter::wait() -> output_type {
 
 /**
  * The processor()-Method takes one sinogram from the queue. Via the cuFFT-Library
- * it is transformed into frequency space for applying the filter function.
+ * it is transformed into frequency space for applying the filter function. 
  * After filtering the transformation is reverted via the inverse fourier transform.
  * Finally, the filtered sinogram is pushed back into the output queue for
- * further processing.
+ * further processing. 
  *
  */
 auto Filter::processor(const int deviceID) -> void {
@@ -202,7 +200,7 @@ auto Filter::designFilter() -> void {
 
 /**
  * All values needed for setting up the class are read from the config file
- * in this function.
+ * in this function. 
  *
  * @param[in] configFile path to config file
  *

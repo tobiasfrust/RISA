@@ -23,11 +23,25 @@
 namespace risa {
 namespace cuda {
 
+template<typename T>
+__host__  __device__
+ inline T lerp(T v0, T v1, T t) {
+   return fma(t, v1, fma(-t, v0, v0));
+}
+
 __global__ void backProjectLinear(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors);
 
 __global__ void backProjectNearest(const float* const __restrict__ sinogram,
+      float* __restrict__ image, const int numberOfPixels,
+      const int numberOfProjections, const int numberOfDetectors);
+
+__global__ void backProjectNearSymm(const float*  __restrict__ const sinogram,
+      float* __restrict__ image, const int numberOfPixels,
+      const int numberOfProjections, const int numberOfDetectors);
+
+__global__ void backProjectNearest3D(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors);
 
@@ -210,7 +224,8 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
 }
 
 auto Backprojection::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
+   ConfigReader configReader = ConfigReader(
+         configFile.data());
    std::string interpolationStr;
    if (configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)
          && configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
@@ -304,3 +319,4 @@ __global__ void backProjectNearest(const float* const __restrict__ sinogram,
 
 }
 }
+

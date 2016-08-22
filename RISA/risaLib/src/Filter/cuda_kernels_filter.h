@@ -1,13 +1,10 @@
 /*
- *  Copyright 2016
+ * Copyright 2016
  *
- *  cuda_kernels_filter.h
+ * cuda_kernels_filter.h
  *
  *  Created on: 28.04.2016
  *      Author: Tobias Frust (t.frust@hzdr.de)
- *
- *  This file capsules all kernels that are needed in the filtering class
- *  for a better organization.
  *
  */
 
