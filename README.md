@@ -28,7 +28,7 @@ Building the software:
     ```ccmake ../RISA/.```
 - check if everything could be found and enter ```CMAKE_BUILD_TYPE```, options are:
     ```Debug, RelWithDebInfo, Release```
-- if everything workout, make the project
+- if everything worked out, make the project
     ```make -j all```
 - if build was successful, there is an executable in the ```build/bin``` folder
 - the documentation can be found in the ```doc/html``` folder
