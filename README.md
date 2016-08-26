@@ -17,6 +17,8 @@ Installation on Ubuntu 16.04
 - install libtiff:
     ```sudo apt-get install libtiff5-dev```
 - install CUDA (download from NVIDIA homepage: https://developer.nvidia.com/cuda-toolkit and follow the  instructions)
+- in order to build the documentation, ```doxygen``` and ```graphviz``` need to be installed
+    ```sudo apt install doxygen graphviz```
 
 Building the software:
 - create a new path, outside of src-directory, called e.g. 'build'
