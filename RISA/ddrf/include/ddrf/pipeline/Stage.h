@@ -47,11 +47,11 @@ namespace ddrf
 					{
 						auto img = this->input_queue_.take();
 						if(img.valid())
-							Implementation::process(std::move(img));
+						   Implementation::process(std::move(img));
 						else
 						{
 							// received poisonous pill, time to die
-							Implementation::process(std::move(img));
+						   Implementation::process(std::move(img));
 							break;
 						}
 					}

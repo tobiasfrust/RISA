@@ -7,6 +7,8 @@
  *      Author: Tobias Frust (t.frust@hzdr.de)
  */
 
+#include "../DetectorInterpolation/interpolationFunctions.h"
+
 #include <risa/Attenuation/Attenuation.h>
 #include <risa/ConfigReader/ConfigReader.h>
 #include <risa/Basics/performance.h>
@@ -35,6 +37,8 @@ Attenuation::Attenuation(const std::string& configFile) {
       throw std::runtime_error(
             "recoLib::cuda::Attenuation: Configuration file could not be loaded successfully. Please check!");
    }
+
+   numberOfDarkFrames_ = 500;
 
    CHECK(cudaGetDeviceCount(&numberOfDevices_));
 
@@ -156,24 +160,62 @@ auto Attenuation::processor(const int deviceID) -> void {
 }
 
 auto Attenuation::init() -> void {
-   std::vector<double> darkAverageDouble;
-   readDarkInputFiles<double>(pathDark_, darkAverageDouble);
+   //create filter function
+   std::vector<double> filterFunction{0.5, 1.0, 1.0, 1.0, 1.5, 2.0, 3.0, 3.5, 2.0, 3.5, 3.0, 2.0, 1.5, 1.0, 1.0, 1.0, 0.5};
+   double sum = std::accumulate(filterFunction.cbegin(), filterFunction.cend(), 0.0);
+   std::transform(filterFunction.begin(), filterFunction.end(), filterFunction.begin(),
+         std::bind1st(std::multiplies<double>(), 1.0/sum));
 
-   avgDark_.resize(darkAverageDouble.size());
-
-   //conversion from double to float
-   std::copy(darkAverageDouble.begin(), darkAverageDouble.end(),
-         avgDark_.begin());
-
-//   //normalize the dark values by the number of reference frames
-   std::transform(avgDark_.begin(), avgDark_.end(), avgDark_.begin(),
-         std::bind1st(std::multiplies<float>(), 1/(float)numberOfProjections_));
-
-   //read reference input values
+   //read and average reference input values
    std::vector<unsigned short> referenceValues;
-   readInput(pathReference_, referenceValues);
-
+   if(pathReference_.back() != '/')
+      pathReference_.append("/");
+   std::string refPath = pathReference_ + "ref_empty_tomograph_repaired_DetModNr_";
+   readInput(refPath, referenceValues, numberOfRefFrames_);
+   //interpolate reference measurement
+   for(auto i = 0; i < numberOfRefFrames_*numberOfPlanes_; i++){
+      std::vector<int> defectDetectors(numberOfProjections_*numberOfDetectors_);
+      findDefectDetectors(referenceValues.data()+i*numberOfDetectors_*numberOfProjections_, filterFunction, defectDetectors, numberOfDetectors_, numberOfProjections_,
+         threshMin_, threshMax_);
+      interpolateDefectDetectors(referenceValues.data()+i*numberOfDetectors_*numberOfProjections_, defectDetectors, numberOfDetectors_, numberOfProjections_);
+   }
    computeAverage(referenceValues, avgReference_);
+
+   //read and average dark input values
+   std::vector<unsigned short> darkValues;
+   if(pathDark_.back() != '/')
+      pathDark_.append("/");
+   std::string darkPath = pathDark_ + "dark_192.168.100_DetModNr_";
+   readInput(darkPath, darkValues, numberOfDarkFrames_);
+   computeDarkAverage(darkValues, avgDark_);
+   //interpolate dark average
+   for(auto j = 0; j < numberOfPlanes_; j++){
+      for(auto i = 0; i < numberOfDetectors_; i++){
+         if(avgDark_[i + j * numberOfDetectors_] > 300.0){
+            BOOST_LOG_TRIVIAL(info) << "Interpolating dark value at detector " << i << " in plane " << j;
+            avgDark_[numberOfDetectors_ * j + i] =
+                                 0.5 * (avgDark_[numberOfDetectors_ * j + (i + 1)%numberOfDetectors_] +
+                                       avgDark_[numberOfDetectors_ * j + (i - 1)%numberOfDetectors_]);
+         }
+      }
+   }
+}
+
+template <typename T>
+auto Attenuation::computeDarkAverage(const std::vector<T>& values, std::vector<float>& average) -> void {
+   average.resize(numberOfDetectors_*numberOfPlanes_, 0.0);
+   float factor = 1.0/ (float)((float)numberOfDarkFrames_*(float)numberOfProjections_);
+   factor = 0.0;
+   for(auto i = 0; i < numberOfDarkFrames_; i++){
+      for(auto planeInd = 0; planeInd < numberOfPlanes_; planeInd++){
+         for(auto detInd = 0; detInd < numberOfDetectors_; detInd++){
+            for(auto projInd = 0; projInd < numberOfProjections_; projInd++){
+               const float val = (float)values[detInd + numberOfDetectors_*projInd + (i*numberOfPlanes_+planeInd)*numberOfDetectors_*numberOfProjections_];
+               average[detInd + planeInd*numberOfDetectors_] += val * factor;
+            }
+         }
+      }
+   }
 }
 
 template<typename T>
@@ -196,8 +238,8 @@ auto Attenuation::computeAverage(const std::vector<T>& values,
 template<typename T>
 auto Attenuation::readDarkInputFiles(std::string& path,
       std::vector<T>& values) -> void {
-   if(path.back() != '/')
-      path.append("/");
+   //if(path.back() != '/')
+   //   path.append("/");
    std::ifstream input(path + "dark_192.168.100.fxc",
          std::ios::in | std::ios::binary);
    if (!input) {
@@ -216,22 +258,20 @@ auto Attenuation::readDarkInputFiles(std::string& path,
 
 template<typename T>
 auto Attenuation::readInput(std::string& path,
-      std::vector<T>& values) -> void {
+      std::vector<T>& values, const int numberOfFrames) -> void {
    std::vector<std::vector<T>> fileContents(numberOfDetectorModules_);
    Timer tmr1, tmr2;
-   if(path.back() != '/')
-      path.append("/");
+   //if(path.back() != '/')
+   //   path.append("/");
    tmr1.start();
    tmr2.start();
 #pragma omp parallel for default(shared) num_threads(9)
    for (auto i = 1; i <= numberOfDetectorModules_; i++) {
       std::vector<T> content;
       //TODO: make filename and ending configurable
-      std::ifstream input(
-            path + "ref_empty_tomograph_repaired_DetModNr_" + std::to_string(i)
-                  + ".fx", std::ios::in | std::ios::binary);
+      std::ifstream input(path + std::to_string(i) + ".fx", std::ios::in | std::ios::binary);
       if (!input) {
-         BOOST_LOG_TRIVIAL(error)<< "recoLib::cuda::Attenuation: Source file could not be loaded.";
+         BOOST_LOG_TRIVIAL(error)<< "recoLib::cuda::Attenuation: Source file " << path + std::to_string(i) + ".fx" << " could not be loaded.";
          throw std::runtime_error("File could not be opened. Please check!");
       }
       //allocate memory in vector
@@ -246,13 +286,13 @@ auto Attenuation::readInput(std::string& path,
    tmr2.stop();
    int numberOfDetPerModule = numberOfDetectors_ / numberOfDetectorModules_;
    values.resize(fileContents[0].size() * numberOfDetectorModules_);
-   for (auto i = 0; i < numberOfRefFrames_; i++) {
+   for (auto i = 0; i < numberOfFrames; i++) {
       for (auto planeInd = 0; planeInd < numberOfPlanes_; planeInd++) {
          for (auto projInd = 0; projInd < numberOfProjections_; projInd++) {
             for (auto detModInd = 0; detModInd < numberOfDetectorModules_;
                   detModInd++) {
                unsigned int startIndex = projInd * numberOfDetPerModule
-                     + i * numberOfDetPerModule * numberOfProjections_;
+                     + (planeInd + i * numberOfPlanes_) * numberOfDetPerModule * numberOfProjections_;
                unsigned int indexSorted = detModInd * numberOfDetPerModule
                      + projInd * numberOfDetectors_
                      + (planeInd + i * numberOfPlanes_) * numberOfDetectors_ * numberOfProjections_;
@@ -347,7 +387,9 @@ auto Attenuation::readConfig(const std::string& configFile) -> bool {
          && configReader.lookupValue("lowerLimOffset", lowerLimOffset_)
          && configReader.lookupValue("upperLimOffset", upperLimOffset_)
          && configReader.lookupValue("blockSize2D_attenuation", blockSize2D_)
-         && configReader.lookupValue("memPoolSize_attenuation", memPoolSize_)) {
+         && configReader.lookupValue("memPoolSize_attenuation", memPoolSize_)
+         && configReader.lookupValue("thresh_min", threshMin_)
+         && configReader.lookupValue("thresh_max", threshMax_)) {
       numberOfProjections_ = samplingRate * 1000000 / scanRate;
       return EXIT_SUCCESS;
    }

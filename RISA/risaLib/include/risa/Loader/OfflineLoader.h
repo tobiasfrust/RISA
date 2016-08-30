@@ -35,7 +35,7 @@ namespace risa
             using manager_type = ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
 
          public:
-            OfflineLoader(const std::string& configFile);
+            OfflineLoader(const std::string& address, const std::string& configFile);
 
             auto loadImage() -> ddrf::Image<manager_type>;
 

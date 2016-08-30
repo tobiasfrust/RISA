@@ -144,7 +144,7 @@ auto OfflineSaver::writeToTiff(::TIFF* tif, ddrf::Image<manager_type> img) const
    TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
    TIFFSetField(tif, TIFFTAG_THRESHHOLDING, THRESHHOLD_BILEVEL);
    TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 1);
-   TIFFSetField(tif, TIFFTAG_SOFTWARE, "ReconstructionToolkit");
+   TIFFSetField(tif, TIFFTAG_SOFTWARE, "RISA");
    TIFFSetField(tif, TIFFTAG_SAMPLEFORMAT, SAMPLEFORMAT_IEEEFP);
 
    auto data = img.data();

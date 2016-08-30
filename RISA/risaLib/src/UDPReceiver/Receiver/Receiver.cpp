@@ -19,7 +19,7 @@ namespace risa {
 
 Receiver::Receiver(const std::string& address, const std::string& configPath) :
    numberOfDetectorModules_{27},
-   bufferSize_{2000},
+   bufferSize_{1999},
    notification_{0}{
 
    if (readConfig(configPath)) {

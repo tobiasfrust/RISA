@@ -48,7 +48,6 @@ __global__ void computeAttenuation(
  * This class represents the attenuation stage. It computes the attenuation data
  * on the GPU device using the CUDA language. Multi GPU usage is possible.
  */
-
 class Attenuation {
 public:
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
@@ -119,6 +118,9 @@ private:
    template <typename T>
    auto computeAverage(const std::vector<T>& values, std::vector<float>&average) -> void;
 
+   template <typename T>
+   auto computeDarkAverage(const std::vector<T>& values, std::vector<float>& average) -> void;
+
    //!
    /**
     *
@@ -131,7 +133,7 @@ private:
     *
     */
    template <typename T>
-   auto readInput(std::string& path, std::vector<T>& values) -> void;
+   auto readInput(std::string& path, std::vector<T>& values, const int numberOfFrames) -> void;
 
    //!   Computes a mask to hide the unrelevant areas in the fan beam sinogram.
    /**
@@ -167,6 +169,9 @@ private:
    unsigned int xd_;
    unsigned int xe_;
    unsigned int xf_;
+
+   double threshMin_;
+   double threshMax_;
 
    //kernel execution coniguration
    int blockSize2D_;             //!<  2D block size of the attenuation kernel

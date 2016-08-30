@@ -1,14 +1,14 @@
 /*
  * Copyright 2016
  *
- * H2D.h
+ * DetectorInterpolation.h
  *
- *  Created on: 28.04.2016
+ *  Created on: 24.08.2016
  *      Author: Tobias Frust (t.frust@hzdr.de)
  */
 
-#ifndef H2D_H_
-#define H2D_H_
+#ifndef DETECTORINTERPOLATION_H_
+#define DETECTORINTERPOLATION_H_
 
 #include <ddrf/Image.h>
 #include <ddrf/cuda/DeviceMemoryManager.h>
@@ -18,11 +18,11 @@
 
 #include "../Basics/performance.h"
 
-#include <atomic>
 #include <thread>
 #include <vector>
 #include <map>
 #include <mutex>
+#include <set>
 
 namespace risa {
 namespace cuda {
@@ -32,9 +32,9 @@ namespace cuda {
  *    Furthermore, it performs the scheduling between the available devices.
  *    Scheduling is done statically, so far.
  */
-class H2D {
+class DetectorInterpolation {
 public:
-   using input_type = ddrf::Image<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
 
@@ -48,14 +48,14 @@ public:
     *
     *    @param[in]  configFile  path to configuration file
     */
-   H2D(const std::string& configFile);
+   DetectorInterpolation(const std::string& configFile);
 
    //!   Destroys everything that is not destroyed automatically
    /**
     *    Tells MemoryPool to free the allocated memory.
     *    Destroys the cudaStreams.
     */
-   ~H2D();
+   ~DetectorInterpolation();
 
    //! Pushes the sinogram to the processor-threads
    /**
@@ -90,23 +90,17 @@ private:
     */
    auto processor(int deviceID) -> void;
 
-   double worstCaseTime_;     //!<  stores the worst case time between the arrival of two following sinograms
-   double bestCaseTime_;      //!<  stores the besst case time between the arrival of two following sinograms
-   Timer tmr_;                //!<  used to measure the timings
-
-   std::size_t lastIndex_;    //!<  stores the index of the last sinogram. Used to analyze which percentage of the arrived sinograms could be reconstructed
-   std::size_t lostSinos_;    //!<  stores the number of sinograms that could not be reconstructed
-
-   std::size_t count_ { 0 };  //!<  counts the total number of reconstructed sinograms
-
-   int lastDevice_;           //!<  stores, to which device the last arrived sinogram was sent
-
    int numberOfDevices_;      //!<  the number of available CUDA devices in the system
 
-   int numberOfDetectors_;    //!<  the number of detectors in the fan beam sinogram
-   int numberOfProjections_;  //!<  the number of projections in the fan beam sinogram
+   unsigned int numberOfDetectors_;    //!<  the number of detectors in the fan beam sinogram
+   unsigned int numberOfProjections_;  //!<  the number of projections in the fan beam sinogram
+
+   double threshMin_;          //!<
+   double threshMax_;          //!<
 
    int memPoolSize_;          //!< specifies, how many elements are allocated by memory pool
+
+   std::set<int> defects_;
 
    //!  Read configuration values from configuration file
    /**

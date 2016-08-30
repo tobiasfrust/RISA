@@ -32,13 +32,13 @@ D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
    }
 
    CHECK(cudaGetDeviceCount(&numberOfDevices_));
-   //numberOfDevices_ = 1;
+
    memoryPoolIdx_ =
          ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
                numberOfPixels_ * numberOfPixels_);
 
 //   memoryPoolIdx_ =
-//         ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
+//        ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
 //               432*500);
 
    //custom streams are necessary, because profiling with nvprof not possible with

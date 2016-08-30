@@ -124,7 +124,6 @@ auto Reordering::processor(const int deviceID) -> void {
       auto sino_ordered = ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(memoryPoolIdxs_[deviceID]);
 
       reorder<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(), sino_ordered.container().get(), d_hashTable.get(), numberOfFanProjections_, numberOfFanDetectors_);
-      //reorder<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(), sino_ordered.container().get(), 2, 6, 4, 3);
       CHECK(cudaPeekAtLastError());
 
       sino_ordered.setIdx(img.index());
@@ -165,10 +164,8 @@ auto Reordering::readConfig(const std::string& configFile) -> bool {
 
 auto Reordering::createHashTable(std::vector<int>& hashTable) -> void {
    int numberOfModules = 27;
-   int numberOfFanProjections = 6;
-   int numberOfDetectorsPerModule = 2;
-   int numberOfFanDetectors = 6;
    int i = 0;
+   hashTable.resize(numberOfFanProjections_*numberOfFanDetectors_);
    for(auto projInd = 0; projInd < numberOfFanProjections_; projInd++){
       for(auto modInd = 0; modInd < numberOfModules; modInd++){
          for(auto detInd = 0; detInd < numberOfDetectorsPerModule_; detInd++){

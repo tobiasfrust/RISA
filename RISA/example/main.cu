@@ -66,12 +66,12 @@ int main(int argc, char **argv) {
    auto address = std::string { "10.0.0.10" };
 
    //using tiffLoader = ddrf::ImageLoader<ddrf::loaders::TIFF<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>>;
-   //using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
-   using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
+   using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
+   //using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
    //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;
    using offlineSaver = ddrf::ImageSaver<risa::OfflineSaver>;
 
-   using sourceStage = ddrf::pipeline::SourceStage<onlineReceiver>;
+   using sourceStage = ddrf::pipeline::SourceStage<offlineLoader>;
    using copyStageH2D = ddrf::pipeline::Stage<risa::cuda::H2D>;
    using reorderingStage = ddrf::pipeline::Stage<risa::cuda::Reordering>;
    using attenuationStage = ddrf::pipeline::Stage<risa::cuda::Attenuation>;
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
       auto fan2Para = pipeline.create<fan2ParaStage>(configFile);
       auto filter = pipeline.create<filterStage>(configFile);
       auto backProjection = pipeline.create<backProjectionStage>(configFile);
-      auto masking = pipeline.create<maskingStage>(configFile);
+      //auto masking = pipeline.create<maskingStage>(configFile);
       auto d2h = pipeline.create<copyStageD2H>(configFile);
       auto sink = pipeline.create<sinkStage>(outputPath, prefix, configFile);
 
@@ -106,11 +106,11 @@ int main(int argc, char **argv) {
       pipeline.connect(attenuation, fan2Para);
       pipeline.connect(fan2Para, filter);
       pipeline.connect(filter, backProjection);
-      pipeline.connect(backProjection, masking);
-      pipeline.connect(masking, d2h);
+      pipeline.connect(backProjection, d2h);
+      ///pipeline.connect(masking, d2h);
       pipeline.connect(d2h, sink);
 
-      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, masking, d2h, sink);
+      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, d2h, sink);
 
       BOOST_LOG_TRIVIAL(info) << "Initialization finished.";
 

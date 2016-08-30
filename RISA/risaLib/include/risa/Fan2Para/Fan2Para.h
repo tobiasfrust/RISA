@@ -60,6 +60,11 @@ struct hashTable {
 
 };
 
+/**
+ * This class represents the fan to parallel beam rebinning stage. It computes a hash table once at program
+ * initialization. The fan to parallel beam interpolation is performed using a CUDA kernel.
+ */
+
 class Fan2Para {
 public:
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
@@ -67,11 +72,34 @@ public:
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 
 public:
+
+   //!   Initializes everything, that needs to be done only once
+   /**
+    *
+    *    Runs as many processor-thread as CUDA devices are available in the system. Allocates memory using the
+    *    MemoryPool for all CUDA devices.
+    *
+    *    @param[in]  configFile  path to configuration file
+    */
    Fan2Para(const std::string& configFile);
 
+   //!   Destroys everything that is not destroyed automatically
+   /**
+    *    Tells MemoryPool to free the allocated memory.
+    *    Destroys the cudaStreams.
+    */
    ~Fan2Para();
 
+   //! Pushes the filtered parallel beam sinogram to the processor-threads
+   /**
+    *    @param[in]  inp   input data that arrived from previous stage
+    */
    auto process(input_type&& fanSinogram) -> void;
+
+   //! Takes one image from the output queue #results_ and transfers it to the neighbored stage.
+   /**
+    *    @return  the oldest reconstructed image in the output queue #results_
+    */
    auto wait() -> output_type;
 
 protected:
@@ -120,12 +148,39 @@ private:
 
    int memPoolSize_;
 
+   //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
+   /**
+    * This method takes one sinogram from the queue. It calls the desired back projection
+    * CUDA kernel in its own stream. After the computation of the back projection, the
+    * reconstructed image is pushed into the output queue
+    *
+    * @param[in]  deviceID specifies on which CUDA device to execute the device functions
+    * @param[in]  streamID specifies on which CUDA stream to execute the device functions
+    */
    auto processor(const int deviceID) -> void;
-   auto initFan2Para() -> void;
+
+   //!   The main function for computing the hash table for the fan to parallel beam rebinning process
    auto computeFan2ParaTransp() -> void;
+
    auto computeAngles(int i, int j, unsigned int ind, int k, float L,
          float kappa) -> void;
+
+   //! Transfers the hash table from host to the specified CUDA device.
+   /**
+    * @param[in]  deviceID specifies on which CUDA device to transfer the hash table
+    */
    auto transferToDevice(unsigned int deviceID) -> void;
+
+   //!  Read configuration values from configuration file
+   /**
+    * All values needed for setting up the class are read from the config file
+    * in this function.
+    *
+    * @param[in] configFile path to config file
+    *
+    * @retval  true  configuration options were read successfully
+    * @retval  false configuration options could not be read successfully
+    */
    auto readConfig(const std::string& configFile) -> bool;
 };
 }
