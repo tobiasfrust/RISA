@@ -17,6 +17,8 @@ Installation on Ubuntu 16.04
 - install libtiff:
     ```sudo apt-get install libtiff5-dev```
 - install CUDA (download from NVIDIA homepage: https://developer.nvidia.com/cuda-toolkit and follow the  instructions)
+- in order to build the documentation, ```doxygen``` and ```graphviz``` need to be installed
+    ```sudo apt install doxygen graphviz```
 
 Building the software:
 - create a new path, outside of src-directory, called e.g. 'build'
@@ -26,7 +28,7 @@ Building the software:
     ```ccmake ../RISA/.```
 - check if everything could be found and enter ```CMAKE_BUILD_TYPE```, options are:
     ```Debug, RelWithDebInfo, Release```
-- if everything workout, make the project
+- if everything worked out, make the project
     ```make -j all```
 - if build was successful, there is an executable in the ```build/bin``` folder
 - the documentation can be found in the ```doc/html``` folder
