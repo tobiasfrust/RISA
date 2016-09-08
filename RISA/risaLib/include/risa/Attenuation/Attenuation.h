@@ -50,7 +50,9 @@ __global__ void computeAttenuation(
  */
 class Attenuation {
 public:
+   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 public:
@@ -170,8 +172,8 @@ private:
    unsigned int xe_;
    unsigned int xf_;
 
-   double threshMin_;
-   double threshMax_;
+   double threshMin_;            //!<  minimum threshold for defect detector interpolation
+   double threshMax_;            //!<  maximum threshold for defect detector interpolation
 
    //kernel execution coniguration
    int blockSize2D_;             //!<  2D block size of the attenuation kernel

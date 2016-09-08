@@ -34,7 +34,9 @@ namespace cuda {
  */
 class DetectorInterpolation {
 public:
+   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
 
@@ -59,8 +61,6 @@ public:
 
    //! Pushes the sinogram to the processor-threads
    /**
-    * The scheduling for multi-GPU usage is done in this function.
-    *
     * @param[in]  sinogram input data that arrived from previous stage
     */
    auto process(input_type&& sinogram) -> void;
@@ -82,9 +82,9 @@ private:
 
    //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
    /**
-    * This method takes one sinogram from the input queue #sinograms_. The sinogram is transfered to the device
-    * using the asynchronous cudaMemcpyAsync()-operation. The resulting device strucutre is pushed back into
-    * the output queue #results_.
+    * This method takes one sinogram from the input queue #sinograms_. So far, the interpolation is
+    * performed on the host. Thus, the data is transfered from host to device, the raw data sinogram
+    * is interpolated and afterwards, transfered from device to host.
     *
     * @param[in]  deviceID specifies on which CUDA device to execute the device functions
     */

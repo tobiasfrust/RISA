@@ -23,7 +23,12 @@
 namespace risa {
 namespace cuda {
 
+
    namespace detail{
+      /**
+      *  This enum represents the type of interpolation
+      *  to be used during the back projection
+      */
       enum InterpolationType: short {
          neareastNeighbor,
          linear
@@ -71,7 +76,9 @@ namespace cuda {
     */
 class Backprojection {
 public:
+   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 

@@ -86,14 +86,6 @@ auto Filter::wait() -> output_type {
    return results_.take();
 }
 
-/**
- * The processor()-Method takes one sinogram from the queue. Via the cuFFT-Library
- * it is transformed into frequency space for applying the filter function. 
- * After filtering the transformation is reverted via the inverse fourier transform.
- * Finally, the filtered sinogram is pushed back into the output queue for
- * further processing. 
- *
- */
 auto Filter::processor(const int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "Filter");
    CHECK(cudaSetDevice(deviceID));
@@ -124,9 +116,6 @@ auto Filter::processor(const int deviceID) -> void {
             (numberOfDetectors_ / 2) + 1, numberOfProjections_, normalizationFactor,
             thrust::raw_pointer_cast(&(sinoFreq[0])));
 
-//      filterRamp<<<dimGrid, dimBlock, 0, streams_[deviceID]>>>(
-//            (numberOfDetectors_ / 2) + 1, numberOfProjections_,
-//            thrust::raw_pointer_cast(&(sinoFreq[0])));
       CHECK(cudaPeekAtLastError());
 
       //reverse transformation
@@ -142,14 +131,6 @@ auto Filter::processor(const int deviceID) -> void {
    }
 }
 
-/**
- * Initializes the NVIDIA cuFFT Library for use in processor-Method
- * Creates a stream in which all operations in this class are executed.
- * This is necessary, because the cuFFT library ignores the compiler
- * option 'default-stream per-thread'.
- * Finally, memory for the transformed sinogram is allocated here.
- *
- */
 auto Filter::initCuFFT(const int deviceID) -> void {
 
    CHECK(cudaSetDevice(deviceID));
@@ -198,14 +179,6 @@ auto Filter::designFilter() -> void {
    }
 }
 
-/**
- * All values needed for setting up the class are read from the config file
- * in this function. 
- *
- * @param[in] configFile path to config file
- *
- * @return returns true, if configuration file could be read successfully, else false
- */
 auto Filter::readConfig(const std::string& configFile) -> bool {
    ConfigReader configReader = ConfigReader(configFile.data());
    std::string filterType;
@@ -234,9 +207,19 @@ auto Filter::readConfig(const std::string& configFile) -> bool {
    return EXIT_FAILURE;
 }
 
+//!<  CUDA Kernel that weights all the projections with the filter function
+/**
+ *    The variable i represents the detector index in the parallel beam sinogram,
+ *    the variable j represents the projection in the parallel beam sinogram.
+ *
+ *    @param[in]  x  the number of detectors in the parallel beam sinogram
+ *    @param[in]  y  the number of projections in the parallel beam sinogram
+ *    @param[in]  normalization  the normalization factor, because cuFFT computes the unnormalized fft
+ *    @param[in,out] data  the inverse transformed parallel ray sinogram
+ */
 __global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data) {
-   int j = blockIdx.y * blockDim.y + threadIdx.y;
-   int i = blockIdx.x * blockDim.x + threadIdx.x;
+   const int j = blockIdx.y * blockDim.y + threadIdx.y;
+   const nt i = blockIdx.x * blockDim.x + threadIdx.x;
    if (i < x && j < y) {
       //cufft performs an unnormalized transformation ifft(fft(A))=length(A)*A
       //->normalization needs to be performed
