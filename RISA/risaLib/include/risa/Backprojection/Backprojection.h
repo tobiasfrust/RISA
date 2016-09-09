@@ -70,16 +70,17 @@ namespace cuda {
          const int numberOfProjections, const int numberOfDetectors);
 
 
+   //!   This stage back projects a parallel beam sinogram and returns the reconstructed image.
    /**
     * This class represents the back projection stage. It computes the back projection on the GPU
     * using the CUDA language. Multi GPU usage is supported.
     */
 class Backprojection {
 public:
-   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
-   //!< The output data type that needs to fit the input type of the following stage
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 
 public:

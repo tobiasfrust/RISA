@@ -39,12 +39,13 @@ namespace cuda {
       };
    }
 
+//! This stage filters the projections in the parallel beam sinogram with a precomputed filter function.
 class Filter {
 public:
-   //!< The input data type that needs to fit the output type of the previous stage
 	using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
-   //!< The output data type that needs to fit the input type of the following stage
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
 
 public:
 

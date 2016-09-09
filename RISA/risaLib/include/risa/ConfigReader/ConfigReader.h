@@ -18,12 +18,13 @@
 #include <string>
 
 namespace risa {
-class ConfigReader {
 
+   //!   Reads the configuration values from the input file.
    /**
     * This class takes the file path to a configuration file as input and reads it
     * using the libconfig++-Library
     */
+class ConfigReader {
 
 public:
 

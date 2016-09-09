@@ -21,16 +21,18 @@
 namespace risa {
 namespace cuda {
 
+//! This stage multiplies a precomputed mask with the reconstructed image.
 /**
  * This class represents a masking stage. It multiplies the reconstructed image with
  * a precomputed mask in a CUDA kernel, to hide irrelevant areas.
  */
-
 class Masking {
 
 public:
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
 
 public:
 

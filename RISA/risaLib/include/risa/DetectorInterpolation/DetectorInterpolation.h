@@ -27,17 +27,13 @@
 namespace risa {
 namespace cuda {
 
-/**
- *    This class transfers the data to be processed from host to device.
- *    Furthermore, it performs the scheduling between the available devices.
- *    Scheduling is done statically, so far.
- */
+//!   This stage interpolates the defect detectors in the raw data sinogram.
 class DetectorInterpolation {
 public:
-   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
-   //!< The output data type that needs to fit the input type of the following stage
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
 
 public:

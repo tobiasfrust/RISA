@@ -22,21 +22,6 @@
 namespace risa {
 namespace cuda {
 
-/**
- *  This function computes the attenuation values and converts the measuring input
- *  from short to floating point values
- *
- *  @param[in]    sinogram_in          ordered raw sinogram
- *  @param[in]    mask                 precomputed mask for hiding the unrelevant region (a-priori knowledge)
- *  @param[out]   sinogram_out         fan sinogram after attenuation computation
- *  @param[in]    avgReference         precomputed average values of reference measurement
- *  @param[in]    avgDark              precomputed average values of dark measurement
- *  @param[in]    temp                 value for
- *  @param[in]    numberOfDetector     number of fan detectors
- *  @param[in]    numberOfProjections  number of fan projections
- *  @param[in]    planeId              id of plane, to which the sinogram belongs
- *
- */
 __global__ void computeAttenuation(
       const unsigned short* __restrict__ sinogram_in,
       const float* __restrict__ mask, float* __restrict__ sinogram_out,
@@ -44,16 +29,17 @@ __global__ void computeAttenuation(
       const float temp, const int numberOfDetectors,
       const int numberOfProjections, const int planeId);
 
+//! This stage computes the attenuation coefficients in the fan beam sinogram
 /**
  * This class represents the attenuation stage. It computes the attenuation data
  * on the GPU device using the CUDA language. Multi GPU usage is possible.
  */
 class Attenuation {
 public:
-   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
-   //!< The output data type that needs to fit the input type of the following stage
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 public:
 

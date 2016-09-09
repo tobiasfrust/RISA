@@ -24,7 +24,7 @@
 namespace risa {
 namespace cuda {
 
-//!< collects all parameters that are needed in the fan to parallel beam interpolation kernel
+//! collects all parameters that are needed in the fan to parallel beam interpolation kernel
 struct parameters {
    int numberOfPlanes_;
    int numberOfFanDetectors_;
@@ -39,7 +39,7 @@ struct parameters {
    float imageWidth_;
 };
 
-//!< collects all precomputed hash table values
+//! collects all precomputed hash table values
 struct hashTable {
    float *Gamma;
    float *Teta;
@@ -62,17 +62,17 @@ struct hashTable {
 
 };
 
+//!   This stage performs the fan to parallel beam rebinning.
 /**
  * This class represents the fan to parallel beam rebinning stage. It computes a hash table once at program
  * initialization. The fan to parallel beam interpolation is performed using a CUDA kernel.
  */
-
 class Fan2Para {
 public:
-   //!< The input data type that needs to fit the output type of the previous stage
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
-   //!< The output data type that needs to fit the input type of the following stage
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 
 public:

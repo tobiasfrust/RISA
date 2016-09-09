@@ -76,24 +76,52 @@ __global__ void filterHanning(int x, int y, cufftComplex *data) {
 	}
 }
 
+//!	computes the value of the Shepp-Logan-filter function
+/**
+ *	@param[in]	w	the coordinate at the frequency axis
+ *	@param[in]	d	the cutoff-fraction
+ *
+ *
+ */
 template <typename T>
 auto inline sheppLogan(const T w, const T d) -> T {
    const T ret = std::sin(w/(2.0*d))/(w/(2.0*d));
    return ret;
 }
 
+//!	computes the value of the Cosine-filter function
+/**
+ *	@param[in]	w	the coordinate at the frequency axis
+ *	@param[in]	d	the cutoff-fraction
+ *
+ *
+ */
 template <typename T>
 auto inline cosine(const T w, const T d) -> T {
    const T ret = std::cos(w/(2.0*d));
    return ret;
 }
 
+//!	computes the value of the Hamming-filter function
+/**
+ *	@param[in]	w	the coordinate at the frequency axis
+ *	@param[in]	d	the cutoff-fraction
+ *
+ *
+ */
 template <typename T>
 auto inline hamming(const T w, const T d) -> T {
    const T ret = 0.54 + 0.46 * std::cos(w/d);
    return ret;
 }
 
+//!	computes the value of the Hanning-filter function
+/**
+ *	@param[in]	w	the coordinate at the frequency axis
+ *	@param[in]	d	the cutoff-fraction
+ *
+ *
+ */
 template <typename T>
 auto inline hanning(const T w, const T d) -> T {
    const T ret = (1 + std::cos(w/d))/ 2.;
