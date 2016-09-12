@@ -19,7 +19,7 @@ namespace risa {
 
 Receiver::Receiver(const std::string& address, const std::string& configPath) :
    numberOfDetectorModules_{27},
-   bufferSize_{1999},
+   bufferSize_{1000},
    notification_{0}{
 
    if (readConfig(configPath)) {
@@ -37,7 +37,7 @@ Receiver::Receiver(const std::string& address, const std::string& configPath) :
       modules_.emplace_back(address, configPath, i, buffers_[i], notification_);
    }
 
-   ddrf::MemoryPool<manager_type>::instance()->registerStage(100, numberOfDetectors_*numberOfProjections_);
+   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(100, numberOfDetectors_*numberOfProjections_);
 
    for(auto i = 0u; i < numberOfDetectorModules_; i++){
       std::function<void(void)> f = [=]() {
@@ -81,6 +81,7 @@ auto Receiver::loadImage() -> ddrf::Image<manager_type> {
 //   }
    sino.setIdx(index);
    sino.setPlane(index%2);
+   sino.setStart(std::chrono::high_resolution_clock::now());
 
    return std::move(sino);
 }

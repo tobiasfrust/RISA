@@ -73,6 +73,9 @@ auto H2D::process(input_type&& sinogram) -> void {
       if(sinogram.index() > 0)
          tmr_.stop();
       BOOST_LOG_TRIVIAL(debug) << "H2D: Image arrived with Index: " << sinogram.index() << "to device " << lastDevice_;
+//      int device = sinogram.index() % 5;
+//      if(device == 0) device = 1;
+//      else device = 0;
       sinograms_[lastDevice_].push(std::move(sinogram));
       lastDevice_ = (lastDevice_ + 1) % numberOfDevices_;
       double time = tmr_.elapsed();
@@ -88,7 +91,7 @@ auto H2D::process(input_type&& sinogram) -> void {
       if(diff > 0)
          BOOST_LOG_TRIVIAL(debug) << "Skipping " << diff << " elements.";
       if(count_%10000 == 0)
-         BOOST_LOG_TRIVIAL(info) << "Lost " << lostSinos_ << " elements; " << lostSinos_/(double)lastIndex_*100.0 << "% loss";
+         BOOST_LOG_TRIVIAL(info) << "Did not process " << lostSinos_ << " elements; " << lostSinos_/(double)lastIndex_*100.0 << "% loss";
       count_++;
       lastIndex_ = sinogram.index();
    } else {
@@ -141,6 +144,7 @@ auto H2D::processor(int deviceID) -> void {
       img.setIdx(sinogram.index());
       img.setDevice(deviceID);
       img.setPlane(sinogram.plane());
+      img.setStart(sinogram.start());
 
       CHECK(cudaStreamSynchronize(streams_[deviceID]));
 

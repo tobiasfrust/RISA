@@ -8,14 +8,14 @@ include_directories(
 )
 
 link_libraries(
+   ${Boost_LIBRARIES}
+   ${TIFF_LIBRARIES}   
    ddrf
    RISA
-   ${Boost_LIBRARIES}
-   ${TIFF_LIBRARIES}
 )
 
 set(SOURCES
-   main.cu
+   main.cpp
 )
 
 CUDA_ADD_EXECUTABLE(example ${SOURCES})

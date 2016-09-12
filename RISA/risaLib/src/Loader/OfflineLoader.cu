@@ -15,6 +15,7 @@
 
 #include <exception>
 #include <fstream>
+#include <chrono>
 
 namespace risa {
 
@@ -26,7 +27,7 @@ OfflineLoader::OfflineLoader(const std::string& address,
             "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
    }
 
-   stopFrame_ = 1000u;
+   stopFrame_ = 100000u;
    index_ = 1000u;
 
    memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
@@ -62,6 +63,7 @@ auto OfflineLoader::loadImage() -> ddrf::Image<manager_type> {
       index_++;
    }
    tmr_.start();
+   sino.setStart(std::chrono::high_resolution_clock::now());
    return sino;
 }
 

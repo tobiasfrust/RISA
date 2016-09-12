@@ -39,7 +39,7 @@ D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
 
 //   memoryPoolIdx_ =
 //        ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
-//               432*500);
+//               256*1024);
 
    //custom streams are necessary, because profiling with nvprof not possible with
    //-default-stream per-thread option
@@ -124,6 +124,7 @@ auto D2H::processor(const int deviceID) -> void {
                   img.size() * sizeof(float), cudaMemcpyDeviceToHost, streams_[deviceID]));
       ret.setIdx(img.index());
       ret.setPlane(img.plane());
+      ret.setStart(img.start());
       CHECK(cudaStreamSynchronize(streams_[deviceID]));
 
       //wait until work on device is finished

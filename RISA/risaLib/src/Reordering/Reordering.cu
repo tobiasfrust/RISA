@@ -129,6 +129,7 @@ auto Reordering::processor(const int deviceID) -> void {
       sino_ordered.setIdx(img.index());
       sino_ordered.setDevice(img.device());
       sino_ordered.setPlane(img.plane());
+      sino_ordered.setStart(img.start());
 
       //wait until work on device is finished
       CHECK(cudaStreamSynchronize(streams_[deviceID]));

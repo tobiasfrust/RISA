@@ -194,7 +194,7 @@ auto Filter::designFilter() -> void {
          filterValue *= sheppLogan(w, cutoffFraction_);
       else if(filterType_ == detail::FilterType::cosine)
          filterValue *= cosine(w, cutoffFraction_);
-      filter_.push_back(filterValue);
+      filter_.push_back(filterValue/(float)numberOfDetectors_);
    }
 }
 
@@ -240,9 +240,9 @@ __global__ void applyFilter(const int x, const int y, const float normalization,
    if (i < x && j < y) {
       //cufft performs an unnormalized transformation ifft(fft(A))=length(A)*A
       //->normalization needs to be performed
-      const float filterVal = filter_d[i] * normalization;
-      data[i + j * x].x *= filterVal;
-      data[i + j * x].y *= filterVal;
+      //const float filterVal = filter_d[i] * normalization;
+      data[i + j * x].x *= filter_d[i];
+      data[i + j * x].y *= filter_d[i];
    }
 }
 

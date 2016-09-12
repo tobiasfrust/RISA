@@ -18,7 +18,7 @@ SET(CUDA_MIN_VERSION "7.5")
 
 #find required packages
 find_package(LibConfig REQUIRED)
-find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS log filesystem system)
+find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS system log filesystem program_options REQUIRED)
 find_package(CUDA ${CUDA_MIN_VERSION} REQUIRED)
 find_package(TIFF REQUIRED)
 find_package(OpenMP)

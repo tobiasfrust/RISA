@@ -19,6 +19,7 @@
 
 #include <exception>
 #include <string>
+#include <iostream>
 
 namespace risa {
 
@@ -68,7 +69,7 @@ OfflineSaver::OfflineSaver(const std::string& configFile) {
 
 //   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
 //         numberOfPlanes_ * (circularBufferSize_+1),
-//         432*500);
+//         256*1024);
 
    for(auto i = 0; i < numberOfPlanes_; i++){
       tmrs_.emplace_back();
@@ -80,6 +81,7 @@ OfflineSaver::~OfflineSaver() {
    for(auto i = 0; i < numberOfPlanes_; i++){
       writeTiffSequence(i);
    }
+   BOOST_LOG_TRIVIAL(info) << "Maximum latency: " << maxLatency_ << " ms; minimum latency: " << minLatency_ << " ms";
    ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
 }
 
@@ -92,6 +94,12 @@ auto OfflineSaver::saveImage(ddrf::Image<manager_type> image,
          img.container().get());
    img.setIdx(image.index());
    img.setPlane(image.plane());
+   img.setStart(image.start());
+   auto latency = img.duration();
+   if(latency < minLatency_)
+      minLatency_ = latency;
+   else if(latency > maxLatency_)
+      maxLatency_ = latency;
    outputBuffers_[image.plane()].push_back(std::move(img));
    if(mode_ == detail::RecoMode::offline){
       if(outputBuffers_[image.plane()].full()){

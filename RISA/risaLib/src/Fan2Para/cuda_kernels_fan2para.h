@@ -156,7 +156,7 @@ __global__ void interpolation(int k, const float* __restrict__ SinFan_data,
       mirrorOffset = -(i % detectorSize_2) + detectorSize_2 - 1;
    if (j < ((*params).numberOfParallelProjections_ / 2))
       //first half of the parallel sinogram
-      atomicAdd(&SinPar_data[address + i], WZiel_end * 0.5);
+      atomicAdd(&SinPar_data[address + i], WZiel_end*0.5);
    else
       //second half of the parallel sinogram
       atomicAdd(&SinPar_data[address - parallelSize / 2 + mirrorOffset],

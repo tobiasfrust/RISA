@@ -110,16 +110,11 @@ auto Backprojection::wait() -> output_type {
 }
 
 auto Backprojection::processor(const int deviceID, const int streamID) -> void {
-   //nvtxNameOsThreadA(pthread_self(), "Reco");
    CHECK(cudaSetDevice(deviceID));
 
    //init lookup tables for sin and cos
    std::vector<float> sinLookup_h(numberOfProjections_), cosLookup_h(
          numberOfProjections_);
-   auto sinLookup_d = ddrf::cuda::make_device_ptr<float,
-         ddrf::cuda::async_copy_policy>(numberOfProjections_);
-   auto cosLookup_d = ddrf::cuda::make_device_ptr<float,
-         ddrf::cuda::async_copy_policy>(numberOfProjections_);
    for (auto i = 0; i < numberOfProjections_; i++) {
       float theta = i * M_PI
             / (float) numberOfProjections_+ rotationOffset_ / 180.0 * M_PI;
@@ -144,12 +139,10 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
    dim3 blocks(blockSize2D_, blockSize2D_);
    dim3 grids(std::ceil(numberOfPixels_ / (float) blockSize2D_),
          std::ceil(numberOfPixels_ / (float) blockSize2D_));
-//   dim3 blocks(8, 8, 8);
-//   dim3 grids(std::ceil(numberOfPixels_ / 8.0),
-//         std::ceil(numberOfPixels_ / 8.0),
-//         std::ceil(numberOfProjections_ / 8.0));
-
-   //CHECK(cudaFuncSetCacheConfig(backProjectLinear, cudaFuncCachePreferL1));
+   if(interpolationType_ == detail::InterpolationType::linear)
+      CHECK(cudaFuncSetCacheConfig(backProjectLinear, cudaFuncCachePreferL1));
+   else if(interpolationType_ == detail::InterpolationType::neareastNeighbor)
+      CHECK(cudaFuncSetCacheConfig(backProjectNearest, cudaFuncCachePreferL1));
    BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::BP: Running Thread for Device " << deviceID;
    while (true) {
       //execution is blocked until next element arrives in queue
@@ -178,6 +171,7 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
       recoImage.setIdx(sinogram.index());
       recoImage.setDevice(deviceID);
       recoImage.setPlane(sinogram.plane());
+      recoImage.setStart(sinogram.start());
 
       //wait until work on device is finished
       CHECK(cudaStreamSynchronize(streams_[deviceID*numberOfStreams_ + streamID]));
@@ -232,7 +226,7 @@ __global__ void backProjectLinear(const float* const __restrict__ sinogram,
    const float xp = (x - imageCenter[0]) * scale[0];
    const float yp = (y - imageCenter[0]) * scale[0];
 
-#pragma unroll 4
+#pragma unroll 16
    for(auto projectionInd = 0; projectionInd < numberOfProjections; projectionInd++){
       const float t = xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd];
       const int a = floor(t);

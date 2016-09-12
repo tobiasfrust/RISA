@@ -47,6 +47,7 @@ namespace cuda {
          float* __restrict__ image, const int numberOfPixels,
          const int numberOfProjections, const int numberOfDetectors);
 
+
    //! This function performs the back projection with nearest neighbor interpolation
    /**
     * With a pixel-driven back projection approach, this CUDA kernel spans number of pixels

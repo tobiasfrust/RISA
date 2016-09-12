@@ -126,7 +126,7 @@ Fan2Para::Fan2Para(const std::string& configFile) {
       memoryPoolIdxs_.push_back(
             ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
                   params_.numberOfParallelProjections_
-                        * params_.numberOfParallelDetectors_ / 2.0));
+                        * params_.numberOfParallelDetectors_/2.0));
    }
 
    //initialize worker threads
@@ -227,6 +227,7 @@ auto Fan2Para::processor(const int deviceID) -> void {
       img.setDevice(deviceID);
       img.setIdx(sinogram.index());
       img.setPlane(sinogram.plane());
+      img.setStart(sinogram.start());
       //wait until work on device is finished
       CHECK(cudaStreamSynchronize(streams_[deviceID]));
       results_.push(std::move(img));
@@ -331,7 +332,7 @@ auto Fan2Para::computeFan2ParaTransp() -> void {
 
             //Prüfen, ob asin möglich
             if (temp_1 <= 1 || temp_1 >= -1)
-            computeAngles(i, j, ind, k, L, kappa);
+               computeAngles(i, j, ind, k, L, kappa);
          }
       }
    }

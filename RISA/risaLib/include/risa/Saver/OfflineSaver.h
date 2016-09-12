@@ -60,6 +60,9 @@ namespace risa{
 
       std::string outputPath_, fileName_;
 
+      double minLatency_{std::numeric_limits<double>::max()};
+      double maxLatency_{0.0};
+
       std::vector<Timer> tmrs_;
 
       std::vector<std::size_t> fileIndex_;

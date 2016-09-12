@@ -22,6 +22,7 @@
 #include <tuple>
 #include <type_traits>
 #include <utility>
+#include <time.h>
 
 namespace ddrf {
 template<class MemoryManager>
@@ -30,6 +31,8 @@ public:
    using value_type = typename MemoryManager::value_type;
    using pointer_type = typename MemoryManager::pointer_type_1D;
    using size_type = typename MemoryManager::size_type;
+private:
+   typedef std::chrono::high_resolution_clock clock_;
 
 public:
    Image() noexcept
@@ -78,6 +81,14 @@ public:
       memoryPoolIndex_ = idx;
    }
 
+   auto setStart(std::chrono::time_point<clock_> start) -> void {
+      start_ = start;
+   }
+
+   auto duration() -> double {
+      return std::chrono::duration<double,std::milli>(clock_::now() - start_).count();
+   }
+
    auto invalid() -> void {
       valid_ = false;
    }
@@ -89,6 +100,7 @@ public:
       index_ = rhs.index();
       valid_ = rhs.valid();
       plane_ = rhs.plane();
+      start_ = rhs.start();
 
       if(rhs.container() == nullptr)
       data_ = nullptr;
@@ -105,7 +117,7 @@ public:
    Image(Image&& other) noexcept
    : MemoryManager(std::move(other))
    , size_ {other.size_}, index_ {other.index_}, data_ {std::move(other.data_)}
-   , valid_ {other.valid_}, plane_{other.plane_}, memoryPoolIndex_ {other.memoryPoolIndex_}
+   , valid_ {other.valid_}, plane_{other.plane_}, memoryPoolIndex_ {other.memoryPoolIndex_}, start_(other.start_)
    {
       other.valid_ = false; // invalid after we moved its data
    }
@@ -117,6 +129,7 @@ public:
       data_ = std::move(rhs.data_);
       plane_ = rhs.plane_;
       valid_ = rhs.valid_;
+      start_ = rhs.start_;
       memoryPoolIndex_ = rhs.memoryPoolIndex_;
 
       MemoryManager::operator=(std::move(rhs));
@@ -162,6 +175,10 @@ public:
       return memoryPoolIndex_;
    }
 
+   auto start() const noexcept -> std::chrono::time_point<clock_> {
+      return start_;
+   }
+
    /*
     * return the underlying pointer
     */
@@ -176,6 +193,7 @@ private:
    size_type plane_;
    pointer_type data_;
    size_type memoryPoolIndex_;
+   std::chrono::time_point<clock_> start_;
    bool valid_;
 };
 }

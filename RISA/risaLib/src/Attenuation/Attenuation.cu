@@ -150,6 +150,7 @@ auto Attenuation::processor(const int deviceID) -> void {
       sino.setIdx(sinogram.index());
       sino.setDevice(deviceID);
       sino.setPlane(sinogram.plane());
+      sino.setStart(sinogram.start());
 
       //wait until work on device is finished
       CHECK(cudaStreamSynchronize(streams_[deviceID]));

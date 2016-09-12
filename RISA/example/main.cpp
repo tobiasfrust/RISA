@@ -41,8 +41,6 @@
 #include <thread>
 
 #include <cuda_profiler_api.h>
-#include <nvToolsExt.h>
-#include <pthread.h>
 
 void initLog() {
 #ifndef NDEBUG
@@ -52,22 +50,28 @@ void initLog() {
 #endif
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
 
    //nvtxNameOsThreadA(pthread_self(), "Main");
 
    initLog();
 
+   if(argc < 2){
+      BOOST_LOG_TRIVIAL(error) << "Call the program like this: ./example <path_to_config_file>";
+      return EXIT_FAILURE;
+   }
+   std::string configFile = argv[1];
+
    //TODO: read output path from config
    auto outputPath = std::string { "Reco" };
    auto inputPath = std::string { "Sino" };
    auto prefix = std::string { "IMG" };
-   auto configFile = std::string { "config.cfg" };
+   //auto configFile = std::string { "config.cfg" };
    auto address = std::string { "10.0.0.10" };
 
    //using tiffLoader = ddrf::ImageLoader<ddrf::loaders::TIFF<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>>;
    using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
-   //using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
+   using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
    //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;
    using offlineSaver = ddrf::ImageSaver<risa::OfflineSaver>;
 
@@ -96,7 +100,7 @@ int main(int argc, char **argv) {
       auto fan2Para = pipeline.create<fan2ParaStage>(configFile);
       auto filter = pipeline.create<filterStage>(configFile);
       auto backProjection = pipeline.create<backProjectionStage>(configFile);
-      //auto masking = pipeline.create<maskingStage>(configFile);
+      auto masking = pipeline.create<maskingStage>(configFile);
       auto d2h = pipeline.create<copyStageD2H>(configFile);
       auto sink = pipeline.create<sinkStage>(outputPath, prefix, configFile);
 
@@ -106,11 +110,11 @@ int main(int argc, char **argv) {
       pipeline.connect(attenuation, fan2Para);
       pipeline.connect(fan2Para, filter);
       pipeline.connect(filter, backProjection);
-      pipeline.connect(backProjection, d2h);
-      ///pipeline.connect(masking, d2h);
+      pipeline.connect(backProjection, masking);
+      pipeline.connect(masking, d2h);
       pipeline.connect(d2h, sink);
 
-      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, d2h, sink);
+      pipeline.run(source, h2d, reordering, attenuation, fan2Para, filter, backProjection, masking, d2h, sink);
 
       BOOST_LOG_TRIVIAL(info) << "Initialization finished.";
 
