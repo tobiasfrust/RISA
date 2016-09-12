@@ -398,6 +398,23 @@ auto Attenuation::readConfig(const std::string& configFile) -> bool {
    return EXIT_FAILURE;
 }
 
+//!   CUDA kernel to compute the attenuation coefficients
+/**
+ * This CUDA kernel computes the attenuation coefficient for the fan to parallel beam sinogram.
+ * Furthermore, it multiplies the resulting values with a precomputed mask to hide unrelevant
+ * areas, that are previously known by the geometry of the measurement system.
+ *
+ * @param[in]  sinogram_in the pointer to the raw data sinogram of size numberOfDetectors*numberOfProjections
+ * @param[in]  mask  the pointer to the mask values, that is multiplied with the attenuation coefficient
+ * @param[out] sinogram_out   pointer to the fan to parallel beam sinogram
+ * @param[in]  avgReference   pointer to the averaged reference measurement on device
+ * @param[in]  avgDark  pointer to the averaged dark measurement on device
+ * @param[in]  temp
+ * @param[in]  numberOfDetectors the number of detectors in the fan beam sinogram
+ * @param[in]  numberOfProjections  the number of projections in the fan beam sinogram
+ * @param[in]  planeId  the id of the sinogram's plane
+ *
+ */
 __global__ void computeAttenuation(
       const unsigned short* __restrict__ sinogram_in,
       const float* __restrict__ mask, float* __restrict__ sinogram_out,

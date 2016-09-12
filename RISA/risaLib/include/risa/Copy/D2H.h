@@ -24,13 +24,13 @@
 namespace risa {
 namespace cuda {
 
-/**
- *    This class transfers the processed data from device to host.
- */
+//!	This stage transfer a data element from device to host
 class D2H {
 public:
 	using hostManagerType = ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>;
+	//!< The input data type that needs to fit the output type of the previous stage
 	using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+	//!< The output data type that needs to fit the input type of the following stage
 	using output_type = ddrf::Image<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>;
 
 public:

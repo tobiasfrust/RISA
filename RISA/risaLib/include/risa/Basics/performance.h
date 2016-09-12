@@ -16,12 +16,12 @@
 
 namespace risa {
 
+//! The Timer-class uses the std::chrono library and provides a high precision timer.
+/**
+* This class provides a high precision timer based on the chrono-library of C++11.
+* It can be used, to measure the elapsed time.
+*/
 class Timer {
-
-   /**
-    * This class provides a high precision timer based on the chrono-library of C++11.
-    * It can be used, to measure the elapsed time.
-    */
 
 public:
    Timer() {

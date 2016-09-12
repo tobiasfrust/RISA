@@ -27,15 +27,20 @@
 namespace risa {
 namespace cuda {
 
+//!   This stage transfers the input data element from device to host.
 /**
  *    This class transfers the data to be processed from host to device.
  *    Furthermore, it performs the scheduling between the available devices.
- *    Scheduling is done statically, so far.
+ *    Scheduling is done statically, so far. Heterogeneous can be used, by
+ *    adapting the scheduling in a way, that the more powerful device receives
+ *    more data inputs.
  */
 class H2D {
 public:
    using input_type = ddrf::Image<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
 
 public:

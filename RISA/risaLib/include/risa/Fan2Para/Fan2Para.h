@@ -24,6 +24,7 @@
 namespace risa {
 namespace cuda {
 
+//! collects all parameters that are needed in the fan to parallel beam interpolation kernel
 struct parameters {
    int numberOfPlanes_;
    int numberOfFanDetectors_;
@@ -38,6 +39,7 @@ struct parameters {
    float imageWidth_;
 };
 
+//! collects all precomputed hash table values
 struct hashTable {
    float *Gamma;
    float *Teta;
@@ -60,15 +62,17 @@ struct hashTable {
 
 };
 
+//!   This stage performs the fan to parallel beam rebinning.
 /**
  * This class represents the fan to parallel beam rebinning stage. It computes a hash table once at program
  * initialization. The fan to parallel beam interpolation is performed using a CUDA kernel.
  */
-
 class Fan2Para {
 public:
    using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The input data type that needs to fit the output type of the previous stage
    using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
+   //!< The output data type that needs to fit the input type of the following stage
    using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 
 public:
@@ -105,13 +109,13 @@ public:
 protected:
 
 private:
-   std::map<int, ddrf::Queue<input_type>> fanSinograms_;
-   ddrf::Queue<output_type> results_;
+   std::map<int, ddrf::Queue<input_type>> fanSinograms_; //!<  one separate input queue for each available CUDA device
+   ddrf::Queue<output_type> results_;                    //!<  the output queue in which the processed sinograms are stored
 
-   std::map<int, std::thread> processorThreads_;
-   std::map<int, cudaStream_t> streams_;
-   std::vector<unsigned int> memoryPoolIdxs_;
-   int numberOfDevices_;
+   std::map<int, std::thread> processorThreads_;         //!<  stores the processor()-threads
+   std::map<int, cudaStream_t> streams_;                 //!<  stores the cudaStreams that are created once
+   std::vector<unsigned int> memoryPoolIdxs_;            //!<  stores the indeces received when regisitering in MemoryPool
+   int numberOfDevices_;                                 //!<  the number of available CUDA devices
 
    //configuration parameters
    parameters params_;
@@ -144,14 +148,15 @@ private:
    std::vector<int> ray1_, ray2_;
 
    //kernel execution coniguration
-   int blockSize2D_, blockSize1D_;
+   int blockSize2D_;    //!<  the block size of the fan to parallel beam kernel
+   int blockSize1D_;    //!<  the block size of the set to specific value kernel
 
-   int memPoolSize_;
+   int memPoolSize_;    //!<  the number of elements the memory pool allocates
 
    //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
    /**
-    * This method takes one sinogram from the queue. It calls the desired back projection
-    * CUDA kernel in its own stream. After the computation of the back projection, the
+    * This method takes one sinogram from the queue. It calls the fan to parallel beam interpolation
+    * CUDA kernel in its own stream. After the computation of the fan to parallel beam rebinning, the
     * reconstructed image is pushed into the output queue
     *
     * @param[in]  deviceID specifies on which CUDA device to execute the device functions
