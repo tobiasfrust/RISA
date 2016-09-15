@@ -13,6 +13,7 @@
 
 #include <ddrf/Image.h>
 #include <ddrf/MemoryPool.h>
+#include <ddrf/cuda/HostMemoryManager.h>
 
 namespace risa
 {
@@ -31,7 +32,7 @@ namespace risa
 			struct TIFFDeleter { auto operator()(TIFF* p) -> void { TIFFClose(p); }};
 		}
 
-		class TIFF : public MemoryManager
+		class TIFF
 		{
 			public:
             using value_type = float;
