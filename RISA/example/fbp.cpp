@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
    //auto configFile = std::string { "config.cfg" };
    auto address = std::string { "10.0.0.10" };
 
-   using tiffLoader = ddrf::ImageLoader<risa::loaders::TIFF<float>>;
+   using tiffLoader = ddrf::ImageLoader<risa::loaders::TIFF>;
    //using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
    //using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
    //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;

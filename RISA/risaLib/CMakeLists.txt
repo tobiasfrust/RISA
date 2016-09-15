@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 include_directories(
-   ${LIBCONFIGPP_INCLUDE_DIR} 
+   ${LIBCONFIGPP_INCLUDE_DIR}
    ${BOOST_INCLUDE_DIRS}
    ${TIFF_INCLUDE_DIR}
    "${CMAKE_SOURCE_DIR}/risaLib/include"
@@ -20,16 +20,18 @@ set(SOURCES
    "${CMAKE_SOURCE_DIR}/risaLib/src/Masking/Masking.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Attenuation/Attenuation.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Loader/OfflineLoader.cu"
+   "${CMAKE_SOURCE_DIR}/risaLib/src/Loader/TiffLoader.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Saver/OfflineSaver.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/Receiver/Receiver.cpp"
    "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/ReceiverModule/ReceiverModule.cpp"
-   "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/UDPServer/UDPServer.cpp"	         
+   "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/UDPServer/UDPServer.cpp"
+
 )
 
 set(LINK_LIBRARIES ${LINK_LIBRARIES}
    ${LIBCONFIGPP_LIBRARY}
    ${CUDA_cusparse_LIBRARY}
-   ${Boost_LIBRARIES} 
+   ${Boost_LIBRARIES}
    ${TIFF_LIBRARIES}
 )
 
