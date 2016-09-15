@@ -11,8 +11,8 @@
 
 #include <boost/log/trivial.hpp>
 
-#include "../../Image.h"
-#include "../../MemoryPool.h"
+#include <ddrf/Image.h>
+#include <ddrf/MemoryPool.h>
 
 namespace risa
 {
