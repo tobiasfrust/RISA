@@ -30,12 +30,13 @@ namespace risa
 
 			struct TIFFDeleter { auto operator()(TIFF* p) -> void { TIFFClose(p); }};
 		}
-      template<typename T>
-		class TIFF
+
+      template <class MemoryManager>
+		class TIFF : public MemoryManager
 		{
 			public:
-				using value_type = T;
-				using manager_type = ddrf::cuda::HostMemoryManager<T, ddrf::cuda::async_copy_policy>;
+            using value_type = typename MemoryManager::value_type;
+				using manager_type = MemoryManager;
 
 			public:
 				TIFF(const std::string& address, const std::string& configFile){
@@ -44,12 +45,12 @@ namespace risa
                         "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
                }
 
-					memoryPoolIndex_ = MemoryPool<manager_type>::instance()->registerStage(40, numberOfDetectors*numberOfProjections);
+					memoryPoolIndex_ = MemoryPool<MemoryManager>::instance()->registerStage(40, numberOfDetectors*numberOfProjections);
 				}
 
-				auto loadImage() -> Image<manager_type>
+				auto loadImage() -> Image<MemoryManager>
 				{
-					using empty_return = Image<manager_type>;
+					using empty_return = Image<MemoryManager>;
 
 					auto tif = std::unique_ptr<::TIFF, detail::TIFFDeleter>{TIFFOpen(path.c_str(), "rb")};
 					BOOST_LOG_TRIVIAL(debug) << "ddrf::loaders::TIFF: Open file " << path << " for reading.";
@@ -67,7 +68,7 @@ namespace risa
                }
 
 					// read image data
-				   auto img = MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
+				   auto img = MemoryPool<MemoryManager>::instance()->requestMemory(memoryPoolIndex_);
 
 					for(auto row = 0; row < imageLength; row++){
 						if(TIFFReadScanline(tif.get(), img.container().get() + row * imageWidth, row, 0) != 1){
@@ -84,7 +85,7 @@ namespace risa
 
 			protected:
 				~TIFF(){
-				   ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
+				   ddrf::MemoryPool<MemoryManager>::instance()->freeMemory(memoryPoolIndex_);
 					BOOST_LOG_TRIVIAL(info) << "ddrf::loaders::detail::TIFF: Destroyed";
 				}
 

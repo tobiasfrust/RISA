@@ -10,7 +10,7 @@
 #include <risa/Copy/D2H.h>
 #include <risa/Copy/H2D.h>
 #include <risa/Loader/OfflineLoader.h>
-#include <risa/Loader/TffLoader.h>
+#include <risa/Loader/TiffLoader.h>
 #include <risa/Saver/OfflineSaver.h>
 #include <risa/Receiver/Receiver.h>
 #include <risa/Reordering/Reordering.h>
