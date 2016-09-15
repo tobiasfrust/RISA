@@ -17,7 +17,7 @@ namespace ddrf
 
 		public:
 
-			ImageLoader(const std::string& address, const std::string& configPath) : Implementation(address, configPath){}
+			ImageLoader(const int numberOfDetectors, const int numberOfProjections) : Implementation(numberOfDetectors, numberOfProjections){}
 
 			/*
 			 * Loads an image from the given path.

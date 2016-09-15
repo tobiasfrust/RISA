@@ -1,5 +1,5 @@
-#ifndef DDRF_TIFF_L_H_
-#define DDRF_TIFF_L_H_
+#ifndef RISA_TIFF_L_H_
+#define RISA_TIFF_L_H_
 
 #include <memory>
 #include <stdexcept>
@@ -14,7 +14,7 @@
 #include "../../Image.h"
 #include "../../MemoryPool.h"
 
-namespace ddrf
+namespace risa
 {
 	namespace loaders
 	{
@@ -30,22 +30,26 @@ namespace ddrf
 
 			struct TIFFDeleter { auto operator()(TIFF* p) -> void { TIFFClose(p); }};
 		}
-		template <class MemoryManager>
-		class TIFF : public MemoryManager
+      template<typename T>
+		class TIFF
 		{
 			public:
-				using value_type = typename MemoryManager::value_type;
-				using manager_type = MemoryManager;
+				using value_type = T;
+				using manager_type = ddrf::cuda::HostMemoryManager<T, ddrf::cuda::async_copy_policy>;
 
 			public:
-				// TODO: Implement support for more than one frame per file
-				TIFF(const int numberOfDetectors, const int numberOfProjections){
-					memoryPoolIndex_ = MemoryPool<MemoryManager>::instance()->registerStage(40, numberOfDetectors*numberOfProjections);
+				TIFF(const std::string& address, const std::string& configFile){
+               if (readConfig(configFile)) {
+                  throw std::runtime_error(
+                        "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
+               }
+
+					memoryPoolIndex_ = MemoryPool<manager_type>::instance()->registerStage(40, numberOfDetectors*numberOfProjections);
 				}
 
-				auto loadImage(const std::string& path, std::size_t index) -> Image<MemoryManager>
+				auto loadImage() -> Image<manager_type>
 				{
-					using empty_return = Image<MemoryManager>;
+					using empty_return = Image<manager_type>;
 
 					auto tif = std::unique_ptr<::TIFF, detail::TIFFDeleter>{TIFFOpen(path.c_str(), "rb")};
 					BOOST_LOG_TRIVIAL(debug) << "ddrf::loaders::TIFF: Open file " << path << " for reading.";
@@ -56,8 +60,14 @@ namespace ddrf
 
 					TIFFGetField(tif.get(), TIFFTAG_IMAGELENGTH, &imageLength);
 					TIFFGetField(tif.get(), TIFFTAG_IMAGEWIDTH, &imageWidth);
+
+               if(imageWidth != numberOfDetectors_ || imageLength != numberOfProjections_){
+                  throw std::runtime_error{"file has wrong input size: " + path};
+                  return
+               }
+
 					// read image data
-				   auto img = MemoryPool<MemoryManager>::instance()->requestMemory(memoryPoolIndex_);
+				   auto img = MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
 
 					for(auto row = 0; row < imageLength; row++){
 						if(TIFFReadScanline(tif.get(), img.container().get() + row * imageWidth, row, 0) != 1){
@@ -74,13 +84,28 @@ namespace ddrf
 
 			protected:
 				~TIFF(){
-				   ddrf::MemoryPool<MemoryManager>::instance()->freeMemory(memoryPoolIndex_);
+				   ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
 					BOOST_LOG_TRIVIAL(info) << "ddrf::loaders::detail::TIFF: Destroyed";
 				}
 
 
 			private:
+            auto readConfig(const std::string& configFile) -> bool {
+               ConfigReader configReader = ConfigReader(configFile.data());
+               int samplingRate, scanRate;
+               if (configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
+                     && configReader.lookupValue("dataInputPath", inputPath_)
+                     && configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)) {
+                  return EXIT_SUCCESS;
+               }
+               return EXIT_FAILURE;
+            }
+
+
 				unsigned int memoryPoolIndex_;
+            std::string inputPath_;
+            int numberOfDetectors_;
+            int numberOfProjections_;
 		};
 	}
 }

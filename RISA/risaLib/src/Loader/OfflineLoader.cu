@@ -158,9 +158,7 @@ auto OfflineLoader::readConfig(const std::string& configFile) -> bool {
       numberOfProjections_ = samplingRate * 1000000 / scanRate;
       return EXIT_SUCCESS;
    }
-
    return EXIT_FAILURE;
 }
 
 }
-
