@@ -101,25 +101,9 @@ auto OfflineSaver::saveImage(ddrf::Image<manager_type> image,
    else if(latency > maxLatency_)
       maxLatency_ = latency;
    outputBuffers_[image.plane()].push_back(std::move(img));
-   if(mode_ == detail::RecoMode::offline){
-      if(outputBuffers_[image.plane()].full()){
-         writeTiffSequence(image.plane());
-      }
-   }else if(mode_ == detail::RecoMode::online){
-      tmrs_[image.plane()].stop();
-      double diff = tmrs_[image.plane()].elapsed();
-      if(diff < 0.02)
-         return;
-      std::string path = outputPath_ + fileName_ + "_plane"
-               + std::to_string(image.plane()) + "_" + "0" + ".tif";
-      auto tif = std::unique_ptr<::TIFF, detail::TIFFDeleter> { TIFFOpen(
-            path.c_str(), "wb") };
-      if (tif == nullptr)
-         throw std::runtime_error { "recoLib::OfflineSaver: Could not open file "
-               + path + " for writing." };
-      writeToTiff(tif.get(), std::move(image));
-      tmrs_[image.plane()].start();
-   }
+  if(outputBuffers_[image.plane()].full()){
+	 writeTiffSequence(image.plane());
+  }
 }
 
 auto OfflineSaver::writeTiffSequence(const int planeID) -> void {
@@ -177,7 +161,6 @@ auto OfflineSaver::readConfig(const std::string& configFile) -> bool {
    if (configReader.lookupValue("numberOfPixels", numberOfPixels_)
          && configReader.lookupValue("outputPath", outputPath_)
          && configReader.lookupValue("outputFileName", fileName_)
-         && configReader.lookupValue("numberOfDataFrames", numberOfFrames_)
          && configReader.lookupValue("numberOfPlanes", numberOfPlanes_)
          && configReader.lookupValue("outputBufferSize", circularBufferSize_)
          && configReader.lookupValue("mode", mode)) {

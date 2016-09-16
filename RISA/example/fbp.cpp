@@ -62,9 +62,8 @@ int main(int argc, char *argv[]) {
 
    //TODO: read output path from config
    auto outputPath = std::string { "Reco" };
-   auto inputPath = std::string { "Sino" };
-   auto prefix = std::string { "IMG" };
-   //auto configFile = std::string { "config.cfg" };
+   auto inputPath = std::string { "" };
+   auto prefix = std::string { "" };
    auto address = std::string { "10.0.0.10" };
 
    using tiffLoader = ddrf::ImageLoader<risa::loaders::TIFF>;
@@ -77,7 +76,6 @@ int main(int argc, char *argv[]) {
    using copyStageH2D = ddrf::pipeline::Stage<risa::cuda::H2D>;
    using filterStage = ddrf::pipeline::Stage<risa::cuda::Filter>;
    using backProjectionStage = ddrf::pipeline::Stage<risa::cuda::Backprojection>;
-   using maskingStage = ddrf::pipeline::Stage<risa::cuda::Masking>;
    using copyStageD2H = ddrf::pipeline::Stage<risa::cuda::D2H>;
    using sinkStage = ddrf::pipeline::SinkStage<offlineSaver>;
 
@@ -92,8 +90,6 @@ int main(int argc, char *argv[]) {
       auto h2d = pipeline.create<copyStageH2D>(configFile);
       auto filter = pipeline.create<filterStage>(configFile);
       auto backProjection = pipeline.create<backProjectionStage>(configFile);
-      //Falls etwas maskiert werden soll, einkommentieren und die Maske den Wünschen nach anpassen
-      //auto masking = pipeline.create<maskingStage>(configFile);
       auto d2h = pipeline.create<copyStageD2H>(configFile);
       auto sink = pipeline.create<sinkStage>(outputPath, prefix, configFile);
 

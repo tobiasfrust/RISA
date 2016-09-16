@@ -71,11 +71,11 @@ auto D2H::process(input_type&& img) -> void {
    if (img.valid()) {
       if(img.index() == 0)
          tmr_.start();
-      if((count_ % 10000) == 9999){
+      if((count_ % 100) == 99){
          tmr_.stop();
-         reconstructionRate_ = (reconstructionRate_*(counter_-1.0) + 10000.0/(tmr_.elapsed())) / counter_;
+         reconstructionRate_ = (reconstructionRate_*(counter_-1.0) + 100.0/(tmr_.elapsed())) / counter_;
          counter_ += 1.0;
-         BOOST_LOG_TRIVIAL(info) << "Reconstructing at " << 10000.0/(tmr_.elapsed()) << " Images/second.";
+         BOOST_LOG_TRIVIAL(info) << "Reconstructing at " << 100.0/(tmr_.elapsed()) << " Images/second.";
          tmr_.start();
       }
       count_++;

@@ -37,11 +37,11 @@ namespace cuda {
  */
 class H2D {
 public:
-   using input_type = ddrf::Image<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   using input_type = ddrf::Image<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>;
    //!< The input data type that needs to fit the output type of the previous stage
-   using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>>;
    //!< The output data type that needs to fit the input type of the following stage
-   using deviceManagerType = ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
+   using deviceManagerType = ddrf::cuda::DeviceMemoryManager<float, ddrf::cuda::async_copy_policy>;
 
 public:
 

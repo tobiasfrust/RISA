@@ -64,8 +64,6 @@ H2D::~H2D() {
       CHECK(cudaSetDevice(i));
       CHECK(cudaStreamDestroy(streams_[i]));
    }
-   BOOST_LOG_TRIVIAL(info) << "WorstCaseTime: " << worstCaseTime_ << "s; BestCaseTime: " << bestCaseTime_ << "s;";
-   BOOST_LOG_TRIVIAL(info) << "Could not reconstruct " << lostSinos_ << " elements; " << lostSinos_/(double)lastIndex_*100.0 << "% loss";
 }
 
 auto H2D::process(input_type&& sinogram) -> void {
@@ -73,9 +71,6 @@ auto H2D::process(input_type&& sinogram) -> void {
       if(sinogram.index() > 0)
          tmr_.stop();
       BOOST_LOG_TRIVIAL(debug) << "H2D: Image arrived with Index: " << sinogram.index() << "to device " << lastDevice_;
-//      int device = sinogram.index() % 5;
-//      if(device == 0) device = 1;
-//      else device = 0;
       sinograms_[lastDevice_].push(std::move(sinogram));
       lastDevice_ = (lastDevice_ + 1) % numberOfDevices_;
       double time = tmr_.elapsed();
@@ -86,14 +81,6 @@ auto H2D::process(input_type&& sinogram) -> void {
             worstCaseTime_ = time;
       }
       tmr_.start();
-      int diff = sinogram.index() - lastIndex_ - 1;
-      lostSinos_ += diff;
-      if(diff > 0)
-         BOOST_LOG_TRIVIAL(debug) << "Skipping " << diff << " elements.";
-      if(count_%10000 == 0)
-         BOOST_LOG_TRIVIAL(info) << "Did not process " << lostSinos_ << " elements; " << lostSinos_/(double)lastIndex_*100.0 << "% loss";
-      count_++;
-      lastIndex_ = sinogram.index();
    } else {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::H2D: Received sentinel, finishing.";
 
@@ -138,7 +125,7 @@ auto H2D::processor(int deviceID) -> void {
 
       CHECK(
             cudaMemcpyAsync(img.container().get(),sinogram.container().get(),
-                   sinogram.size() * sizeof(unsigned short), cudaMemcpyHostToDevice, streams_[deviceID]));
+                   sinogram.size() * sizeof(float), cudaMemcpyHostToDevice, streams_[deviceID]));
 
       //needs to be set due to reuse of memory
       img.setIdx(sinogram.index());
@@ -156,14 +143,10 @@ auto H2D::processor(int deviceID) -> void {
 }
 
 auto H2D::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(
-         configFile.data());
-   int samplingRate, scanRate;
-   if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
+   ConfigReader configReader = ConfigReader(configFile.data());
+   if (configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
          && configReader.lookupValue("memPoolSize_H2D", memPoolSize_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)){
-      numberOfProjections_ = samplingRate * 1000000 / scanRate;
+         && configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)){
       return EXIT_SUCCESS;
    }
    else

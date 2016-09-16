@@ -1,20 +1,34 @@
 #include <risa/Loader/TiffLoader.h>
+#include <risa/ConfigReader/ConfigReader.h>
 
-Tiff::TIFF(const std::string& address, const std::string& configFile){
+#include <ddrf/Filesystem.h>
+
+namespace risa {
+namespace loaders {
+
+TIFF::TIFF(const std::string& address, const std::string& configFile){
    if (readConfig(configFile)) {
       throw std::runtime_error(
             "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
    }
-   memoryPoolIndex_ = MemoryPool<manager_type>::instance()->registerStage(40, numberOfDetectors*numberOfProjections);
+
+   paths_ = ddrf::readDirectory(inputPath_);
+
+   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(40, numberOfDetectors_*numberOfProjections_);
 }
 
-Tiff::~Tiff(){
+TIFF::~TIFF(){
    ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
   					BOOST_LOG_TRIVIAL(info) << "ddrf::loaders::detail::TIFF: Destroyed";
 }
 
-auto Tiff::loadImage() -> Image<manager_type>{
-   using empty_return = Image<manager_type>;
+auto TIFF::loadImage() -> ddrf::Image<manager_type>{
+	using empty_return = ddrf::Image<manager_type>;
+
+	if(paths_.size() <= index_)
+		return ddrf::Image<manager_type>();
+
+	auto path = paths_[index_];
 
 	auto tif = std::unique_ptr<::TIFF, detail::TIFFDeleter>{TIFFOpen(path.c_str(), "rb")};
 	BOOST_LOG_TRIVIAL(debug) << "ddrf::loaders::TIFF: Open file " << path << " for reading.";
@@ -28,18 +42,18 @@ auto Tiff::loadImage() -> Image<manager_type>{
 
    if(imageWidth != numberOfDetectors_ || imageLength != numberOfProjections_){
       throw std::runtime_error{"risa:loader:tiff: file has wrong input size: " + path};
-      return
    }
 
 	// read image data
-   auto img = MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
+   auto img = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
 
 	for(auto row = 0; row < imageLength; row++){
 		if(TIFFReadScanline(tif.get(), img.container().get() + row * imageWidth, row, 0) != 1){
 		   throw std::runtime_error{"ddrf::loaders::TIFF: Could not read scanline."};
 		}
 	}
-	img.setIdx(index);
+	img.setIdx(index_);
+	index_++;
 	img.setPlane(0);
 
 	BOOST_LOG_TRIVIAL(debug) << "ddrf::loaders::TIFF: Sent file " << path << ".";
@@ -47,7 +61,7 @@ auto Tiff::loadImage() -> Image<manager_type>{
 	return std::move(img);
 }
 
-auto readConfig(const std::string& configFile) -> bool{
+auto TIFF::readConfig(const std::string& configFile) -> bool{
    ConfigReader configReader = ConfigReader(configFile.data());
    if (configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
          && configReader.lookupValue("dataInputPath", inputPath_)
@@ -55,4 +69,7 @@ auto readConfig(const std::string& configFile) -> bool{
       return EXIT_SUCCESS;
    }
    return EXIT_FAILURE;
+}
+
+}
 }

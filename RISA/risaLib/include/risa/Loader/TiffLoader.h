@@ -6,6 +6,7 @@
 #include <string>
 #include <type_traits>
 #include <utility>
+#include <vector>
 
 #include <tiffio.h>
 
@@ -35,25 +36,28 @@ namespace risa
 		class TIFF
 		{
 			public:
-            using value_type = float;
-				using manager_type = ddrf::cuda::HostMemoryManager<value_type, ddrf::cuda::async_copy_policy>;
+            	using value_type = float;
+            	using manager_type = ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>;
 
 			public:
 				TIFF(const std::string& address, const std::string& configFile);
 
-				auto loadImage() -> Image<MemoryManager>;
+				auto loadImage() -> ddrf::Image<manager_type>;
 
 			protected:
 				~TIFF();
 
 
 			private:
-            auto readConfig(const std::string& configFile) -> bool;
+				auto readConfig(const std::string& configFile) -> bool;
 
 				unsigned int memoryPoolIndex_;
-            std::string inputPath_;
-            int numberOfDetectors_;
-            int numberOfProjections_;
+				std::vector<std::string> paths_;
+				std::string inputPath_;
+				int numberOfDetectors_;
+				int numberOfProjections_;
+
+				std::size_t index_{0};
 		};
 	}
 }
