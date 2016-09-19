@@ -27,7 +27,7 @@ OfflineLoader::OfflineLoader(const std::string& address,
             "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
    }
 
-   stopFrame_ = 100000u;
+   stopFrame_ = 50000u;
    index_ = 1000u;
 
    memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
