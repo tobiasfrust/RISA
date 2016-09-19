@@ -219,7 +219,7 @@ auto Filter::readConfig(const std::string& configFile) -> bool {
  */
 __global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data) {
    const int j = blockIdx.y * blockDim.y + threadIdx.y;
-   const nt i = blockIdx.x * blockDim.x + threadIdx.x;
+   const int i = blockIdx.x * blockDim.x + threadIdx.x;
    if (i < x && j < y) {
       //cufft performs an unnormalized transformation ifft(fft(A))=length(A)*A
       //->normalization needs to be performed

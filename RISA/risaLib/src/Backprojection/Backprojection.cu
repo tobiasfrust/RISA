@@ -263,7 +263,7 @@ __global__ void backProjectNearest(const float* const __restrict__ sinogram,
    const float xp = (x - (numberOfPixels - 1.0) * 0.5) / scale;
    const float yp = (y - (numberOfPixels - 1.0) * 0.5) / scale;
 
-#pragma unroll 4
+#pragma unroll 16
    for (auto projectionInd = 0; projectionInd < numberOfProjections;
          projectionInd++) {
       //const int t = round(xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd]) + centerIndex;
