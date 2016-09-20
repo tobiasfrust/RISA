@@ -142,6 +142,8 @@ private:
 
    std::vector<int> lastStreams_;                     //!<  stores, which stream was used last
 
+   bool useTextureMemory_;
+
    //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
    /**
     * This method takes one sinogram from the queue. It calls the desired back projection

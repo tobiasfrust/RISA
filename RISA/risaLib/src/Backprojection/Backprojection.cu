@@ -29,6 +29,12 @@ __constant__ float normalizationFactor[1];
 __constant__ float scale[1];
 __constant__ float imageCenter[1];
 
+__global__ void backProjectTex(cudaTextureObject_t tex,
+         float* __restrict__ image,
+         const int numberOfPixels,
+         const int numberOfProjections,
+         const int numberOfDetectors);
+
 Backprojection::Backprojection(const std::string& configFile) {
 
    if (readConfig(configFile)) {
@@ -161,14 +167,34 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
             ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(
                   memoryPoolIdxs_[deviceID*numberOfStreams_+streamID]);
 
-      if(interpolationType_ == detail::InterpolationType::linear)
-         backProjectLinear<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
-               sinogram.container().get(), recoImage.container().get(),
-               numberOfPixels_, numberOfProjections_, numberOfDetectors_);
-      else if(interpolationType_ == detail::InterpolationType::neareastNeighbor)
-         backProjectNearest<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
-               sinogram.container().get(), recoImage.container().get(),
-               numberOfPixels_, numberOfProjections_, numberOfDetectors_);
+      if(useTextureMemory_){
+         cudaResourceDesc resDesc;
+         memset(&resDesc, 0, sizeof(resDesc));
+         resDesc.resType = cudaResourceTypeLinear;
+         resDesc.res.linear.devPtr = sinogram.container().get();
+         resDesc.res.linear.desc.f = cudaChannelFormatKindFloat;
+         resDesc.res.linear.desc.x = 32; // bits per channel
+         resDesc.res.linear.sizeInBytes = sinogram.size()*sizeof(float);
+
+         cudaTextureDesc texDesc;
+         memset(&texDesc, 0, sizeof(texDesc));
+         texDesc.filterMode = cudaFilterModeLinear;
+
+         // create texture object: we only have to do this once!
+         cudaTextureObject_t tex=0;
+         cudaCreateTextureObject(&tex, &resDesc, &texDesc, NULL);
+         backProjectTex<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(tex, recoImage.container().get(),
+                             numberOfPixels_, numberOfProjections_, numberOfDetectors_);
+      }else{
+         if(interpolationType_ == detail::InterpolationType::linear)
+            backProjectLinear<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
+                  sinogram.container().get(), recoImage.container().get(),
+                  numberOfPixels_, numberOfProjections_, numberOfDetectors_);
+         else if(interpolationType_ == detail::InterpolationType::neareastNeighbor)
+            backProjectNearest<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
+                  sinogram.container().get(), recoImage.container().get(),
+                  numberOfPixels_, numberOfProjections_, numberOfDetectors_);
+      }
       CHECK(cudaPeekAtLastError());
 
       recoImage.setIdx(sinogram.index());
@@ -191,17 +217,18 @@ auto Backprojection::readConfig(const std::string& configFile) -> bool {
    if (configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)
          && configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
          && configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("backProjectionAngleTotal", backProjectionAngleTotal_)
          && configReader.lookupValue("rotationOffset", rotationOffset_)
          && configReader.lookupValue("blockSize2D_backProjection", blockSize2D_)
          && configReader.lookupValue("memPoolSize_backProjection", memPoolSize_)
-         && configReader.lookupValue("interpolationType", interpolationStr)){
+         && configReader.lookupValue("interpolationType", interpolationStr)
+         && configReader.lookupValue("useTextureMemory", useTextureMemory_)
+         && configReader.lookupValue("backProjectionAngleTotal", backProjectionAngleTotal_)){
       if(interpolationStr == "nearestNeighbour")
          interpolationType_ = detail::InterpolationType::neareastNeighbor;
       else if(interpolationStr == "linear")
          interpolationType_ = detail::InterpolationType::linear;
       else{
-         BOOST_LOG_TRIVIAL(error) << "recoLib::cuda::Backprojection: Requested interpolation mode not supported. Using linear-interpolation.";
+         BOOST_LOG_TRIVIAL(warning) << "recoLib::cuda::Backprojection: Requested interpolation mode not supported. Using linear-interpolation.";
          interpolationType_ = detail::InterpolationType::linear;
       }
 
@@ -246,6 +273,38 @@ __global__ void backProjectLinear(const float* const __restrict__ sinogram,
    image[x + y * numberOfPixels] = sum * normalizationFactor[0];
 }
 
+__global__ void backProjectTex(cudaTextureObject_t tex,
+         float* __restrict__ image,
+         const int numberOfPixels,
+         const int numberOfProjections,
+         const int numberOfDetectors){
+
+   const auto x = ddrf::cuda::getX();
+   const auto y = ddrf::cuda::getY();
+
+   float sum = 0.0;
+
+   if(x >= numberOfPixels || y >= numberOfPixels)
+      return;
+
+   const float centerIndex = numberOfDetectors * 0.5;
+
+   const float xp = (x - imageCenter[0]) * scale[0];
+   const float yp = (y - imageCenter[0]) * scale[0];
+
+#pragma unroll 8
+   for(auto projectionInd = 0; projectionInd < numberOfProjections; projectionInd++){
+      const float t = xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd] + centerIndex - 0.5;
+      const float tCenter = t + projectionInd*numberOfDetectors;
+      if(t >= 0.0 && t < numberOfDetectors){          
+         float val = tex1Dfetch<float>(tex, tCenter);     
+         sum += val;
+      }
+   }
+   image[x + y * numberOfPixels] = sum * normalizationFactor[0];
+}
+
+
 __global__ void backProjectNearest(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors) {
@@ -267,7 +326,7 @@ __global__ void backProjectNearest(const float* const __restrict__ sinogram,
    const float xp = (x - (numberOfPixels - 1.0) * 0.5) / scale;
    const float yp = (y - (numberOfPixels - 1.0) * 0.5) / scale;
 
-#pragma unroll 4
+#pragma unroll 16
    for (auto projectionInd = 0; projectionInd < numberOfProjections;
          projectionInd++) {
       //const int t = round(xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd]) + centerIndex;
