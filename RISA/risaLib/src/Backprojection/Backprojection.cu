@@ -175,13 +175,15 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
 
          cudaTextureDesc texDesc;
          memset(&texDesc, 0, sizeof(texDesc));
-         texDesc.filterMode = cudaFilterModeLinear;
-
+         texDesc.readMode = cudaReadModeElementType;
+         texDesc.addressMode[0] = cudaAddressModeBorder;
+         texDesc.addressMode[1] = cudaAddressModeBorder;
          // create texture object: we only have to do this once!
          cudaTextureObject_t tex=0;
-         cudaCreateTextureObject(&tex, &resDesc, &texDesc, NULL);
+         CHECK(cudaCreateTextureObject(&tex, &resDesc, &texDesc, NULL));
          backProjectTex<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(tex, recoImage.container().get(),
                              numberOfPixels_, numberOfProjections_, numberOfDetectors_);
+         CHECK(cudaDestroyTextureObject(tex));
       }else{
          if(interpolationType_ == detail::InterpolationType::linear)
             backProjectLinear<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
