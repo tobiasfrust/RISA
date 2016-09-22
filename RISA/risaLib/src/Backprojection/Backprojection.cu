@@ -1,4 +1,4 @@
-/*
+#/*
  * Copyright 2016
  *
  * Backprojection.cu
@@ -290,18 +290,17 @@ __global__ void backProjectTex(cudaTextureObject_t tex,
    const float xp = (x - imageCenter[0]) * scale[0];
    const float yp = (y - imageCenter[0]) * scale[0];
 
-#pragma unroll 8
+#pragma unroll 16
    for(auto projectionInd = 0; projectionInd < numberOfProjections; projectionInd++){
-      const float t = xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd] + centerIndex;
-      const float tCenter = t + projectionInd*numberOfDetectors + 0.5;
-      if(t >= 0.0 && t < numberOfDetectors){
+      const int t = __fadd_rn(xp * cosLookup[projectionInd], yp * sinLookup[projectionInd] + centerIndex) ;     
+      const int tCenter = t + projectionInd*numberOfDetectors;
+      if(t >= 0 && t < numberOfDetectors){
          float val = tex1Dfetch<float>(tex, tCenter);
          sum += val;
       }
    }
    image[x + y * numberOfPixels] = sum * normalizationFactor[0];
 }
-
 
 __global__ void backProjectNearest(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
