@@ -121,11 +121,8 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
    //init lookup tables for sin and cos
    std::vector<float> sinLookup_h(numberOfProjections_), cosLookup_h(
          numberOfProjections_);
-   float temp = 1.0;
-     if(backProjectionAngleTotal_ == 360.0)
-        temp = 2.0;
    for (auto i = 0; i < numberOfProjections_; i++) {
-     float theta = i * temp * M_PI
+      float theta = i * M_PI
             / (float) numberOfProjections_+ rotationOffset_ / 180.0 * M_PI;
       while (theta < 0.0) {
          theta += 2.0 * M_PI;
