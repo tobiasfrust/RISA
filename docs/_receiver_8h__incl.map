@@ -1,0 +1,13 @@
+<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Receiver/Receiver.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Receiver/Receiver.h">
+<area shape="rect" id="node2" href="$_receiver_module_8h.html" title="../ReceiverModule/Receiver\lModule.h" alt="" coords="547,109,731,151"/>
+<area shape="rect" id="node9" href="$_online_receiver_notification_8h.html" title="../Receiver/OnlineReceiver\lNotification.h" alt="" coords="763,199,941,240"/>
+<area shape="rect" id="node15" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="590,206,687,233"/>
+<area shape="rect" id="node21" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="1262,117,1357,143"/>
+<area shape="rect" id="node30" href="$_host_memory_manager_8h.html" title="ddrf/cuda/HostMemoryManager.h" alt="" coords="1489,117,1705,143"/>
+<area shape="rect" id="node3" href="$_u_d_p_server_8h.html" title="../UDPServer/UDPServer.h" alt="" coords="383,206,566,233"/>
+<area shape="rect" id="node22" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1132,206,1239,233"/>
+<area shape="rect" id="node23" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1277,288,1363,315"/>
+<area shape="rect" id="node31" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1745,206,1825,233"/>
+<area shape="rect" id="node32" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1883,288,1989,315"/>
+<area shape="rect" id="node33" href="$_check_8h.html" title="Check.h" alt="" coords="1787,288,1858,315"/>
+</map>

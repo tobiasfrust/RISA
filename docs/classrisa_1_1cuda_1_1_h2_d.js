@@ -1,0 +1,28 @@
+var classrisa_1_1cuda_1_1_h2_d =
+[
+    [ "deviceManagerType", "classrisa_1_1cuda_1_1_h2_d.html#afeb9dd8d18ee0cff103091ad195c4466", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_h2_d.html#a8b714506bc9fb9a71e948e8992fe4e2f", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_h2_d.html#ac599a7447194c86dd24e146cd5f7b880", null ],
+    [ "H2D", "classrisa_1_1cuda_1_1_h2_d.html#a652f7e8aaedffed245f98222de3a5419", null ],
+    [ "~H2D", "classrisa_1_1cuda_1_1_h2_d.html#a9c50af867fb0180538a3a016338edd20", null ],
+    [ "process", "classrisa_1_1cuda_1_1_h2_d.html#acda3bed3ab21bf4ee2c394cc2cb37b5d", null ],
+    [ "processor", "classrisa_1_1cuda_1_1_h2_d.html#af4f169be8cdec0197d03787d8ddde4c4", null ],
+    [ "readConfig", "classrisa_1_1cuda_1_1_h2_d.html#a84a39bb80d70660354847833e5bfa9ad", null ],
+    [ "wait", "classrisa_1_1cuda_1_1_h2_d.html#a6e086130c4ddb2362ae20b8d85eff73b", null ],
+    [ "bestCaseTime_", "classrisa_1_1cuda_1_1_h2_d.html#adecb9168d524fd4bb01144fcfa8ea078", null ],
+    [ "count_", "classrisa_1_1cuda_1_1_h2_d.html#ae4a6ada59008d23f785a0effcd5c47be", null ],
+    [ "lastDevice_", "classrisa_1_1cuda_1_1_h2_d.html#a16bbc2455fef7803648e68bcfba6a844", null ],
+    [ "lastIndex_", "classrisa_1_1cuda_1_1_h2_d.html#ac6133703ceb4e0798f7128e33862a3ba", null ],
+    [ "lostSinos_", "classrisa_1_1cuda_1_1_h2_d.html#ab5a8940cb702171be4efc09a9950fad2", null ],
+    [ "memoryPoolIdxs_", "classrisa_1_1cuda_1_1_h2_d.html#a4f25373adcc8fe20c086aee870215081", null ],
+    [ "memPoolSize_", "classrisa_1_1cuda_1_1_h2_d.html#a0f061eb283a45494987a5636ebc3e4e0", null ],
+    [ "numberOfDetectors_", "classrisa_1_1cuda_1_1_h2_d.html#a86cd3bc529f303f24dbf8477b6f74a63", null ],
+    [ "numberOfDevices_", "classrisa_1_1cuda_1_1_h2_d.html#a4c903f11c9169e5c58863cf4cd674f36", null ],
+    [ "numberOfProjections_", "classrisa_1_1cuda_1_1_h2_d.html#ad97e5deef905dc499d7304b93660415f", null ],
+    [ "processorThreads_", "classrisa_1_1cuda_1_1_h2_d.html#ae05881c02180f73bc3473e2ecf82b800", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_h2_d.html#aacc414915320cb65800938cd12e65d09", null ],
+    [ "sinograms_", "classrisa_1_1cuda_1_1_h2_d.html#af43c87692c42d161b232da8d01922b95", null ],
+    [ "streams_", "classrisa_1_1cuda_1_1_h2_d.html#a8f59f3f8f4ea6ad8e5588be9c25d0a20", null ],
+    [ "tmr_", "classrisa_1_1cuda_1_1_h2_d.html#addf5c9d26df39141d941071e7cd800d6", null ],
+    [ "worstCaseTime_", "classrisa_1_1cuda_1_1_h2_d.html#ae294a02c82b3dfe131255305d86c4e65", null ]
+];

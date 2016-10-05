@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classddrf_1_1_image_loader.html" title="ddrf::ImageLoader\&lt;\l Implementation \&gt;" alt="" coords="314,85,449,126"/>
+<area shape="rect" id="node4" href="$classddrf_1_1_image_saver.html" title="ddrf::ImageSaver\&lt; Implementation \&gt;" alt="" coords="264,151,499,177"/>
+<area shape="rect" id="node6" href="$classddrf_1_1pipeline_1_1_stage.html" title="ddrf::pipeline::Stage\l\&lt; Implementation \&gt;" alt="" coords="312,202,451,243"/>
+<area shape="rect" id="node3" href="$classddrf_1_1pipeline_1_1_source_stage.html" title="ddrf::pipeline::SourceStage\l\&lt; ImageLoader \&gt;" alt="" coords="547,51,725,93"/>
+<area shape="rect" id="node5" href="$classddrf_1_1pipeline_1_1_sink_stage.html" title="ddrf::pipeline::SinkStage\l\&lt; ImageSaver \&gt;" alt="" coords="554,178,718,219"/>
+<area shape="rect" id="node7" href="$classddrf_1_1pipeline_1_1_input_side.html" title="ddrf::pipeline::InputSide\l\&lt; ddrf::Image\&lt; ImageSaver\l::manager_type \&gt; \&gt;" alt="" coords="290,267,473,323"/>
+<area shape="rect" id="node8" href="$classddrf_1_1pipeline_1_1_input_side.html" title="ddrf::pipeline::InputSide\l\&lt; Implementation::input_type \&gt;" alt="" coords="9,202,212,243"/>
+<area shape="rect" id="node9" href="$classddrf_1_1pipeline_1_1_output_side.html" title="ddrf::pipeline::OutputSide\l\&lt; Image\&lt; ImageLoader::manager\l_type \&gt; \&gt;" alt="" coords="274,5,489,61"/>
+<area shape="rect" id="node10" href="$classddrf_1_1pipeline_1_1_output_side.html" title="ddrf::pipeline::OutputSide\l\&lt; Implementation::output_type \&gt;" alt="" coords="5,267,216,309"/>
+</map>

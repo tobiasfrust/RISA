@@ -1,0 +1,12 @@
+<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/DetectorInterpolation/DetectorInterpolation.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/DetectorInterpolation/DetectorInterpolation.h">
+<area shape="rect" id="node2" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="772,124,867,151"/>
+<area shape="rect" id="node18" href="$_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="1349,124,1578,151"/>
+<area shape="rect" id="node22" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1250,199,1330,225"/>
+<area shape="rect" id="node28" href="$_host_memory_manager_8h.html" title="ddrf/cuda/HostMemoryManager.h" alt="" coords="1109,124,1325,151"/>
+<area shape="rect" id="node29" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="136,199,233,225"/>
+<area shape="rect" id="node31" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="1603,124,1764,151"/>
+<area shape="rect" id="node3" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="567,199,674,225"/>
+<area shape="rect" id="node4" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="557,273,644,300"/>
+<area shape="rect" id="node23" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1378,273,1485,300"/>
+<area shape="rect" id="node24" href="$_check_8h.html" title="Check.h" alt="" coords="1712,273,1783,300"/>
+</map>

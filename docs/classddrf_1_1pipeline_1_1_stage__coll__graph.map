@@ -1,0 +1,5 @@
+<map id="ddrf::pipeline::Stage&lt; Implementation &gt;" name="ddrf::pipeline::Stage&lt; Implementation &gt;">
+<area shape="rect" id="node2" href="$classddrf_1_1pipeline_1_1_input_side.html" title="ddrf::pipeline::InputSide\l\&lt; Implementation::input_type \&gt;" alt="" coords="329,5,532,47"/>
+<area shape="rect" id="node3" href="$classddrf_1_1_queue.html" title="ddrf::Queue\&lt; Implementation\l::input_type \&gt;" alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node4" href="$classddrf_1_1pipeline_1_1_output_side.html" title="ddrf::pipeline::OutputSide\l\&lt; Implementation::output_type \&gt;" alt="" coords="325,71,536,112"/>
+</map>

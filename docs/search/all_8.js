@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['h2d',['H2D',['../classrisa_1_1cuda_1_1_h2_d.html',1,'risa::cuda']]],
+  ['h2d',['H2D',['../classrisa_1_1cuda_1_1_h2_d.html#a652f7e8aaedffed245f98222de3a5419',1,'risa::cuda::H2D']]],
+  ['h2d_2ecu',['H2D.cu',['../_h2_d_8cu.html',1,'']]],
+  ['h2d_2eh',['H2D.h',['../_h2_d_8h.html',1,'']]],
+  ['hamming',['hamming',['../namespacerisa_1_1cuda_1_1detail.html#a759e1eae62be795e591cacaba87120eaa8811ebbfd53f105b411980d8942cea2e',1,'risa::cuda::detail::hamming()'],['../namespacerisa_1_1cuda.html#a9195de04d969a0e13e3274ed805867e2',1,'risa::cuda::hamming()']]],
+  ['hanning',['hanning',['../namespacerisa_1_1cuda_1_1detail.html#a759e1eae62be795e591cacaba87120eaaae4cfadc12885ed55a529f63fb817b47',1,'risa::cuda::detail::hanning()'],['../namespacerisa_1_1cuda.html#a074dbb989e17852f849da168f98a55c8',1,'risa::cuda::hanning()']]],
+  ['hardware_5fheader_5fsize',['hardware_header_size',['../namespaceddrf_1_1loaders.html#a25411014ee0634a830e15b8871b6939daa0caae9a6d1668f78a39ce914ac2ae2c',1,'ddrf::loaders']]],
+  ['has_5fpitch',['has_pitch',['../classddrf_1_1ptr.html#a855f7b8275986f9d4ac2b1cb0b6f40c8',1,'ddrf::ptr::has_pitch()'],['../classddrf_1_1pitched__ptr.html#a8f93d12aa9f57f6ad549f72f32f0d57e',1,'ddrf::pitched_ptr::has_pitch()']]],
+  ['hashtable',['hashTable',['../structrisa_1_1cuda_1_1hash_table.html',1,'risa::cuda']]],
+  ['header_5fsize',['header_size',['../structddrf_1_1loaders_1_1_h_i_s_header.html#a72da6b4ceebe5e3ab430fcc205b0bc52',1,'ddrf::loaders::HISHeader::header_size()'],['../namespaceddrf_1_1loaders.html#a25411014ee0634a830e15b8871b6939dade5974c90112ec1c4ac1eca878b7a1dd',1,'ddrf::loaders::header_size()']]],
+  ['header_5fversion',['header_version',['../structddrf_1_1loaders_1_1_h_i_s_header.html#a5e20658cbb841a4b16b63b15172f554e',1,'ddrf::loaders::HISHeader']]],
+  ['height',['height',['../classddrf_1_1pitched__ptr.html#addc29792618ad2449662928afdd086cb',1,'ddrf::pitched_ptr::height()'],['../classddrf_1_1_volume.html#a9008100c7816b240f7e7194f1c3225ad',1,'ddrf::Volume::height()']]],
+  ['height_5f',['height_',['../classddrf_1_1pitched__ptr.html#a5fe56c83b99fda74a060facfa9abb199',1,'ddrf::pitched_ptr::height_()'],['../classddrf_1_1_volume.html#a2466b416bc315d5aaad1d5adbfa3eca2',1,'ddrf::Volume::height_()']]],
+  ['his',['HIS',['../classddrf_1_1loaders_1_1_h_i_s.html',1,'ddrf::loaders']]],
+  ['his_2eh',['HIS.h',['../_h_i_s_8h.html',1,'']]],
+  ['hisconst',['HISConst',['../namespaceddrf_1_1loaders.html#a25411014ee0634a830e15b8871b6939d',1,'ddrf::loaders']]],
+  ['hisheader',['HISHeader',['../structddrf_1_1loaders_1_1_h_i_s_header.html',1,'ddrf::loaders']]],
+  ['hisheader_2eh',['HISHeader.h',['../_h_i_s_header_8h.html',1,'']]],
+  ['host',['Host',['../namespaceddrf_1_1cuda_1_1detail.html#a544c281ca04671cce0c2cbf94e866ba0ac2ca16d048ec66e04bca283eab048ec2',1,'ddrf::cuda::detail']]],
+  ['host_5fdeleter',['host_deleter',['../structddrf_1_1cuda_1_1detail_1_1host__deleter.html',1,'ddrf::cuda::detail']]],
+  ['host_5fptr',['host_ptr',['../namespaceddrf_1_1cuda.html#a04c9feaf9d28710d9bc7ae0e6f9a3776',1,'ddrf::cuda']]],
+  ['hostmanagertype',['hostManagerType',['../classrisa_1_1cuda_1_1_d2_h.html#a78752a942d4b3c3339fa102a28759207',1,'risa::cuda::D2H']]],
+  ['hostmemorymanager',['HostMemoryManager',['../classddrf_1_1cuda_1_1_host_memory_manager.html',1,'ddrf::cuda']]],
+  ['hostmemorymanager_2eh',['HostMemoryManager.h',['../_host_memory_manager_8h.html',1,'']]]
+];

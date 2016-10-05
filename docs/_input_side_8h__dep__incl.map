@@ -1,0 +1,9 @@
+<map id="/home/tfrust/Dokumente/repos/RISA/RISA/ddrf/include/ddrf/pipeline/InputSide.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/ddrf/include/ddrf/pipeline/InputSide.h">
+<area shape="rect" id="node2" href="$_port_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline/Port.h" alt="" coords="150,131,330,187"/>
+<area shape="rect" id="node6" href="$_stage_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline\l/Stage.h" alt="" coords="5,361,168,432"/>
+<area shape="rect" id="node8" href="$_sink_stage_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline\l/SinkStage.h" alt="" coords="404,124,567,195"/>
+<area shape="rect" id="node3" href="$_output_side_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline\l/OutputSide.h" alt="" coords="124,243,287,313"/>
+<area shape="rect" id="node7" href="$_pipeline_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline\l/Pipeline.h" alt="" coords="311,243,473,313"/>
+<area shape="rect" id="node4" href="$_source_stage_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline\l/SourceStage.h" alt="" coords="192,361,355,432"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/example\l/main.cpp" alt="" coords="241,480,423,536"/>
+</map>
