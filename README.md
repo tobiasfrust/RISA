@@ -1,5 +1,7 @@
 # RISA - Rofex In-Situ Analysis
 
+###Documentation to be found at: https://hzdr-fwdf.github.io/RISA/index.html
+
 Prerequisites:
 - cmake (>= 3.5)
 - CUDA and compatible host compiler (e.g. gcc)
