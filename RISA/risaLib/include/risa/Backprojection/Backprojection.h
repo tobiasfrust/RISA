@@ -129,6 +129,7 @@ private:
    int numberOfDetectors_;                            //!<  the number of detectors in the parallel beam sinogramm
    int numberOfPixels_;                               //!<  the number of pixels in the reconstruction grid in one dimension
    float rotationOffset_;                             //!<  the rotation of the reconstructed image
+   float backProjectionAngleTotal_;                   //!<  180° or 360° degrees
 
    int numberOfDevices_;                              //!<  the number of available CUDA devices in the system
    int numberOfStreams_;                              //!<  the number of different CUDA streams to be used

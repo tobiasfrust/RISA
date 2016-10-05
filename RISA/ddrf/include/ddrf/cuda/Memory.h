@@ -78,7 +78,7 @@ namespace ddrf
 					inline auto get() const noexcept -> pointer { return ptr_.get(); }
 					inline auto get_deleter() noexcept -> Deleter& { return ptr_.get_deleter(); }
 					inline auto get_deleter() const noexcept -> const Deleter& { return ptr_.get_deleter(); }
-					explicit inline operator bool() const noexcept { return ptr_.operator bool(); }
+					explicit inline operator bool() const noexcept { return bool(ptr_); }
 					inline auto operator[](std::size_t i) const -> T& { return ptr_[i]; }
 
 				private:

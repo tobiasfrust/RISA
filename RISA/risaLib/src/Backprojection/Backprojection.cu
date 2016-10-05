@@ -121,8 +121,11 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
    //init lookup tables for sin and cos
    std::vector<float> sinLookup_h(numberOfProjections_), cosLookup_h(
          numberOfProjections_);
+   float temp = 1.0;
+     if(backProjectionAngleTotal_ == 360.0)
+        temp = 2.0;
    for (auto i = 0; i < numberOfProjections_; i++) {
-      float theta = i * M_PI
+     float theta = i * temp * M_PI
             / (float) numberOfProjections_+ rotationOffset_ / 180.0 * M_PI;
       while (theta < 0.0) {
          theta += 2.0 * M_PI;
@@ -218,7 +221,8 @@ auto Backprojection::readConfig(const std::string& configFile) -> bool {
          && configReader.lookupValue("blockSize2D_backProjection", blockSize2D_)
          && configReader.lookupValue("memPoolSize_backProjection", memPoolSize_)
          && configReader.lookupValue("interpolationType", interpolationStr)
-         && configReader.lookupValue("useTextureMemory", useTextureMemory_)){
+         && configReader.lookupValue("useTextureMemory", useTextureMemory_)
+         && configReader.lookupValue("backProjectionAngleTotal", backProjectionAngleTotal_)){
       if(interpolationStr == "nearestNeighbour")
          interpolationType_ = detail::InterpolationType::neareastNeighbor;
       else if(interpolationStr == "linear")
@@ -290,9 +294,9 @@ __global__ void backProjectTex(cudaTextureObject_t tex,
 
 #pragma unroll 8
    for(auto projectionInd = 0; projectionInd < numberOfProjections; projectionInd++){
-      const float t = xp * cosLookup[projectionInd] + yp * sinLookup[projectionInd] + centerIndex;
-      const float tCenter = t + projectionInd*numberOfDetectors + 0.5;
-      if(t >= 0.0 && t < numberOfDetectors){
+      const int t = __fadd_rn(xp * cosLookup[projectionInd], yp * sinLookup[projectionInd] + centerIndex) ;
+      const int tCenter = t + projectionInd*numberOfDetectors;
+      if(t >= 0 && t < numberOfDetectors){
          float val = tex1Dfetch<float>(tex, tCenter);
          sum += val;
       }
