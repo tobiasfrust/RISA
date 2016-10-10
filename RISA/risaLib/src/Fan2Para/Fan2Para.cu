@@ -105,7 +105,7 @@ Fan2Para::Fan2Para(const std::string& configFile) {
       //custom streams are necessary, because profiling with nvprof seems to be
       //not possible with -default-stream per-thread option
       cudaStream_t stream;
-      CHECK(cudaStreamCreate(&stream));
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 4));
       streams_[i] = stream;
    }
 

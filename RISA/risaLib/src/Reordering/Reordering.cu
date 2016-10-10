@@ -45,7 +45,7 @@ Reordering::Reordering(const std::string& configFile) {
       //register in memory pool
       memoryPoolIdxs_[i] = ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_, numberOfFanDetectors_*numberOfFanProjections_);
       cudaStream_t stream;
-      CHECK(cudaStreamCreate(&stream));
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 6));
       streams_[i] = stream;
    }
 

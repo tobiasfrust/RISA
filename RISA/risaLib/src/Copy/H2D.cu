@@ -43,7 +43,7 @@ H2D::H2D(const std::string& configFile) : lastDevice_{0}, worstCaseTime_{0.0}, b
       //custom streams are necessary, because profiling with nvprof seems to be
       //not possible with -default-stream per-thread option
       cudaStream_t stream;
-      CHECK(cudaStreamCreate(&stream));
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 7));
       streams_[i] = stream;
    }
 

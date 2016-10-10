@@ -38,37 +38,27 @@ Backprojection::Backprojection(const std::string& configFile) {
 
    CHECK(cudaGetDeviceCount(&numberOfDevices_));
 
-   numberOfStreams_ = 1;
-
-   lastStreams_.resize(numberOfStreams_);
-
    //allocate memory in memory pool for each device
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
-      for(auto sInd = 0; sInd < numberOfStreams_; sInd++){
-         memoryPoolIdxs_.push_back(
-            ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(
-                  memPoolSize_, numberOfPixels_ * numberOfPixels_));
-         }
+      memoryPoolIdxs_.push_back(
+         ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(
+               memPoolSize_, numberOfPixels_ * numberOfPixels_));
    }
 
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
-      for(auto sInd = 0; sInd < numberOfStreams_; sInd++){
-         //custom streams are necessary, because profiling with nvprof seems to be
-         //not possible with -default-stream per-thread option
-         cudaStream_t stream;
-         CHECK(cudaStreamCreate(&stream));
-         streams_[sInd+numberOfStreams_*i] = stream;
-      }
+      //custom streams are necessary, because profiling with nvprof seems to be
+      //not possible with -default-stream per-thread option
+      cudaStream_t stream;
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 2));
+      streams_[i] = stream;
    }
 
    //initialize worker thread
    for (auto i = 0; i < numberOfDevices_; i++) {
-      for(auto sInd = 0; sInd < numberOfStreams_; sInd++){
-         processorThreads_[sInd+numberOfStreams_*i] =
-            std::thread { &Backprojection::processor, this, i, sInd };
-      }
+      processorThreads_[i] =
+         std::thread { &Backprojection::processor, this, i };
    }
    BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Backprojection: Running " << numberOfDevices_ << " Threads.";
 }
@@ -87,16 +77,15 @@ Backprojection::~Backprojection() {
 auto Backprojection::process(input_type&& sinogram) -> void {
    if (sinogram.valid()) {
       BOOST_LOG_TRIVIAL(debug)<< "BP: Image arrived with Index: " << sinogram.index() << "to device " << sinogram.device();
-      sinograms_[sinogram.device()*numberOfStreams_+lastStreams_[sinogram.device()]].push(std::move(sinogram));
-      lastStreams_[sinogram.device()] = (lastStreams_[sinogram.device()]+1) % numberOfStreams_;
+      sinograms_[sinogram.device()].push(std::move(sinogram));
    } else {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Backprojection: Received sentinel, finishing.";
 
       //send sentinal to processor thread and wait 'til it's finished
-      for(auto i = 0; i < numberOfDevices_*numberOfStreams_; i++) {
+      for(auto i = 0; i < numberOfDevices_; i++) {
          sinograms_[i].push(input_type());
       }
-      for(auto i = 0; i < numberOfDevices_*numberOfStreams_; i++) {
+      for(auto i = 0; i < numberOfDevices_; i++) {
          processorThreads_[i].join();
       }
 
@@ -109,7 +98,7 @@ auto Backprojection::wait() -> output_type {
    return results_.take();
 }
 
-auto Backprojection::processor(const int deviceID, const int streamID) -> void {
+auto Backprojection::processor(const int deviceID) -> void {
    CHECK(cudaSetDevice(deviceID));
 
    //init lookup tables for sin and cos
@@ -146,7 +135,7 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
    BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::BP: Running Thread for Device " << deviceID;
    while (true) {
       //execution is blocked until next element arrives in queue
-      auto sinogram = sinograms_[deviceID*numberOfStreams_+streamID].take();
+      auto sinogram = sinograms_[deviceID].take();
       //if sentinel, finish thread execution
       if (!sinogram.valid())
          break;
@@ -156,7 +145,7 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
       //allocate device memory for reconstructed picture
       auto recoImage =
             ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(
-                  memoryPoolIdxs_[deviceID*numberOfStreams_+streamID]);
+                  memoryPoolIdxs_[deviceID]);
 
       if(useTextureMemory_){
          cudaResourceDesc resDesc;
@@ -169,20 +158,23 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
 
          cudaTextureDesc texDesc;
          memset(&texDesc, 0, sizeof(texDesc));
-         texDesc.filterMode = cudaFilterModeLinear;
+         texDesc.addressMode[0] = cudaAddressModeBorder;
+         texDesc.addressMode[1] = cudaAddressModeBorder;
+         texDesc.normalizedCoords = false;
 
          // create texture object: we only have to do this once!
          cudaTextureObject_t tex=0;
-         cudaCreateTextureObject(&tex, &resDesc, &texDesc, NULL);
-         backProjectTex<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(tex, recoImage.container().get(),
+         CHECK(cudaCreateTextureObject(&tex, &resDesc, &texDesc, NULL));
+         backProjectTex<<<grids, blocks, 0, streams_[deviceID]>>>(tex, recoImage.container().get(),
                              numberOfPixels_, numberOfProjections_, numberOfDetectors_);
+         CHECK(cudaDestroyTextureObject(tex));
       }else{
          if(interpolationType_ == detail::InterpolationType::linear)
-            backProjectLinear<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
+            backProjectLinear<<<grids, blocks, 0, streams_[deviceID]>>>(
                   sinogram.container().get(), recoImage.container().get(),
                   numberOfPixels_, numberOfProjections_, numberOfDetectors_);
          else if(interpolationType_ == detail::InterpolationType::neareastNeighbor)
-            backProjectNearest<<<grids, blocks, 0, streams_[deviceID*numberOfStreams_ + streamID]>>>(
+            backProjectNearest<<<grids, blocks, 0, streams_[deviceID]>>>(
                   sinogram.container().get(), recoImage.container().get(),
                   numberOfPixels_, numberOfProjections_, numberOfDetectors_);
       }
@@ -194,7 +186,7 @@ auto Backprojection::processor(const int deviceID, const int streamID) -> void {
       recoImage.setStart(sinogram.start());
 
       //wait until work on device is finished
-      CHECK(cudaStreamSynchronize(streams_[deviceID*numberOfStreams_ + streamID]));
+      CHECK(cudaStreamSynchronize(streams_[deviceID]));
       results_.push(std::move(recoImage));
 
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Backprojection: Reconstructing sinogram with Index " << sinogram.index() << " finished.";

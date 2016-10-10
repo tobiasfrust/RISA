@@ -17,6 +17,11 @@
 
 #include <boost/log/trivial.hpp>
 
+#include <thrust/device_ptr.h>
+#include <thrust/extrema.h>
+#include <thrust/functional.h>
+#include <thrust/transform.h>
+
 #include <nvToolsExt.h>
 
 #include <exception>
@@ -47,7 +52,7 @@ Masking::Masking(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       cudaStream_t stream;
-      CHECK(cudaStreamCreate(&stream));
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 1));
       streams_[i] = stream;
    }
 
@@ -104,6 +109,14 @@ auto Masking::processor(const int deviceID) -> void {
          break;
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::CropImage: CropImageing image with Index " << img.index();
 
+      //normalization
+      if(performNormalization_){
+         auto pair = (thrust::minmax_element(thrust::device_pointer_cast(img.container().get()), thrust::device_pointer_cast(img.container().get()+img.size())));
+         float min = *pair.first;
+         float max = *pair.second;
+         float diff = max- min;
+         thrust::transform(thrust::device_pointer_cast(img.container().get()), thrust::device_pointer_cast(img.container().get()+img.size()), thrust::device_pointer_cast(img.container().get()), (thrust::placeholders::_1 - min)/diff);
+      }
       mask<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(),
             0.0 ,numberOfPixels_);
       CHECK(cudaPeekAtLastError());
@@ -119,7 +132,8 @@ auto Masking::processor(const int deviceID) -> void {
 auto Masking::readConfig(const std::string& configFile) -> bool {
    ConfigReader configReader = ConfigReader(
          configFile.data());
-   if (configReader.lookupValue("numberOfPixels", numberOfPixels_))
+   if (configReader.lookupValue("numberOfPixels", numberOfPixels_)
+         && configReader.lookupValue("normalization", performNormalization_))
       return EXIT_SUCCESS;
 
    return EXIT_FAILURE;

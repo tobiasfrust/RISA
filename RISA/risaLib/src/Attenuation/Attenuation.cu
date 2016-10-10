@@ -50,7 +50,7 @@ Attenuation::Attenuation(const std::string& configFile) {
             ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
                   numberOfDetectors_ * numberOfProjections_);
       cudaStream_t stream;
-      CHECK(cudaStreamCreate(&stream));
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 5));
       streams_[i] = stream;
    }
 

@@ -46,7 +46,7 @@ D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       cudaStream_t stream;
-      CHECK(cudaStreamCreate(&stream));
+      CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 0));
       streams_[i] = stream;
    }
 

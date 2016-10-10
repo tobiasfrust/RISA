@@ -148,15 +148,12 @@ private:
    float backProjectionAngleTotal_;                   //!<  180° or 360° degrees
 
    int numberOfDevices_;                              //!<  the number of available CUDA devices in the system
-   int numberOfStreams_;                              //!<  the number of different CUDA streams to be used
 
    detail::InterpolationType interpolationType_;      //!<  the interpolation type that shall be used
 
    //kernel execution coniguration
    int blockSize2D_;                                  //!<  2D block size of the back projection kernel
    int memPoolSize_;                                  //!<  specifies, how many elements are allocated by memory pool
-
-   std::vector<int> lastStreams_;                     //!<  stores, which stream was used last
 
    bool useTextureMemory_;                            //!<  stores, whether texture memory should be used (only nearest neighbour interpolation possible)
 
@@ -169,7 +166,7 @@ private:
     * @param[in]  deviceID specifies on which CUDA device to execute the device functions
     * @param[in]  streamID specifies on which CUDA stream to execute the device functions
     */
-   auto processor(const int deviceID, const int streamID) -> void;
+   auto processor(const int deviceID) -> void;
 
    //!  Read configuration values from configuration file
    /**

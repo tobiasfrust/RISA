@@ -85,6 +85,8 @@ private:
 
    int numberOfPixels_;                            //!<  the number of pixels in the reconstruction grid in one dimension
 
+   bool performNormalization_{true};
+
    //!  Read configuration values from configuration file
    /**
     * All values needed for setting up the class are read from the config file

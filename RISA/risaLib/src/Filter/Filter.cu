@@ -138,7 +138,7 @@ auto Filter::initCuFFT(const int deviceID) -> void {
    cudaStream_t stream;
    cufftHandle planFwd, planInv;
 
-   CHECK(cudaStreamCreate(&stream));
+   CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 3));
    streams_[deviceID] = stream;
 
    CHECK_CUFFT(
