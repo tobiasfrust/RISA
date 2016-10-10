@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
    //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;
    using offlineSaver = ddrf::ImageSaver<risa::OfflineSaver>;
 
-   using sourceStage = ddrf::pipeline::SourceStage<offlineLoader>;
+   using sourceStage = ddrf::pipeline::SourceStage<onlineReceiver>;
    using copyStageH2D = ddrf::pipeline::Stage<risa::cuda::H2D>;
    using reorderingStage = ddrf::pipeline::Stage<risa::cuda::Reordering>;
    using attenuationStage = ddrf::pipeline::Stage<risa::cuda::Attenuation>;

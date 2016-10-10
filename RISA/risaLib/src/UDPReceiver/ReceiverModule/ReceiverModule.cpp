@@ -15,7 +15,7 @@
 
 namespace risa {
 
-using boost::asio::ip::tcp;
+using tcp = boost::asio::ip::tcp;
 
 ReceiverModule::ReceiverModule(const std::string& address, const std::string& configPath, const int moduleID,
       std::vector<unsigned short>& buffer, OnlineReceiverNotification& notification) :
@@ -25,6 +25,7 @@ ReceiverModule::ReceiverModule(const std::string& address, const std::string& co
    buffer_(buffer),
    run_{true},
    notification_(notification),
+   udpServer_{address, 4000+moduleID},
    port_{4000+moduleID}
    {
 
@@ -43,36 +44,63 @@ auto ReceiverModule::run() -> void {
    unsigned int sinoSize = numberOfProjections_*16;
    std::size_t headerSize{sizeof(std::size_t)/sizeof(unsigned short)};
    int numBytes = 0;
-   int timeoutS = 30;
 
-   boost::asio::io_service io_service;
+   if(transportProtocol_ == transportProtocol::TCP){
+      boost::asio::io_service io_service;
 
-   tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), port_));
+      tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), port_));
 
-   tcp::socket socket(io_service);
-   acceptor.accept(socket);
+      tcp::socket socket(io_service);
+      acceptor.accept(socket);
 
-   boost::system::error_code error;
+      boost::system::error_code error;
 
-   while(true){
-      boost::asio::read(socket, boost::asio::buffer(buf.data(), buf.size()*sizeof(unsigned short)), error);
-      if (error == boost::asio::error::eof)
-         break; // Connection closed cleanly by peer.
-      std::size_t index = *((std::size_t *)buf.data());
-      BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index;
-      std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_));
-      notification_.notify(moduleID_, index);
+      while(true){
+         boost::asio::read(socket, boost::asio::buffer(buf.data(), buf.size()*sizeof(unsigned short)), error);
+         if (error == boost::asio::error::eof)
+            break; // Connection closed cleanly by peer.
+         std::size_t index = *((std::size_t *)buf.data());
+         BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index;
+         std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_));
+         notification_.notify(moduleID_, index);
+      }
+   }else if(transportProtocol_ == transportProtocol::UDP){
+      while(true){
+         numBytes = udpServer_.timed_recv((char*)(buf.data()), buf.size()*sizeof(unsigned short), timeout_);
+         if(numBytes < 0) break;
+         std::size_t index = *((std::size_t *)buf.data());
+         int diff = index - lastIndex_ - 1;
+         if(diff > 0 && index > 0){
+            BOOST_LOG_TRIVIAL(warning) << "ReceiverModule " << moduleID_ << ": Lost package or wrong order. Last " << lastIndex_ << " new: " << index;
+            lastIndex_ = index;
+            continue;
+         }
+         lastIndex_ = index;
+         BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index;
+         auto it = std::count(buf.cbegin()+headerSize, buf.cend(), 0);
+         std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_));
+         notification_.notify(moduleID_, index);
+      }
    }
    notification_.notify(moduleID_, -1);
-   BOOST_LOG_TRIVIAL(info) << "ReceiverModul " << moduleID_ << ": No packets arriving since " << timeoutS << "s. Finishing.";
+   BOOST_LOG_TRIVIAL(info) << "ReceiverModul " << moduleID_ << ": No packets arriving since " << timeout_ << "s. Finishing.";
 }
 
 auto ReceiverModule::readConfig(const std::string& configFile) -> bool {
   ConfigReader configReader = ConfigReader(configFile.data());
   int samplingRate, scanRate;
+  std::string transportProt;
   if (configReader.lookupValue("samplingRate", samplingRate)
         && configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-        && configReader.lookupValue("scanRate", scanRate)) {
+        && configReader.lookupValue("scanRate", scanRate)
+        && configReader.lookupValue("transportProtocol", transportProt)
+        && configReader.lookupValue("timeout", timeout_)) {
+     if(transportProt == "udp")
+        transportProtocol_ = transportProtocol::UDP;
+     else if(transportProt == "tcp")
+        transportProtocol_ = transportProtocol::TCP;
+     else
+        transportProtocol_ = transportProtocol::UDP;
      numberOfProjections_ = samplingRate * 1000000 / scanRate;
      return EXIT_SUCCESS;
   }

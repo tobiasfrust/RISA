@@ -21,6 +21,11 @@
 
 namespace risa {
 
+   enum transportProtocol: short {
+      UDP,
+      TCP
+   };
+
 class ReceiverModule {
 public:
    ReceiverModule(const std::string& address, const std::string& configPath, const int moduleID,
@@ -31,6 +36,8 @@ public:
 
 private:
 
+   UDPServer udpServer_;
+
    std::vector<unsigned short>& buffer_;
 
    std::size_t lastIndex_;
@@ -40,6 +47,8 @@ private:
    int numberOfProjections_;
 
    int port_;
+   transportProtocol transportProtocol_;
+   int timeout_;
 
    OnlineReceiverNotification& notification_;
 

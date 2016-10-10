@@ -118,7 +118,7 @@ auto Masking::processor(const int deviceID) -> void {
          thrust::transform(thrust::device_pointer_cast(img.container().get()), thrust::device_pointer_cast(img.container().get()+img.size()), thrust::device_pointer_cast(img.container().get()), (thrust::placeholders::_1 - min)/diff);
       }
       mask<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(),
-            0.0 ,numberOfPixels_);
+            maskingValue_ ,numberOfPixels_);
       CHECK(cudaPeekAtLastError());
 
       //wait until work on device is finished
@@ -133,7 +133,8 @@ auto Masking::readConfig(const std::string& configFile) -> bool {
    ConfigReader configReader = ConfigReader(
          configFile.data());
    if (configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("normalization", performNormalization_))
+         && configReader.lookupValue("normalization", performNormalization_)
+         && configReader.lookupValue("maskingValue", maskingValue_))
       return EXIT_SUCCESS;
 
    return EXIT_FAILURE;
