@@ -29,12 +29,6 @@ __constant__ float normalizationFactor[1];
 __constant__ float scale[1];
 __constant__ float imageCenter[1];
 
-__global__ void backProjectTex(cudaTextureObject_t tex,
-         float* __restrict__ image,
-         const int numberOfPixels,
-         const int numberOfProjections,
-         const int numberOfDetectors);
-
 Backprojection::Backprojection(const std::string& configFile) {
 
    if (readConfig(configFile)) {
@@ -337,4 +331,3 @@ __global__ void backProjectNearest(const float* const __restrict__ sinogram,
 
 }
 }
-

@@ -52,6 +52,22 @@ namespace cuda {
          float* __restrict__ image, const int numberOfPixels,
          const int numberOfProjections, const int numberOfDetectors);
 
+   //! This function performs the back projection with nearest neighbor interpolation using texture memory
+   /**
+    * With a pixel-driven back projection approach, this CUDA kernel spans number of pixels
+    * times number of pixels, in the reconstruction grid, threads. Starting at the pixel center,
+    * each thread follows the ray path and computes the intersection with the detector pixels.
+    * The intersection does not line up, and thus, a nearest neigbor interpolation using te
+    * texture memory is performed. This back projection kernel is the fastest one.
+    *
+    * @param[in]  tex                  linearized sinogram data stored in texture memory. Each projection is stored linearly after each other
+    * @param[out] image                the reconstruction grid, in which the reconstructed image is stored
+    * @param[in]  numberOfPixels       the number of pixels in the reconstruction grid in one dimension
+    * @param[in]  numberOfProjections  the number of projections in the parallel beam sinogram over 180 degrees
+    * @param[in]  numberOfDetectors    the number of detectors in the parallel beam sinogram
+    */
+   __global__ void backProjectTex(cudaTextureObject_t tex, float* __restrict__ image,
+            const int numberOfPixels, const int numberOfProjections, const int numberOfDetectors);
 
    //! This function performs the back projection with nearest neighbor interpolation
    /**
@@ -142,7 +158,7 @@ private:
 
    std::vector<int> lastStreams_;                     //!<  stores, which stream was used last
 
-   bool useTextureMemory_;
+   bool useTextureMemory_;                            //!<  stores, whether texture memory should be used (only nearest neighbour interpolation possible)
 
    //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
    /**

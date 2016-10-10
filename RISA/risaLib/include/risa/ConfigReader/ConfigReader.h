@@ -28,6 +28,12 @@ class ConfigReader {
 
 public:
 
+   //! Create the configuration reader from the given input file
+   /**
+    *
+    * @param[in]  configFile  path to configuration file
+    *
+    */
    ConfigReader(const char* configFile);
 
    ConfigReader(const ConfigReader& configReader) {}

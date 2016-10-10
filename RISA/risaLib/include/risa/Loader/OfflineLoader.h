@@ -44,15 +44,17 @@ namespace risa
 
 
          private:
-            unsigned int memoryPoolIndex_;
-            std::queue<ddrf::Image<manager_type>> buffer_;
+            unsigned int memoryPoolIndex_;   //!<  stores the indeces received when registering in MemoryPool
+            std::queue<ddrf::Image<manager_type>> buffer_;  //!<  the buffer which stores the test data set
 
             double worstCaseTime_;
             double bestCaseTime_;
             Timer tmr_;
 
             //configuration parameters
-            std::string path_, fileName_, fileEnding_;
+            std::string path_;      //!< the input path of raw data
+            std::string fileName_;  //!< the input 
+            std::string fileEnding_;
             int numberOfDetectors_, numberOfProjections_;
             int numberOfDetectorModules_, numberOfPlanes_;
             unsigned int numberOfFrames_;

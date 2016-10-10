@@ -78,7 +78,7 @@ private:
 
    //! main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage
    /**
-    * This method takes one sinogram from the input queue #sinograms_. So far, the interpolation is
+    * This method takes one sinogram from the input queue #sinograms_. So far, the detector interpolation is
     * performed on the host. Thus, the data is transfered from host to device, the raw data sinogram
     * is interpolated and afterwards, transfered from device to host.
     *
@@ -113,4 +113,4 @@ private:
 }
 }
 
-#endif /* D2H_H_ */
+#endif /* DETECTORINTERPOLATION_H_ */
