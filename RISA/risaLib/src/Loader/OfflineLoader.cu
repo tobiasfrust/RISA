@@ -14,7 +14,6 @@
 #include <ddrf/MemoryPool.h>
 
 #include <exception>
-#include <fstream>
 #include <chrono>
 
 namespace risa {
@@ -27,12 +26,10 @@ OfflineLoader::OfflineLoader(const std::string& address,
             "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
    }
 
-   stopFrame_ = 50000u;
-   index_ = 1000u;
+   numberOfDetectorsPerModule_ = numberOfDetectors_ / numberOfDetectorModules_;
 
    memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
-         (numberOfFrames_ + 1) * numberOfPlanes_,
-         numberOfProjections_ * numberOfDetectors_);
+         250, numberOfProjections_ * numberOfDetectors_);
 
    readInput();
 }
@@ -43,95 +40,44 @@ OfflineLoader::~OfflineLoader() {
 }
 
 auto OfflineLoader::loadImage() -> ddrf::Image<manager_type> {
-   if (buffer_.empty())
+   if (index_ >= numberOfFrames_ * numberOfPlanes_)
       return ddrf::Image<manager_type>();
-   auto sino = std::move(buffer_.front());
-   if (sino.index() > 0) {
-      tmr_.stop();
-      double duration = tmr_.elapsed();
-      if (duration < bestCaseTime_)
-         bestCaseTime_ = duration;
-      if (duration > worstCaseTime_)
-         worstCaseTime_ = duration;
+   BOOST_LOG_TRIVIAL(debug) << "risa::Offlineloader: Loading image with index " << index_;
+   auto sino = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
+#pragma omp parallel for
+   for (auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++) {
+      ifstreams_[detModInd].get()->seekg(index_ * numberOfProjections_ * numberOfDetectorsPerModule_ * sizeof(unsigned short),
+            std::ios::beg);
+      ifstreams_[detModInd].get()->read((char*) sino.container().get()+ detModInd * numberOfDetectorsPerModule_
+                        * sizeof(unsigned short) * numberOfProjections_, numberOfProjections_ * numberOfDetectorsPerModule_ * sizeof(unsigned short));
    }
-   buffer_.pop();
-   if (index_ < stopFrame_) {
-      auto img = ddrf::MemoryPool<manager_type>::instance()->requestMemory(
-            memoryPoolIndex_);
-      img.setIdx(index_);
-      buffer_.push(std::move(img));
-      index_++;
-   }
-   tmr_.start();
+//   ifstreams_[0].get()->seekg(index_ * numberOfProjections_ * numberOfDetectors_ * sizeof(float),
+//         std::ios::beg);
+//   ifstreams_[0].get()->read(
+//         (char*) sino.container().get(), numberOfProjections_ * numberOfDetectors_ * sizeof(float));
+   BOOST_LOG_TRIVIAL(debug)<< "Loading sinogram " << index_;
+   sino.setIdx(index_);
+   sino.setPlane(index_%numberOfPlanes_);
+   index_++;
    sino.setStart(std::chrono::high_resolution_clock::now());
    return sino;
 }
 
 auto OfflineLoader::readInput() -> void {
-   Timer tmr1, tmr2;
-   std::vector<std::vector<unsigned short>> fileContents(
-         numberOfDetectorModules_);
-   int numberOfDetPerModule = numberOfDetectors_ / numberOfDetectorModules_;
    if (path_.back() != '/')
       path_.append("/");
-   tmr1.start();
-   tmr2.start();
-#pragma omp parallel for default(shared) num_threads(numberOfDetectorModules_/3)
+
    for (auto i = 1; i <= numberOfDetectorModules_; i++) {
-      std::vector<unsigned short> content;
-      std::ifstream input(path_ + fileName_ + std::to_string(i) + fileEnding_,
-            std::ios::in | std::ios::binary);
-      if (!input) {
-         BOOST_LOG_TRIVIAL(error)<< "recoLib::OfflineLoader: Source file could not be loaded.";
-         throw std::runtime_error("File could not be opened. Please check!");
-      }
-      //allocate memory in vector
-      std::streampos fileSize;
-      input.seekg(0, std::ios::end);
-      fileSize = input.tellg();
-      input.seekg(0, std::ios::beg);
-      content.resize(fileSize / sizeof(unsigned short));
-      input.read((char*) &content[0], fileSize);
-      fileContents[i - 1] = content;
+      auto ifStream = std::unique_ptr <std::ifstream> (new std::ifstream(
+                  path_ + fileName_ + std::to_string(i) + fileEnding_,
+                  std::ios::in | std::ios::binary));
+      ifstreams_.push_back(std::move(ifStream));
    }
-   tmr2.stop();
-   for (unsigned int i = 0; i < numberOfFrames_; i++) {
-      for (auto planeInd = 0; planeInd < numberOfPlanes_; planeInd++) {
-         auto sino = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
-//            for (auto projInd = 0; projInd < numberOfProjections_; projInd++) {
-//               for (auto detModInd = 0; detModInd < numberOfDetectorModules_;
-//                     detModInd++) {
-//                  unsigned int startIndex = projInd * numberOfDetPerModule
-//                        + (planeInd + i * numberOfPlanes_) * numberOfDetPerModule * numberOfProjections_;
-//                  unsigned int indexSorted = detModInd * numberOfDetPerModule
-//                        + projInd * numberOfDetectors_;
-//                  std::copy(fileContents[detModInd].begin() + startIndex,
-//                        fileContents[detModInd].begin() + startIndex
-//                              + numberOfDetPerModule,
-//                        sino.container().get() + indexSorted);
-//               }
-//            }
-//            sino.setIdx(planeInd + i * numberOfPlanes_);
-//            sino.setPlane(planeInd);
-//            buffer_.push(std::move(sino));
-//         }
-         for (auto detModInd = 0; detModInd < numberOfDetectorModules_;
-               detModInd++) {
-            std::size_t startIndex = (planeInd + i * numberOfPlanes_) * numberOfDetPerModule * numberOfProjections_;
-            std::copy(fileContents[detModInd].cbegin() + startIndex, fileContents[detModInd].cbegin() + startIndex
-                        + numberOfDetPerModule * numberOfProjections_, sino.container().get()
-                        + detModInd * numberOfDetPerModule * numberOfProjections_);
-         }
-         sino.setIdx(planeInd + i * numberOfPlanes_);
-         sino.setPlane(planeInd);
-         buffer_.push(std::move(sino));
-      }
-   }
-   tmr1.stop();
-   double totalFileSize = numberOfProjections_ * numberOfDetectors_
-         * numberOfPlanes_ * numberOfFrames_ * sizeof(unsigned short) / 1024.0
-         / 1024.0;
-   BOOST_LOG_TRIVIAL(info)<< "recoLib::OfllineLoader: Reading and sorting data input took " << tmr1.elapsed() << " s, " << totalFileSize/tmr2.elapsed() << " MByte/s.";
+
+//   auto ifStream = std::unique_ptr <std::ifstream> (new std::ifstream(
+//               path_ + fileName_ + fileEnding_,
+//               std::ios::in | std::ios::binary));
+//   ifstreams_.push_back(std::move(ifStream));
 }
 
 /**

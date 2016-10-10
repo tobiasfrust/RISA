@@ -68,17 +68,6 @@ auto Receiver::loadImage() -> ddrf::Image<manager_type> {
             buffers_[detModInd].cbegin() + startIndex + numberOfDetectorsPerModule*numberOfProjections_,
             sino.container().get() + detModInd * numberOfDetectorsPerModule * numberOfProjections_);
    }
-
-//#pragma omp parallel for collapse(2)
-//   for (auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++) {
-//      for (auto projInd = 0; projInd < numberOfProjections_; projInd++) {
-//         std::size_t startIndex = projInd * numberOfDetectorsPerModule
-//               + (index%bufferSize_) * numberOfDetectorsPerModule * numberOfProjections_;
-//         std::size_t indexSorted = detModInd * numberOfDetectorsPerModule + projInd * numberOfDetectors_;
-//         std::copy(buffers_[detModInd].begin() + startIndex, buffers_[detModInd].begin() + startIndex
-//               + numberOfDetectorsPerModule, sino.container().get() + indexSorted);
-//      }
-//   }
    sino.setIdx(index);
    sino.setPlane(index%2);
    sino.setStart(std::chrono::high_resolution_clock::now());

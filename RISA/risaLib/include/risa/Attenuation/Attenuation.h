@@ -154,6 +154,8 @@ private:
 
    int numberOfDevices_;         //!<  the number of available CUDA devices in the system
 
+   unsigned int chunkSize_{500u}; //!<  defines how much input data is loaded from reference and dark input at once
+
    //configuration values
    int numberOfDetectorModules_; //!<  the number of detector modules
    int numberOfDetectors_;       //!<  the number of detectors in the fan beam sinogram

@@ -20,6 +20,7 @@ set(SOURCES
    "${CMAKE_SOURCE_DIR}/risaLib/src/Masking/Masking.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Attenuation/Attenuation.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Loader/OfflineLoader.cu"
+   "${CMAKE_SOURCE_DIR}/risaLib/src/Loader/OfflineLoader_perfTest.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Saver/OfflineSaver.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/Receiver/Receiver.cpp"
    "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/ReceiverModule/ReceiverModule.cpp"

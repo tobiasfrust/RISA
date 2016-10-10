@@ -266,7 +266,7 @@ auto Attenuation::readInput(std::string& path,
    //   path.append("/");
    tmr1.start();
    tmr2.start();
-#pragma omp parallel for default(shared) num_threads(9)
+#pragma omp parallel for default(shared) //num_threads(9)
    for (auto i = 1; i <= numberOfDetectorModules_; i++) {
       std::vector<T> content;
       //TODO: make filename and ending configurable
@@ -390,7 +390,8 @@ auto Attenuation::readConfig(const std::string& configFile) -> bool {
          && configReader.lookupValue("blockSize2D_attenuation", blockSize2D_)
          && configReader.lookupValue("memPoolSize_attenuation", memPoolSize_)
          && configReader.lookupValue("thresh_min", threshMin_)
-         && configReader.lookupValue("thresh_max", threshMax_)) {
+         && configReader.lookupValue("thresh_max", threshMax_)
+         && configReader.lookupValue("chunkSize", chunkSize_)) {
       numberOfProjections_ = samplingRate * 1000000 / scanRate;
       return EXIT_SUCCESS;
    }
