@@ -26,7 +26,7 @@ namespace cuda {
 
 __constant__ float filter_d[2049];
 
-__global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data);
+__global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data, float* filter);
 
 Filter::Filter(const std::string& configFile) {
 
@@ -98,6 +98,10 @@ auto Filter::processor(const int deviceID) -> void {
    CHECK(
          cudaMemcpyToSymbol(filter_d, filter_.data(), sizeof(float) * filter_.size()));
    const float normalizationFactor = 1.0/(float)numberOfDetectors_;
+
+   auto filterFunction_d = ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(filter_.size());
+   CHECK(cudaMemcpy(filterFunction_d.get(), filter_.data(), sizeof(float)*filter_.size(), cudaMemcpyHostToDevice));
+
    BOOST_LOG_TRIVIAL(info) << "recoLib::cuda::Filter: Running Thread for Device " << deviceID;
    while (true) {
       auto sinogram = sinograms_[deviceID].take();
@@ -114,7 +118,7 @@ auto Filter::processor(const int deviceID) -> void {
       //Filtering
       applyFilter<<<dimGrid, dimBlock, 0, streams_[deviceID]>>>(
             (numberOfDetectors_ / 2) + 1, numberOfProjections_, normalizationFactor,
-            thrust::raw_pointer_cast(&(sinoFreq[0])));
+            sinoFreq.get(), filterFunction_d.get());
 
       CHECK(cudaPeekAtLastError());
 
@@ -217,15 +221,15 @@ auto Filter::readConfig(const std::string& configFile) -> bool {
  *    @param[in]  normalization  the normalization factor, because cuFFT computes the unnormalized fft
  *    @param[in,out] data  the inverse transformed parallel ray sinogram
  */
-__global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data) {
+__global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data , float * filter) {
    const int j = blockIdx.y * blockDim.y + threadIdx.y;
    const int i = blockIdx.x * blockDim.x + threadIdx.x;
    if (i < x && j < y) {
       //cufft performs an unnormalized transformation ifft(fft(A))=length(A)*A
       //->normalization needs to be performed
       //const float filterVal = filter_d[i] * normalization;
-      data[i + j * x].x *= filter_d[i];
-      data[i + j * x].y *= filter_d[i];
+      data[i + j * x].x *= filter[i];
+      data[i + j * x].y *= filter[i];
    }
 }
 
