@@ -29,6 +29,11 @@
 
 namespace risa
 {
+//! This stage fills the software pipeline with input data stored in ram.
+/**
+ * To perform a longer performance test, input data is sent out continously up to a specified number of frames.
+ *
+ */
       class OfflineLoaderPerfTest
       {
          public:
@@ -37,6 +42,10 @@ namespace risa
          public:
             OfflineLoaderPerfTest(const std::string& address, const std::string& configFile);
 
+            //! #loadImage is called, when the software pipeline is able to process a new image
+            /**
+             * @return  the image that is pushed through the software pipeline
+             */
             auto loadImage() -> ddrf::Image<manager_type>;
 
          protected:
@@ -53,11 +62,13 @@ namespace risa
 
             //configuration parameters
             std::string path_;      //!< the input path of raw data
-            std::string fileName_;  //!< the input 
-            std::string fileEnding_;
-            int numberOfDetectors_, numberOfProjections_;
-            int numberOfDetectorModules_, numberOfPlanes_;
-            unsigned int numberOfFrames_;
+            std::string fileName_;  //!< the input filename
+            std::string fileEnding_;   //!< the fileending of the input data
+            int numberOfDetectors_; //!< the number of detectors in the fan beam sinogram
+            int numberOfProjections_;   //!< the number of projections in the fan beam sinogram
+            int numberOfDetectorModules_; //!< the number of detector modules
+            int numberOfPlanes_; //!< the number of planes
+            unsigned int numberOfFrames_; //!< the number of frames in the input data for one plane
 
             std::size_t stopFrame_;
             std::size_t index_;

@@ -32,6 +32,12 @@ namespace risa{
       };
    }
 
+   //! This stage is suited for online and offline processing via configuration options.
+   /**
+    * In offline mode it has numberOfPlanes output buffers of fixed size. If a buffer is full, it is written to disk
+    * and cleared afterwars. In online mode, the output acts as a circular buffer. The oldest values are
+    * overwritten, if the buffer is full. At program exit, the buffer is written to disk
+    */
    class OfflineSaver {
    public:
       using manager_type = ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>;
@@ -39,24 +45,36 @@ namespace risa{
    public:
       OfflineSaver(const std::string& configFile);
 
+      //!< this function is called, when an image exits the software pipeline
       auto saveImage(ddrf::Image<manager_type> image, std::string path) -> void;
 
    protected:
       ~OfflineSaver();
 
    private:
+      //! Creates a Tiff Sequence to be stored on disk
+      /**
+       * @param[in] planeID   specifies, which buffer is to be stored on hard disk
+       */
       auto writeTiffSequence(const int planeID) -> void;
       auto readConfig(const std::string& configFile) -> bool;
+      //! writes a single image to the tiff sequence
+      /**
+       * @param[in]  tif   pointer to the TIFF-sequence
+       * @param[in]  img   the image to be written into the tiff-file
+       */
       auto writeToTiff(::TIFF* tif, ddrf::Image<manager_type> img) const -> void;
 
       int memoryPoolIndex_;
 
-      int numberOfPixels_, numberOfFrames_;
-      int numberOfPlanes_, framesPerFile_;
+      int numberOfPixels_; //!< the number of pixels in the reconstructed image in one dimension
+      int numberOfFrames_;
+      int numberOfPlanes_; //!< the number of planes
+      int framesPerFile_;
 
       detail::RecoMode mode_;
 
-      unsigned int circularBufferSize_;
+      unsigned int circularBufferSize_;   //!< the size of the output buffers
 
       std::string outputPath_, fileName_;
 

@@ -17,8 +17,7 @@
 
 namespace risa {
 
-Receiver::Receiver(const std::string& address, const std::string& configPath) :
-   notification_{0}{
+Receiver::Receiver(const std::string& address, const std::string& configPath) : notification_{27}{
 
    if (readConfig(configPath)) {
       BOOST_LOG_TRIVIAL(error) << "Configuration file could not be read successfully. Please check!";

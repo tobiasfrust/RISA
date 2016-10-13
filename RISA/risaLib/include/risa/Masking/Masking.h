@@ -85,8 +85,8 @@ private:
 
    int numberOfPixels_;                            //!<  the number of pixels in the reconstruction grid in one dimension
 
-   bool performNormalization_{true};
-   float maskingValue_{0.0};
+   bool performNormalization_{true};               //!<  specifies, if the normalization via thrust shall be performed (! performance drop, so far)
+   float maskingValue_{0.0};                       //!<  the value to which the masked area should be set
 
    //!  Read configuration values from configuration file
    /**
