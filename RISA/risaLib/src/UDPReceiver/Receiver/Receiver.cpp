@@ -18,8 +18,6 @@
 namespace risa {
 
 Receiver::Receiver(const std::string& address, const std::string& configPath) :
-   numberOfDetectorModules_{27},
-   bufferSize_{1000},
    notification_{0}{
 
    if (readConfig(configPath)) {
@@ -80,7 +78,9 @@ auto Receiver::readConfig(const std::string& configFile) -> bool {
   int samplingRate, scanRate;
   if (configReader.lookupValue("samplingRate", samplingRate)
         && configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-        && configReader.lookupValue("scanRate", scanRate)) {
+        && configReader.lookupValue("scanRate", scanRate)
+        && configReader.lookupValue("inputBufferSize", bufferSize_)
+        && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)) {
      numberOfProjections_ = samplingRate * 1000000 / scanRate;
      return EXIT_SUCCESS;
   }

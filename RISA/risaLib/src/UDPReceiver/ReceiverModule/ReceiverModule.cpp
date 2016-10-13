@@ -7,11 +7,16 @@
  *      Author: Tobias Frust (t.frust@hzdr.de)
  */
 
+#include "UDPClient.h"
+
 #include <risa/ReceiverModule/ReceiverModule.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
 #include <boost/log/trivial.hpp>
 #include <boost/asio.hpp>
+#include <boost/asio/buffer.hpp>
+
+#include <future>
 
 namespace risa {
 
@@ -19,11 +24,10 @@ using tcp = boost::asio::ip::tcp;
 
 ReceiverModule::ReceiverModule(const std::string& address, const std::string& configPath, const int moduleID,
       std::vector<unsigned short>& buffer, OnlineReceiverNotification& notification) :
-   bufferSize_{1000},
-   numberOfDetectorModules_{27},
    moduleID_{moduleID},
    buffer_(buffer),
    run_{true},
+   address_{address},
    notification_(notification),
    udpServer_{address, 4000+moduleID},
    port_{4000+moduleID}
@@ -38,13 +42,11 @@ ReceiverModule::ReceiverModule(const std::string& address, const std::string& co
 }
 
 auto ReceiverModule::run() -> void {
-   BOOST_LOG_TRIVIAL(debug) << "Test";
-
-   std::vector<unsigned short> buf(numberOfProjections_*16 + sizeof(std::size_t)/sizeof(unsigned short));
-   unsigned int sinoSize = numberOfProjections_*16;
-   std::size_t headerSize{sizeof(std::size_t)/sizeof(unsigned short)};
+   std::size_t headerSize{(sizeof(std::size_t)+sizeof(unsigned short))/sizeof(unsigned short)};
+   std::vector<unsigned short> buf(numberOfProjectionsPerPacket_*numberOfDetectorsPerModule_ + headerSize);
+   unsigned int sinoSize = numberOfProjections_*numberOfDetectorsPerModule_;
    int numBytes = 0;
-
+   unsigned short numberOfParts = numberOfProjections_/numberOfProjectionsPerPacket_ - 1;
    if(transportProtocol_ == transportProtocol::TCP){
       boost::asio::io_service io_service;
 
@@ -60,26 +62,41 @@ auto ReceiverModule::run() -> void {
          if (error == boost::asio::error::eof)
             break; // Connection closed cleanly by peer.
          std::size_t index = *((std::size_t *)buf.data());
-         BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index;
-         std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_));
-         notification_.notify(moduleID_, index);
+         unsigned short partID = *((unsigned short*)(buf.data() + sizeof(std::size_t)/sizeof(unsigned short)));
+         BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index << " part ID: " << partID;
+         std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_) + partID * numberOfProjectionsPerPacket_*numberOfDetectorsPerModule_);
+         if(numberOfParts == partID)
+            notification_.notify(moduleID_, index);
       }
    }else if(transportProtocol_ == transportProtocol::UDP){
+      //Possibility how to realize timeout with boost::asio::udp was not found yet
+      //perhaps a final packet needs to be send, that specifies the end of transaction
+      /*boost::asio::io_service io_service;
+      udp::socket socket(io_service);
+      udp::endpoint listen_endpoint(boost::asio::ip::address::from_string(address_), port_);
+      socket.open(listen_endpoint.protocol());
+      socket.bind(listen_endpoint);*/
       while(true){
          numBytes = udpServer_.timed_recv((char*)(buf.data()), buf.size()*sizeof(unsigned short), timeout_);
          if(numBytes < 0) break;
+         BOOST_LOG_TRIVIAL(debug) << "Number of bytes received: " << numBytes;
+         /*boost::system::error_code ec;
+         std::size_t n = socket.receive_from(boost::asio::buffer(buf.data(), buf.size()*sizeof(unsigned short)), listen_endpoint);
+         */
          std::size_t index = *((std::size_t *)buf.data());
-         int diff = index - lastIndex_ - 1;
-         if(diff > 0 && index > 0){
-            BOOST_LOG_TRIVIAL(warning) << "ReceiverModule " << moduleID_ << ": Lost package or wrong order. Last " << lastIndex_ << " new: " << index;
-            lastIndex_ = index;
-            continue;
+         unsigned short partID = *((unsigned short*)(buf.data() + sizeof(std::size_t)/sizeof(unsigned short)));
+         int diff = index*numberOfParts + partID - lastIndex_;
+         if(diff > 1){
+            BOOST_LOG_TRIVIAL(warning) << "ReceiverModule " << moduleID_ << ": Lost package or wrong order. Last " << lastIndex_ << " new: " << index*numberOfParts + partID;
+            lastIndex_ = index*numberOfParts + partID;
+            //continue;
          }
-         lastIndex_ = index;
-         BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index;
+         lastIndex_ = index*numberOfParts + partID;
+         BOOST_LOG_TRIVIAL(debug) << "ReceiverModule " << moduleID_ << " received packet " << index << " partID: " << partID;
          auto it = std::count(buf.cbegin()+headerSize, buf.cend(), 0);
-         std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_));
-         notification_.notify(moduleID_, index);
+         std::copy(buf.cbegin() + headerSize, buf.cend(), buffer_.begin() + sinoSize * (index%bufferSize_) + partID * numberOfProjectionsPerPacket_*numberOfDetectorsPerModule_);
+         if(numberOfParts == partID)
+            notification_.notify(moduleID_, index);
       }
    }
    notification_.notify(moduleID_, -1);
@@ -94,7 +111,11 @@ auto ReceiverModule::readConfig(const std::string& configFile) -> bool {
         && configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
         && configReader.lookupValue("scanRate", scanRate)
         && configReader.lookupValue("transportProtocol", transportProt)
-        && configReader.lookupValue("timeout", timeout_)) {
+        && configReader.lookupValue("timeout", timeout_)
+        && configReader.lookupValue("numberOfDetectorsPerModule", numberOfDetectorsPerModule_)
+        && configReader.lookupValue("numberOfProjectionsPerPacket", numberOfProjectionsPerPacket_)
+        && configReader.lookupValue("inputBufferSize", bufferSize_)
+        && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)) {
      if(transportProt == "udp")
         transportProtocol_ = transportProtocol::UDP;
      else if(transportProt == "tcp")

@@ -24,9 +24,7 @@
 namespace risa {
 namespace cuda {
 
-__constant__ float filter_d[2049];
-
-__global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data, float* filter);
+__global__ void applyFilter(const int x, const int y, cufftComplex *data, const float* const __restrict__ filter);
 
 Filter::Filter(const std::string& configFile) {
 
@@ -95,13 +93,8 @@ auto Filter::processor(const int deviceID) -> void {
    dim3 dimBlock(blockSize2D_, blockSize2D_);
    dim3 dimGrid((int) ceil((numberOfDetectors_ / 2.0 + 1) / (float) blockSize2D_),
          (int) ceil(numberOfProjections_ / (float) blockSize2D_));
-   CHECK(
-         cudaMemcpyToSymbol(filter_d, filter_.data(), sizeof(float) * filter_.size()));
-   const float normalizationFactor = 1.0/(float)numberOfDetectors_;
-
    auto filterFunction_d = ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(filter_.size());
    CHECK(cudaMemcpy(filterFunction_d.get(), filter_.data(), sizeof(float)*filter_.size(), cudaMemcpyHostToDevice));
-
    BOOST_LOG_TRIVIAL(info) << "recoLib::cuda::Filter: Running Thread for Device " << deviceID;
    while (true) {
       auto sinogram = sinograms_[deviceID].take();
@@ -117,8 +110,7 @@ auto Filter::processor(const int deviceID) -> void {
 
       //Filtering
       applyFilter<<<dimGrid, dimBlock, 0, streams_[deviceID]>>>(
-            (numberOfDetectors_ / 2) + 1, numberOfProjections_, normalizationFactor,
-            sinoFreq.get(), filterFunction_d.get());
+            (numberOfDetectors_ / 2) + 1, numberOfProjections_, sinoFreq.get(), filterFunction_d.get());
 
       CHECK(cudaPeekAtLastError());
 
@@ -218,10 +210,10 @@ auto Filter::readConfig(const std::string& configFile) -> bool {
  *
  *    @param[in]  x  the number of detectors in the parallel beam sinogram
  *    @param[in]  y  the number of projections in the parallel beam sinogram
- *    @param[in]  normalization  the normalization factor, because cuFFT computes the unnormalized fft
  *    @param[in,out] data  the inverse transformed parallel ray sinogram
+ *    @param[in]  filter   pointer to the precomputed filter function
  */
-__global__ void applyFilter(const int x, const int y, const float normalization, cufftComplex *data , float * filter) {
+__global__ void applyFilter(const int x, const int y, cufftComplex *data , const float* const __restrict__ filter) {
    const int j = blockIdx.y * blockDim.y + threadIdx.y;
    const int i = blockIdx.x * blockDim.x + threadIdx.x;
    if (i < x && j < y) {

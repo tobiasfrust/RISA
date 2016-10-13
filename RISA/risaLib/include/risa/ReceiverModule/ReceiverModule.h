@@ -40,13 +40,16 @@ private:
 
    std::vector<unsigned short>& buffer_;
 
-   std::size_t lastIndex_;
+   std::size_t lastIndex_{0u};
 
    int numberOfDetectorModules_;
    int numberOfDetectors_;
    int numberOfProjections_;
+   int numberOfProjectionsPerPacket_;
+   int numberOfDetectorsPerModule_;
 
    int port_;
+   std::string address_;
    transportProtocol transportProtocol_;
    int timeout_;
 
