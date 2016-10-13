@@ -12,7 +12,7 @@ var searchData=
   ['base_5fptr',['base_ptr',['../classddrf_1_1base__ptr.html',1,'ddrf']]],
   ['base_5fptr',['base_ptr',['../classddrf_1_1base__ptr.html#a7897bcc155c4187463825d626dc825c7',1,'ddrf::base_ptr::base_ptr() noexcept'],['../classddrf_1_1base__ptr.html#a030e41512c1d802c16098b9663e3c5b5',1,'ddrf::base_ptr::base_ptr(std::nullptr_t p) noexcept'],['../classddrf_1_1base__ptr.html#a2f7a6ff261801aee6536d883160713a9',1,'ddrf::base_ptr::base_ptr(Ptr ptr) noexcept'],['../classddrf_1_1base__ptr.html#a497dfc450a47f7ca06a8300bf29709b2',1,'ddrf::base_ptr::base_ptr(base_ptr &amp;&amp;other) noexcept'],['../classddrf_1_1base__ptr.html#af27cb7eba6806fc44ed602d5ff9009ef',1,'ddrf::base_ptr::base_ptr(const base_ptr &amp;)=delete']]],
   ['beg_5f',['beg_',['../classrisa_1_1_timer.html#a2ba4b3eb38a1f79737d04a4e577ed7aa',1,'risa::Timer']]],
-  ['bestcasetime_5f',['bestCaseTime_',['../classrisa_1_1cuda_1_1_h2_d.html#adecb9168d524fd4bb01144fcfa8ea078',1,'risa::cuda::H2D::bestCaseTime_()'],['../classrisa_1_1_offline_loader.html#a3f2a6591582a4c0befc85a5a6b1a3239',1,'risa::OfflineLoader::bestCaseTime_()']]],
+  ['bestcasetime_5f',['bestCaseTime_',['../classrisa_1_1cuda_1_1_h2_d.html#adecb9168d524fd4bb01144fcfa8ea078',1,'risa::cuda::H2D::bestCaseTime_()'],['../classrisa_1_1_offline_loader.html#a3f2a6591582a4c0befc85a5a6b1a3239',1,'risa::OfflineLoader::bestCaseTime_()'],['../classrisa_1_1_offline_loader_perf_test.html#a5a309cc77187c3ba48e1a33153c16c93',1,'risa::OfflineLoaderPerfTest::bestCaseTime_()']]],
   ['bitspersample',['BitsPerSample',['../structrisa_1_1detail_1_1_bits_per_sample.html',1,'risa::detail']]],
   ['bitspersample',['BitsPerSample',['../structddrf_1_1loaders_1_1detail_1_1_bits_per_sample.html',1,'ddrf::loaders::detail']]],
   ['bitspersample',['BitsPerSample',['../structddrf_1_1savers_1_1detail_1_1_bits_per_sample.html',1,'ddrf::savers::detail']]],
@@ -21,7 +21,7 @@ var searchData=
   ['boost_5fall_5fdyn_5flink',['BOOST_ALL_DYN_LINK',['../_filesystem_8cpp.html#a8df2553ea80556a445530460433ac2f5',1,'Filesystem.cpp']]],
   ['brx',['brx',['../structddrf_1_1loaders_1_1_h_i_s_header.html#ad6a04a6cf2c314d787438b55415d791a',1,'ddrf::loaders::HISHeader']]],
   ['bry',['bry',['../structddrf_1_1loaders_1_1_h_i_s_header.html#aa2258f9f0ba6454d4f684a9c77c2829b',1,'ddrf::loaders::HISHeader']]],
-  ['buffer_5f',['buffer_',['../classddrf_1_1_circular_buffer.html#a16cc2d427b42a72a0e378eaac7d375eb',1,'ddrf::CircularBuffer::buffer_()'],['../classrisa_1_1_offline_loader.html#a89f61c740047e101b5fbe126b53a84a5',1,'risa::OfflineLoader::buffer_()'],['../classrisa_1_1_receiver_module.html#a90f0cd969c3ecb60828785dc34868874',1,'risa::ReceiverModule::buffer_()']]],
+  ['buffer_5f',['buffer_',['../classddrf_1_1_circular_buffer.html#a16cc2d427b42a72a0e378eaac7d375eb',1,'ddrf::CircularBuffer::buffer_()'],['../classrisa_1_1_offline_loader.html#a89f61c740047e101b5fbe126b53a84a5',1,'risa::OfflineLoader::buffer_()'],['../classrisa_1_1_offline_loader_perf_test.html#af3a553925823cca890e871e0409c7f1b',1,'risa::OfflineLoaderPerfTest::buffer_()'],['../classrisa_1_1_receiver_module.html#a90f0cd969c3ecb60828785dc34868874',1,'risa::ReceiverModule::buffer_()']]],
   ['buffers_5f',['buffers_',['../classrisa_1_1_receiver.html#a4ef88c824b7f5dfd21adedb619f9d12d',1,'risa::Receiver']]],
   ['buffersize_5f',['bufferSize_',['../classrisa_1_1_receiver.html#a978c4a10f8edb4dbb6ef09f0b8707a48',1,'risa::Receiver::bufferSize_()'],['../classrisa_1_1_receiver_module.html#aaf3a6ecbd714e4bf4933b4483b3273b3',1,'risa::ReceiverModule::bufferSize_()']]]
 ];

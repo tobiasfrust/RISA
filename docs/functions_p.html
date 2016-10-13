@@ -153,12 +153,16 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 : <a class="el" href="classddrf_1_1pipeline_1_1_sink_stage.html#a767c00586288cc4603bb1437ef263e4e">ddrf::pipeline::SinkStage&lt; ImageSaver &gt;</a>
 , <a class="el" href="classddrf_1_1pipeline_1_1_source_stage.html#af3cc677b549890b3682d1992669b5b3e">ddrf::pipeline::SourceStage&lt; ImageLoader &gt;</a>
 , <a class="el" href="classrisa_1_1_offline_loader.html#a48a96b22b4b0466bf2f5d9c57fa7ffef">risa::OfflineLoader</a>
+, <a class="el" href="classrisa_1_1_offline_loader_perf_test.html#abf0781006a949efe549f444628d0e737">risa::OfflineLoaderPerfTest</a>
 </li>
 <li>pathDark_
 : <a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a536dd4d53e9577e350e23b571b074295">risa::cuda::Attenuation</a>
 </li>
 <li>pathReference_
 : <a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#af6646aac3068ae0637551c090b2db14a">risa::cuda::Attenuation</a>
+</li>
+<li>performNormalization_
+: <a class="el" href="classrisa_1_1cuda_1_1_masking.html#a293c2a977156868a5a66a6e58d084d28">risa::cuda::Masking</a>
 </li>
 <li>pitch()
 : <a class="el" href="classddrf_1_1_image.html#a87de8711005176a7912950eaa87a4f76">ddrf::Image&lt; MemoryManager &gt;</a>
@@ -169,7 +173,7 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 : <a class="el" href="classddrf_1_1pitched__ptr.html#a60bdeb4bb82b59b38919afa3c342338d">ddrf::pitched_ptr&lt; T, CopyPolicy, is3D, Ptr &gt;</a>
 </li>
 <li>pitched_ptr()
-: <a class="el" href="classddrf_1_1pitched__ptr.html#a19582d51208e141cf2ea062561bf1c6e">ddrf::pitched_ptr&lt; T, CopyPolicy, is3D, Ptr &gt;</a>
+: <a class="el" href="classddrf_1_1pitched__ptr.html#a7484d0de21fef0d793e4621e8448f975">ddrf::pitched_ptr&lt; T, CopyPolicy, is3D, Ptr &gt;</a>
 </li>
 <li>plane()
 : <a class="el" href="classddrf_1_1_image.html#a7df38e351e8eadc65b09245077353bcf">ddrf::Image&lt; MemoryManager &gt;</a>
@@ -229,7 +233,7 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 </li>
 <li>processor()
 : <a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a6f126d4afc07646314d3e42b21ca1d83">risa::cuda::Attenuation</a>
-, <a class="el" href="classrisa_1_1cuda_1_1_backprojection.html#a325cbe3d8ee5ab6fc59fb8e7f78e924e">risa::cuda::Backprojection</a>
+, <a class="el" href="classrisa_1_1cuda_1_1_backprojection.html#a649cc9837058e89c849b8e4a984966ed">risa::cuda::Backprojection</a>
 , <a class="el" href="classrisa_1_1cuda_1_1_d2_h.html#aca49584f02828c9818fe7409d487da24">risa::cuda::D2H</a>
 , <a class="el" href="classrisa_1_1cuda_1_1_detector_interpolation.html#aeb4eef1fbb9f78fe64f7eee4d4036c5d">risa::cuda::DetectorInterpolation</a>
 , <a class="el" href="classrisa_1_1cuda_1_1_fan2_para.html#a162a47a040ea6c77f870db644a003332">risa::cuda::Fan2Para</a>
@@ -250,7 +254,7 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 , <a class="el" href="classrisa_1_1cuda_1_1_reordering.html#a8a13b5166a4a043e6a2df1bed427607b">risa::cuda::Reordering</a>
 </li>
 <li>ptr()
-: <a class="el" href="classddrf_1_1ptr.html#a7846bff9f376c4e5f1ea80ac189ac6b7">ddrf::ptr&lt; T, CopyPolicy, Ptr &gt;</a>
+: <a class="el" href="classddrf_1_1ptr.html#af2c63393634a57361cbd7c5134d1f342">ddrf::ptr&lt; T, CopyPolicy, Ptr &gt;</a>
 </li>
 <li>ptr_
 : <a class="el" href="classddrf_1_1base__ptr.html#aeeb157c561ef61768bf1c4c83b8faf16">ddrf::base_ptr&lt; T, CopyPolicy, Ptr &gt;</a>
@@ -269,7 +273,7 @@ $(document).ready(function(){initNavTree('functions_p.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Oct 5 2016 09:42:45 for RISA by
+    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

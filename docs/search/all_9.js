@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ifstreams_5f',['ifstreams_',['../classrisa_1_1_offline_loader.html#a14ef62314e43004bc39c87d77495cf56',1,'risa::OfflineLoader']]],
   ['image',['Image',['../classddrf_1_1_image.html',1,'ddrf']]],
   ['image',['Image',['../classddrf_1_1_image.html#a256ff613ab63ffee2464b5f44d079374',1,'ddrf::Image::Image() noexcept'],['../classddrf_1_1_image.html#adba25b7f1b2fad160db9be6e9cf02aa9',1,'ddrf::Image::Image(size_type size, size_type idx=0, size_type planeID=0, pointer_type img_data=nullptr)'],['../classddrf_1_1_image.html#ae0dea9546b403c6892e3352c96db6b64',1,'ddrf::Image::Image(const Image &amp;other)'],['../classddrf_1_1_image.html#ab9336a0b12d3d3c9aabc901b4c7ac6cd',1,'ddrf::Image::Image(Image &amp;&amp;other) noexcept']]],
   ['image_2eh',['Image.h',['../_image_8h.html',1,'']]],
@@ -7,8 +8,8 @@ var searchData=
   ['imagecenter',['imageCenter',['../namespacerisa_1_1cuda.html#aa68c22ec3eef69377c9c2bb56a4908c9',1,'risa::cuda']]],
   ['imagecenterx_5f',['imageCenterX_',['../structrisa_1_1cuda_1_1parameters.html#aa7b181744f38c1fd82e2f585e3ac3bf6',1,'risa::cuda::parameters']]],
   ['imagecentery_5f',['imageCenterY_',['../structrisa_1_1cuda_1_1parameters.html#a54819721d0dfaddbb48fd62d5d6a3b68',1,'risa::cuda::parameters']]],
-  ['imageloader',['ImageLoader',['../classddrf_1_1_image_loader.html',1,'ddrf']]],
   ['imageloader',['ImageLoader',['../classddrf_1_1_image_loader.html#a2c5fc8aac83a16779c0f7fc0bb107a42',1,'ddrf::ImageLoader']]],
+  ['imageloader',['ImageLoader',['../classddrf_1_1_image_loader.html',1,'ddrf']]],
   ['imageloader_2eh',['ImageLoader.h',['../_image_loader_8h.html',1,'']]],
   ['imagesaver',['ImageSaver',['../classddrf_1_1_image_saver.html#af0e7b023ccaaeb34b91cfc8a7a11fbf7',1,'ddrf::ImageSaver']]],
   ['imagesaver',['ImageSaver',['../classddrf_1_1_image_saver.html',1,'ddrf']]],
@@ -17,7 +18,7 @@ var searchData=
   ['imgs_5f',['imgs_',['../classrisa_1_1cuda_1_1_d2_h.html#a50d9c92e4ef1d51ef1ff01ef6b358d9b',1,'risa::cuda::D2H::imgs_()'],['../classrisa_1_1cuda_1_1_masking.html#a5a377990d7930672aa6fb90ec8963057',1,'risa::cuda::Masking::imgs_()']]],
   ['indeces_5f',['indeces_',['../classrisa_1_1_online_receiver_notification.html#a56e77978ac1b8c95cfbe3e1de859eba9',1,'risa::OnlineReceiverNotification']]],
   ['index',['index',['../classddrf_1_1_image.html#ade2a6bd2a9f0256f475a1fdd6df1f9b4',1,'ddrf::Image']]],
-  ['index_5f',['index_',['../classddrf_1_1_circular_buffer.html#ad2f5dfc3acb509a8e5d88dd67e2ad021',1,'ddrf::CircularBuffer::index_()'],['../classddrf_1_1_image.html#affabe3aac867ffccb40cf7af875e6797',1,'ddrf::Image::index_()'],['../classrisa_1_1_offline_loader.html#a66f925b1a2b50eb1dd3344b574edb637',1,'risa::OfflineLoader::index_()']]],
+  ['index_5f',['index_',['../classddrf_1_1_circular_buffer.html#ad2f5dfc3acb509a8e5d88dd67e2ad021',1,'ddrf::CircularBuffer::index_()'],['../classddrf_1_1_image.html#affabe3aac867ffccb40cf7af875e6797',1,'ddrf::Image::index_()'],['../classrisa_1_1_offline_loader.html#a66f925b1a2b50eb1dd3344b574edb637',1,'risa::OfflineLoader::index_()'],['../classrisa_1_1_offline_loader_perf_test.html#a92952091e38094da335913ed68de8586',1,'risa::OfflineLoaderPerfTest::index_()']]],
   ['init',['init',['../classrisa_1_1cuda_1_1_attenuation.html#a762c21a648c0931174cea485c84c4c19',1,'risa::cuda::Attenuation']]],
   ['initcufft',['initCuFFT',['../classrisa_1_1cuda_1_1_filter.html#a245823afb5e494ee833fd593b2000ae3',1,'risa::cuda::Filter']]],
   ['initlog',['initLog',['../main_8cpp.html#ac65e2f892f44e0e7baaacc46fbd94d75',1,'main.cpp']]],
@@ -36,6 +37,7 @@ var searchData=
   ['interpolationtype',['InterpolationType',['../namespacerisa_1_1cuda_1_1detail.html#a965232fc29a20b313282d6f75a4a6d08',1,'risa::cuda::detail']]],
   ['interpolationtype_5f',['interpolationType_',['../classrisa_1_1cuda_1_1_backprojection.html#ab4c7a8bb9328b241f324cc8ed74507e5',1,'risa::cuda::Backprojection']]],
   ['invalid',['invalid',['../classddrf_1_1_image.html#a4738e653822a437a1e5640ac970f7d06',1,'ddrf::Image']]],
+  ['io_5fservice_5f',['io_service_',['../classrisa_1_1client.html#a0612d942ba776ef5ff83f4feb678ed42',1,'risa::client']]],
   ['is3dptr',['is3DPtr',['../classddrf_1_1pitched__ptr.html#a0d7f9de08a7694839bfa86cafe31405e',1,'ddrf::pitched_ptr']]],
   ['item_5fcv_5f',['item_cv_',['../classddrf_1_1_queue.html#a24abad674a30d65dcfb7af2eaf47ba1e',1,'ddrf::Queue']]]
 ];

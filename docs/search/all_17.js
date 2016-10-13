@@ -19,6 +19,7 @@ var searchData=
   ['_7ememorypool',['~MemoryPool',['../classddrf_1_1_memory_pool.html#a5d399e069f80112386dcdf4911e1aeb7',1,'ddrf::MemoryPool']]],
   ['_7eobserver',['~Observer',['../classddrf_1_1_observer.html#a9679f40f9b01832960efddb6fe4a181e',1,'ddrf::Observer']]],
   ['_7eofflineloader',['~OfflineLoader',['../classrisa_1_1_offline_loader.html#a27c82b797a7b30743347214c8b857f5f',1,'risa::OfflineLoader']]],
+  ['_7eofflineloaderperftest',['~OfflineLoaderPerfTest',['../classrisa_1_1_offline_loader_perf_test.html#a40d24a8c69ccd58f949fff431394a287',1,'risa::OfflineLoaderPerfTest']]],
   ['_7eofflinesaver',['~OfflineSaver',['../classrisa_1_1_offline_saver.html#ac47e88259ae5407473649a8bb612fe37',1,'risa::OfflineSaver']]],
   ['_7epitched_5fptr',['~pitched_ptr',['../classddrf_1_1pitched__ptr.html#a9fd68da3bdf4c6a7fa89ae5d229a7bee',1,'ddrf::pitched_ptr']]],
   ['_7eptr',['~ptr',['../classddrf_1_1ptr.html#adc9b0448ce84932493f345e0be507a59',1,'ddrf::ptr']]],

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['cfg',['cfg',['../classrisa_1_1_config_reader.html#a866c14b743f296f0091a8f987ebb802e',1,'risa::ConfigReader']]],
+  ['chunksize_5f',['chunkSize_',['../classrisa_1_1cuda_1_1_attenuation.html#a5d4f08d8f30017d7237a73bc1e5298df',1,'risa::cuda::Attenuation']]],
   ['circularbuffersize_5f',['circularBufferSize_',['../classrisa_1_1_offline_saver.html#adb6e9ef7f0860701528b38e37e23ff0d',1,'risa::OfflineSaver']]],
   ['correction',['correction',['../structddrf_1_1loaders_1_1_h_i_s_header.html#af8950894ff687a90f6fee78ee0446f7a',1,'ddrf::loaders::HISHeader']]],
   ['coslookup',['cosLookup',['../namespacerisa_1_1cuda.html#a2992a5dccc024503fda24525dcfb0327',1,'risa::cuda']]],

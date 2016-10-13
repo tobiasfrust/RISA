@@ -2,6 +2,7 @@ var searchData=
 [
   ['observer',['Observer',['../classddrf_1_1_observer.html#a4781b2b0561736d72d13d9ef28e96e18',1,'ddrf::Observer']]],
   ['offlineloader',['OfflineLoader',['../classrisa_1_1_offline_loader.html#ab897d26926119d43d29bc41ea7a3b4e9',1,'risa::OfflineLoader']]],
+  ['offlineloaderperftest',['OfflineLoaderPerfTest',['../classrisa_1_1_offline_loader_perf_test.html#a390f507a6f946b238852bbe332e38bb7',1,'risa::OfflineLoaderPerfTest']]],
   ['offlinesaver',['OfflineSaver',['../classrisa_1_1_offline_saver.html#a64b6bbb41099c8fd4791db71aecfd7b2',1,'risa::OfflineSaver']]],
   ['onlinereceivernotification',['OnlineReceiverNotification',['../classrisa_1_1_online_receiver_notification.html#a2b27b6c3a60705ebb91f5968000b2a8f',1,'risa::OnlineReceiverNotification']]],
   ['operator_20bool',['operator bool',['../classddrf_1_1cuda_1_1detail_1_1unique__ptr.html#a36e0269887992e32ad021bfb61440f53',1,'ddrf::cuda::detail::unique_ptr::operator bool()'],['../classddrf_1_1base__ptr.html#a4e6a0321d477e47535c6865eeea94102',1,'ddrf::base_ptr::operator bool()']]],

@@ -105,7 +105,9 @@ $(document).ready(function(){initNavTree('namespacerisa.html','');});
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">risa Namespace Reference</div>  </div>
 </div><!--header-->
@@ -120,18 +122,28 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1client.html">client</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_config_reader.html">ConfigReader</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the configuration values from the input file.  <a href="classrisa_1_1_config_reader.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_loader.html">OfflineLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The loader stage for offline data processing.  <a href="classrisa_1_1_offline_loader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_loader_perf_test.html">OfflineLoaderPerfTest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This stage fills the software pipeline with input data stored in ram.  <a href="classrisa_1_1_offline_loader_perf_test.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html">OfflineSaver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This stage is suited for online and offline processing via configuration options.  <a href="classrisa_1_1_offline_saver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_online_receiver_notification.html">OnlineReceiverNotification</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class implements the synchronization between the <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> class and the superior <a class="el" href="classrisa_1_1_receiver.html" title="This class controls the ReceiverModule objects. ">Receiver</a> class.  <a href="classrisa_1_1_online_receiver_notification.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html">Receiver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class controls the <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> objects.  <a href="classrisa_1_1_receiver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver_module.html">ReceiverModule</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> is bound to one DetectorModule.  <a href="classrisa_1_1_receiver_module.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_timer.html">Timer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Timer-class uses the std::chrono library and provides a high precision timer.  <a href="classrisa_1_1_timer.html#details">More...</a><br /></td></tr>
@@ -140,14 +152,62 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_u_d_p_server.html">UDPServer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a369908dea86ad38796703fd046150468"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa.html#a369908dea86ad38796703fd046150468">tcp</a> = boost::asio::ip::tcp</td></tr>
+<tr class="separator:a369908dea86ad38796703fd046150468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:af61aa0ee86232352ac03b2b8b9cd40b4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa.html#af61aa0ee86232352ac03b2b8b9cd40b4">transportProtocol</a> : short { <a class="el" href="namespacerisa.html#af61aa0ee86232352ac03b2b8b9cd40b4ac4104086803a5b7aad7f76526739eae0">UDP</a>, 
+<a class="el" href="namespacerisa.html#af61aa0ee86232352ac03b2b8b9cd40b4a8a8d09aa26481d9940e5dc2f5aa30c4f">TCP</a>
+ }</td></tr>
+<tr class="separator:af61aa0ee86232352ac03b2b8b9cd40b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a369908dea86ad38796703fd046150468"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacerisa.html#a369908dea86ad38796703fd046150468">risa::tcp</a> = typedef boost::asio::ip::tcp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="_receiver_module_8cpp_source.html#l00023">23</a> of file <a class="el" href="_receiver_module_8cpp_source.html">ReceiverModule.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="af61aa0ee86232352ac03b2b8b9cd40b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacerisa.html#af61aa0ee86232352ac03b2b8b9cd40b4">risa::transportProtocol</a> : short</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="af61aa0ee86232352ac03b2b8b9cd40b4ac4104086803a5b7aad7f76526739eae0"></a>UDP&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="af61aa0ee86232352ac03b2b8b9cd40b4a8a8d09aa26481d9940e5dc2f5aa30c4f"></a>TCP&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+<p>Definition at line <a class="el" href="_receiver_module_8h_source.html#l00024">24</a> of file <a class="el" href="_receiver_module_8h_source.html">ReceiverModule.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacerisa.html">risa</a></li>
-    <li class="footer">Generated on Wed Oct 5 2016 09:42:45 for RISA by
+    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

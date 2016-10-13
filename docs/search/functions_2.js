@@ -1,6 +1,7 @@
 var searchData=
 [
   ['check',['check',['../namespaceddrf_1_1cuda.html#a96e1e9475a0a4e4f657d63869ee35085',1,'ddrf::cuda']]],
+  ['check_5fdeadline',['check_deadline',['../classrisa_1_1client.html#ade5925dce338936943de6b22585efbe9',1,'risa::client']]],
   ['checkcudaerror',['checkCudaError',['../namespaceddrf_1_1cuda_1_1detail.html#a68ffa8a58d6ca8bfbef382b3fb8b19fb',1,'ddrf::cuda::detail']]],
   ['checkcufft',['checkCufft',['../namespaceddrf_1_1cuda.html#af97d99c4e4de2c1f04005bf056c7671d',1,'ddrf::cuda']]],
   ['checkcuffterror',['checkCufftError',['../namespaceddrf_1_1cuda_1_1detail.html#aae01ca29f6fd6e45717f642f9e9ca443',1,'ddrf::cuda::detail']]],
@@ -8,6 +9,7 @@ var searchData=
   ['checkcusparseerror',['checkCusparseError',['../namespaceddrf_1_1cuda_1_1detail.html#a0a8776c078565493462162b8cb187072',1,'ddrf::cuda::detail']]],
   ['circularbuffer',['CircularBuffer',['../classddrf_1_1_circular_buffer.html#abb320e4085fddf5cc58e42a260fa037e',1,'ddrf::CircularBuffer']]],
   ['clear',['clear',['../classddrf_1_1_circular_buffer.html#ad6977970eab40c096dc3c0cadc983ab6',1,'ddrf::CircularBuffer']]],
+  ['client',['client',['../classrisa_1_1client.html#a43ae6b5eb5d8a398821af03c0d21ae25',1,'risa::client']]],
   ['computeangles',['computeAngles',['../classrisa_1_1cuda_1_1_fan2_para.html#a591129bf6828c18455d78cfb6eb72e63',1,'risa::cuda::Fan2Para']]],
   ['computeattenuation',['computeAttenuation',['../namespacerisa_1_1cuda.html#aae254f8234219c7b3e0b7a44b45dcc40',1,'risa::cuda']]],
   ['computeaverage',['computeAverage',['../classrisa_1_1cuda_1_1_attenuation.html#a8be07c9a0f7d6e24b13d1720a786c63b',1,'risa::cuda::Attenuation']]],

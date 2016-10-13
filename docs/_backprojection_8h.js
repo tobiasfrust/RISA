@@ -6,5 +6,6 @@ var _backprojection_8h =
       [ "linear", "_backprojection_8h.html#a965232fc29a20b313282d6f75a4a6d08ac0d3d847890b6218b887289cec79c4bd", null ]
     ] ],
     [ "backProjectLinear", "_backprojection_8h.html#ab51c06325d25eff1ff96fa9c38d5f589", null ],
-    [ "backProjectNearest", "_backprojection_8h.html#a2d4995e7efd15ab7db69653debd13e5a", null ]
+    [ "backProjectNearest", "_backprojection_8h.html#a2d4995e7efd15ab7db69653debd13e5a", null ],
+    [ "backProjectTex", "_backprojection_8h.html#a507c3a90398db5c0497b6cd1c0621545", null ]
 ];

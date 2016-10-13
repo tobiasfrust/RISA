@@ -162,11 +162,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ab51c06325d25eff1ff96fa9c38d5f589"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#ab51c06325d25eff1ff96fa9c38d5f589">backProjectLinear</a> (const float *const __restrict__ sinogram, float *__restrict__ image, const int numberOfPixels, const int numberOfProjections, const int numberOfDetectors)</td></tr>
 <tr class="memdesc:ab51c06325d25eff1ff96fa9c38d5f589"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the back projection operation with linear interpolation.  <a href="#ab51c06325d25eff1ff96fa9c38d5f589">More...</a><br /></td></tr>
 <tr class="separator:ab51c06325d25eff1ff96fa9c38d5f589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a507c3a90398db5c0497b6cd1c0621545"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#a507c3a90398db5c0497b6cd1c0621545">backProjectTex</a> (cudaTextureObject_t tex, float *__restrict__ image, const int numberOfPixels, const int numberOfProjections, const int numberOfDetectors)</td></tr>
+<tr class="memdesc:a507c3a90398db5c0497b6cd1c0621545"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the back projection with nearest neighbor interpolation using texture memory.  <a href="#a507c3a90398db5c0497b6cd1c0621545">More...</a><br /></td></tr>
+<tr class="separator:a507c3a90398db5c0497b6cd1c0621545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d4995e7efd15ab7db69653debd13e5a"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#a2d4995e7efd15ab7db69653debd13e5a">backProjectNearest</a> (const float *const __restrict__ sinogram, float *__restrict__ image, const int numberOfPixels, const int numberOfProjections, const int numberOfDetectors)</td></tr>
 <tr class="memdesc:a2d4995e7efd15ab7db69653debd13e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the back projection with nearest neighbor interpolation.  <a href="#a2d4995e7efd15ab7db69653debd13e5a">More...</a><br /></td></tr>
 <tr class="separator:a2d4995e7efd15ab7db69653debd13e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a507c3a90398db5c0497b6cd1c0621545"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#a507c3a90398db5c0497b6cd1c0621545">backProjectTex</a> (cudaTextureObject_t tex, float *__restrict__ image, const int numberOfPixels, const int numberOfProjections, const int numberOfDetectors)</td></tr>
-<tr class="separator:a507c3a90398db5c0497b6cd1c0621545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305cd8156ab0ffbfb3826a93992f5178"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a305cd8156ab0ffbfb3826a93992f5178"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#a305cd8156ab0ffbfb3826a93992f5178">ellipse_kreis_uwe</a> (T alpha, T DX, T DZ, T SourceRingDiam) -&gt; T</td></tr>
 <tr class="separator:a305cd8156ab0ffbfb3826a93992f5178"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,8 +200,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a074dbb989e17852f849da168f98a55c8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#a074dbb989e17852f849da168f98a55c8">hanning</a> (const T w, const T d) -&gt; T</td></tr>
 <tr class="memdesc:a074dbb989e17852f849da168f98a55c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">computes the value of the Hanning-filter function  <a href="#a074dbb989e17852f849da168f98a55c8">More...</a><br /></td></tr>
 <tr class="separator:a074dbb989e17852f849da168f98a55c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae144510679c5f2b932295f8549717307"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#ae144510679c5f2b932295f8549717307">applyFilter</a> (const int x, const int y, const float normalization, cufftComplex *data)</td></tr>
-<tr class="separator:ae144510679c5f2b932295f8549717307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73a4dad1ecb80db20d98140972c41dc9"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#a73a4dad1ecb80db20d98140972c41dc9">applyFilter</a> (const int x, const int y, cufftComplex *data, const float *const __restrict__ filter)</td></tr>
+<tr class="separator:a73a4dad1ecb80db20d98140972c41dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee8a8b04edb41f3a1896757c3f634b23"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#aee8a8b04edb41f3a1896757c3f634b23">mask</a> (float *__restrict__ img, const float value, const int numberOfPixels)</td></tr>
 <tr class="memdesc:aee8a8b04edb41f3a1896757c3f634b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">This CUDA kernel multiplies the mask and the reconstructed image.  <a href="#aee8a8b04edb41f3a1896757c3f634b23">More...</a><br /></td></tr>
 <tr class="separator:aee8a8b04edb41f3a1896757c3f634b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,11 +220,9 @@ Variables</h2></td></tr>
 <tr class="separator:aff61fece305952ddbcc49ed53010b008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa68c22ec3eef69377c9c2bb56a4908c9"><td class="memItemLeft" align="right" valign="top">__constant__ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#aa68c22ec3eef69377c9c2bb56a4908c9">imageCenter</a> [1]</td></tr>
 <tr class="separator:aa68c22ec3eef69377c9c2bb56a4908c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1a12dfd22c98cc4d432a6e5f2ceb063"><td class="memItemLeft" align="right" valign="top">__constant__ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacerisa_1_1cuda.html#ad1a12dfd22c98cc4d432a6e5f2ceb063">filter_d</a> [2049]</td></tr>
-<tr class="separator:ad1a12dfd22c98cc4d432a6e5f2ceb063"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ae144510679c5f2b932295f8549717307"></a>
+<a class="anchor" id="a73a4dad1ecb80db20d98140972c41dc9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -242,14 +241,14 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>normalization</em>, </td>
+          <td class="paramtype">cufftComplex *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">cufftComplex *&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
+          <td class="paramtype">const float *const __restrict__&#160;</td>
+          <td class="paramname"><em>filter</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -263,13 +262,13 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>the number of detectors in the parallel beam sinogram </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>the number of projections in the parallel beam sinogram </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">normalization</td><td>the normalization factor, because cuFFT computes the unnormalized fft </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">data</td><td>the inverse transformed parallel ray sinogram </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter</td><td>pointer to the precomputed filter function </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_filter_8cu_source.html#l00220">220</a> of file <a class="el" href="_filter_8cu_source.html">Filter.cu</a>.</p>
+<p>Definition at line <a class="el" href="_filter_8cu_source.html#l00216">216</a> of file <a class="el" href="_filter_8cu_source.html">Filter.cu</a>.</p>
 
 </div>
 </div>
@@ -328,7 +327,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_backprojection_8cu_source.html#l00241">241</a> of file <a class="el" href="_backprojection_8cu_source.html">Backprojection.cu</a>.</p>
+<p>Definition at line <a class="el" href="_backprojection_8cu_source.html#l00224">224</a> of file <a class="el" href="_backprojection_8cu_source.html">Backprojection.cu</a>.</p>
 
 </div>
 </div>
@@ -387,7 +386,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_backprojection_8cu_source.html#l00308">308</a> of file <a class="el" href="_backprojection_8cu_source.html">Backprojection.cu</a>.</p>
+<p>Definition at line <a class="el" href="_backprojection_8cu_source.html#l00291">291</a> of file <a class="el" href="_backprojection_8cu_source.html">Backprojection.cu</a>.</p>
 
 </div>
 </div>
@@ -433,7 +432,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_backprojection_8cu_source.html#l00276">276</a> of file <a class="el" href="_backprojection_8cu_source.html">Backprojection.cu</a>.</p>
+<p>This function performs the back projection with nearest neighbor interpolation using texture memory. </p>
+<p>With a pixel-driven back projection approach, this CUDA kernel spans number of pixels times number of pixels, in the reconstruction grid, threads. Starting at the pixel center, each thread follows the ray path and computes the intersection with the detector pixels. The intersection does not line up, and thus, a nearest neigbor interpolation using te texture memory is performed. This back projection kernel is the fastest one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">tex</td><td>linearized sinogram data stored in texture memory. Each projection is stored linearly after each other </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">image</td><td>the reconstruction grid, in which the reconstructed image is stored </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">numberOfPixels</td><td>the number of pixels in the reconstruction grid in one dimension </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">numberOfProjections</td><td>the number of projections in the parallel beam sinogram over 180 degrees </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">numberOfDetectors</td><td>the number of detectors in the parallel beam sinogram </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_backprojection_8cu_source.html#l00259">259</a> of file <a class="el" href="_backprojection_8cu_source.html">Backprojection.cu</a>.</p>
 
 </div>
 </div>
@@ -520,7 +532,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_attenuation_8cu_source.html#l00418">418</a> of file <a class="el" href="_attenuation_8cu_source.html">Attenuation.cu</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8cu_source.html#l00402">402</a> of file <a class="el" href="_attenuation_8cu_source.html">Attenuation.cu</a>.</p>
 
 </div>
 </div>
@@ -1031,7 +1043,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_masking_8cu_source.html#l00128">128</a> of file <a class="el" href="_masking_8cu_source.html">Masking.cu</a>.</p>
+<p>Definition at line <a class="el" href="_masking_8cu_source.html#l00143">143</a> of file <a class="el" href="_masking_8cu_source.html">Masking.cu</a>.</p>
 
 </div>
 </div>
@@ -1179,20 +1191,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ad1a12dfd22c98cc4d432a6e5f2ceb063"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__constant__ float risa::cuda::filter_d[2049]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_filter_8cu_source.html#l00027">27</a> of file <a class="el" href="_filter_8cu_source.html">Filter.cu</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aa68c22ec3eef69377c9c2bb56a4908c9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1255,7 +1253,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacerisa.html">risa</a></li><li class="navelem"><a class="el" href="namespacerisa_1_1cuda.html">cuda</a></li>
-    <li class="footer">Generated on Wed Oct 5 2016 09:42:45 for RISA by
+    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

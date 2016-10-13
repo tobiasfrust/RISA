@@ -204,6 +204,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aeeccdc68d07e65fe7e092334fe34dfff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#aeeccdc68d07e65fe7e092334fe34dfff">numberOfDevices_</a></td></tr>
 <tr class="memdesc:aeeccdc68d07e65fe7e092334fe34dfff"><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of available CUDA devices in the system  <a href="#aeeccdc68d07e65fe7e092334fe34dfff">More...</a><br /></td></tr>
 <tr class="separator:aeeccdc68d07e65fe7e092334fe34dfff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d4f08d8f30017d7237a73bc1e5298df"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a5d4f08d8f30017d7237a73bc1e5298df">chunkSize_</a> {500u}</td></tr>
+<tr class="memdesc:a5d4f08d8f30017d7237a73bc1e5298df"><td class="mdescLeft">&#160;</td><td class="mdescRight">defines how much input data is loaded from reference and dark input at once  <a href="#a5d4f08d8f30017d7237a73bc1e5298df">More...</a><br /></td></tr>
+<tr class="separator:a5d4f08d8f30017d7237a73bc1e5298df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2b56e0e07adf85284480b07a6f7adef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#ae2b56e0e07adf85284480b07a6f7adef">numberOfDetectorModules_</a></td></tr>
 <tr class="memdesc:ae2b56e0e07adf85284480b07a6f7adef"><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of detector modules  <a href="#ae2b56e0e07adf85284480b07a6f7adef">More...</a><br /></td></tr>
 <tr class="separator:ae2b56e0e07adf85284480b07a6f7adef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,8 +235,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a27eb8952aab142c8a2d89cd93449dbde"><td class="mdescLeft">&#160;</td><td class="mdescRight">source offset in the fan beam sinogram  <a href="#a27eb8952aab142c8a2d89cd93449dbde">More...</a><br /></td></tr>
 <tr class="separator:a27eb8952aab142c8a2d89cd93449dbde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7661373667023f0164ebaf9a01445166"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a7661373667023f0164ebaf9a01445166">lowerLimOffset_</a></td></tr>
+<tr class="memdesc:a7661373667023f0164ebaf9a01445166"><td class="mdescLeft">&#160;</td><td class="mdescRight">lower offset, which is masked  <a href="#a7661373667023f0164ebaf9a01445166">More...</a><br /></td></tr>
 <tr class="separator:a7661373667023f0164ebaf9a01445166"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a975259a840a4074ec0113b23302dcf57"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a975259a840a4074ec0113b23302dcf57">upperLimOffset_</a></td></tr>
+<tr class="memdesc:a975259a840a4074ec0113b23302dcf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">upper offset, which is masked  <a href="#a975259a840a4074ec0113b23302dcf57">More...</a><br /></td></tr>
 <tr class="separator:a975259a840a4074ec0113b23302dcf57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a606c1bedda8aee31ad4115ba2db1b3eb"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a606c1bedda8aee31ad4115ba2db1b3eb">xa_</a></td></tr>
 <tr class="separator:a606c1bedda8aee31ad4115ba2db1b3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -270,7 +275,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>This stage computes the attenuation coefficients in the fan beam sinogram. </p>
 <p>This class represents the attenuation stage. It computes the attenuation data on the GPU device using the CUDA language. Multi GPU usage is possible. </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00037">37</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00054">54</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a6252de758a33d71143cedaaab6018aee"></a>
 <div class="memitem">
@@ -282,7 +287,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00043">43</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00060">60</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -298,7 +303,7 @@ Private Attributes</h2></td></tr>
 
 <p>The input data type that needs to fit the output type of the previous stage. </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00040">40</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00057">57</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -314,7 +319,7 @@ Private Attributes</h2></td></tr>
 
 <p>The output data type that needs to fit the input type of the following stage. </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00042">42</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00059">59</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -743,7 +748,7 @@ template&lt;typename T &gt; </div>
 
 <p>stores averaged dark measurement on host </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00169">169</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00188">188</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -767,7 +772,7 @@ template&lt;typename T &gt; </div>
 
 <p>stores averaged reference measurement on host </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00170">170</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00189">189</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -791,7 +796,31 @@ template&lt;typename T &gt; </div>
 
 <p>2D block size of the attenuation kernel </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00165">165</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00184">184</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d4f08d8f30017d7237a73bc1e5298df"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int risa::cuda::Attenuation::chunkSize_ {500u}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>defines how much input data is loaded from reference and dark input at once </p>
+
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00157">157</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -813,7 +842,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00152">152</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>lower offset, which is masked </p>
+
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00171">171</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -837,7 +868,7 @@ template&lt;typename T &gt; </div>
 
 <p>stores the indeces received when regisitering in MemoryPool </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00082">82</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00099">99</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -861,7 +892,7 @@ template&lt;typename T &gt; </div>
 
 <p>specifies, how many elements are allocated by memory pool </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00166">166</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00185">185</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -885,7 +916,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of frames in the dark measurement </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00145">145</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00164">164</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -909,7 +940,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of detector modules </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00141">141</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00160">160</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -933,7 +964,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of detectors in the fan beam sinogram </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00142">142</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00161">161</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -957,7 +988,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of available CUDA devices in the system </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00138">138</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00155">155</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -981,7 +1012,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of detector planes </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00144">144</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00163">163</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1005,7 +1036,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of projections in the fan beam sinogram </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00143">143</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00162">162</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +1060,7 @@ template&lt;typename T &gt; </div>
 
 <p>the number of frames in the reference measurement </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00146">146</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00165">165</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1053,7 +1084,7 @@ template&lt;typename T &gt; </div>
 
 <p>file path to dark measurement data </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00147">147</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00166">166</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1077,7 +1108,7 @@ template&lt;typename T &gt; </div>
 
 <p>file path to reference measurement data </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00148">148</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00167">167</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1101,7 +1132,7 @@ template&lt;typename T &gt; </div>
 
 <p>stores the <a class="el" href="classrisa_1_1cuda_1_1_attenuation.html#a6f126d4afc07646314d3e42b21ca1d83" title="main data processing routine executed in its own thread for each CUDA device, that performs the data ...">processor()</a>-threads </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00080">80</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00097">97</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1125,7 +1156,7 @@ template&lt;typename T &gt; </div>
 
 <p>the output queue in which the processed sinograms are stored </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00078">78</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00095">95</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1149,7 +1180,7 @@ template&lt;typename T &gt; </div>
 
 <p>one separate input queue for each available CUDA device </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00077">77</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00094">94</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1173,7 +1204,7 @@ template&lt;typename T &gt; </div>
 
 <p>source offset in the fan beam sinogram </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00151">151</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00170">170</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1197,7 +1228,7 @@ template&lt;typename T &gt; </div>
 
 <p>stores the cudaStreams that are created once </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00081">81</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00098">98</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1221,7 +1252,7 @@ template&lt;typename T &gt; </div>
 
 <p>maximum threshold for defect detector interpolation </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00162">162</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00181">181</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1245,7 +1276,7 @@ template&lt;typename T &gt; </div>
 
 <p>minimum threshold for defect detector interpolation </p>
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00161">161</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00180">180</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1267,7 +1298,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00153">153</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>upper offset, which is masked </p>
+
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00172">172</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1289,7 +1322,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00154">154</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00173">173</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1311,7 +1344,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00155">155</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00174">174</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1333,7 +1366,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00156">156</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00175">175</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1355,7 +1388,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00157">157</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00176">176</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1377,7 +1410,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00158">158</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00177">177</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1399,7 +1432,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00159">159</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
+<p>Definition at line <a class="el" href="_attenuation_8h_source.html#l00178">178</a> of file <a class="el" href="_attenuation_8h_source.html">Attenuation.h</a>.</p>
 
 </div>
 </div>
@@ -1413,7 +1446,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacerisa.html">risa</a></li><li class="navelem"><a class="el" href="namespacerisa_1_1cuda.html">cuda</a></li><li class="navelem"><a class="el" href="classrisa_1_1cuda_1_1_attenuation.html">Attenuation</a></li>
-    <li class="footer">Generated on Wed Oct 5 2016 09:42:45 for RISA by
+    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

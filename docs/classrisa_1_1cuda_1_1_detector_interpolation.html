@@ -349,7 +349,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>main data processing routine executed in its own thread for each CUDA device, that performs the data processing of this stage </p>
-<p>This method takes one sinogram from the input queue <a class="el" href="classrisa_1_1cuda_1_1_detector_interpolation.html#a67c92da5d3b59c86a1890972c8820367" title="one separate input queue for each available CUDA device ">sinograms_</a>. So far, the interpolation is performed on the host. Thus, the data is transfered from host to device, the raw data sinogram is interpolated and afterwards, transfered from device to host.</p>
+<p>This method takes one sinogram from the input queue <a class="el" href="classrisa_1_1cuda_1_1_detector_interpolation.html#a67c92da5d3b59c86a1890972c8820367" title="one separate input queue for each available CUDA device ">sinograms_</a>. So far, the detector interpolation is performed on the host. Thus, the data is transfered from host to device, the raw data sinogram is interpolated and afterwards, transfered from device to host.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">deviceID</td><td>specifies on which CUDA device to execute the device functions </td></tr>
@@ -716,7 +716,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacerisa.html">risa</a></li><li class="navelem"><a class="el" href="namespacerisa_1_1cuda.html">cuda</a></li><li class="navelem"><a class="el" href="classrisa_1_1cuda_1_1_detector_interpolation.html">DetectorInterpolation</a></li>
-    <li class="footer">Generated on Wed Oct 5 2016 09:42:45 for RISA by
+    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

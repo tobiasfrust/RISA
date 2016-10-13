@@ -2,6 +2,7 @@ var searchData=
 [
   ['observer',['Observer',['../classddrf_1_1_observer.html',1,'ddrf']]],
   ['offlineloader',['OfflineLoader',['../classrisa_1_1_offline_loader.html',1,'risa']]],
+  ['offlineloaderperftest',['OfflineLoaderPerfTest',['../classrisa_1_1_offline_loader_perf_test.html',1,'risa']]],
   ['offlinesaver',['OfflineSaver',['../classrisa_1_1_offline_saver.html',1,'risa']]],
   ['onlinereceivernotification',['OnlineReceiverNotification',['../classrisa_1_1_online_receiver_notification.html',1,'risa']]],
   ['outputside',['OutputSide',['../classddrf_1_1pipeline_1_1_output_side.html',1,'ddrf::pipeline']]],

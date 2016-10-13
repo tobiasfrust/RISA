@@ -116,13 +116,16 @@ $(document).ready(function(){initNavTree('classrisa_1_1_receiver.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>This class controls the <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> objects.  
+ <a href="classrisa_1_1_receiver.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_receiver_8h_source.html">Receiver.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for risa::Receiver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classrisa_1_1_receiver__coll__graph.png" border="0" usemap="#risa_1_1_receiver_coll__map" alt="Collaboration graph"/></div>
 <map name="risa_1_1_receiver_coll__map" id="risa_1_1_receiver_coll__map">
-<area shape="rect" id="node2" href="classrisa_1_1_online_receiver_notification.html" title="risa::OnlineReceiverNotification" alt="" coords="5,5,212,32"/>
+<area shape="rect" id="node2" href="classrisa_1_1_online_receiver_notification.html" title="This class implements the synchronization between the ReceiverModule class and the superior Receiver ..." alt="" coords="5,5,212,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -136,6 +139,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a25a8c2469ea57c11fd74a4be9b524c86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a25a8c2469ea57c11fd74a4be9b524c86">Receiver</a> (const std::string &amp;address, const std::string &amp;configPath)</td></tr>
 <tr class="separator:a25a8c2469ea57c11fd74a4be9b524c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca495624e36f266b18641f1db88c807"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a6ca495624e36f266b18641f1db88c807">loadImage</a> () -&gt; <a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt; <a class="el" href="classrisa_1_1_receiver.html#ae36044e04619bc613643f3fe380e0fa6">manager_type</a> &gt;</td></tr>
+<tr class="memdesc:a6ca495624e36f266b18641f1db88c807"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classrisa_1_1_receiver.html#a6ca495624e36f266b18641f1db88c807" title="loadImage is called, when the software pipeline is able to process a new image ">loadImage</a> is called, when the software pipeline is able to process a new image  <a href="#a6ca495624e36f266b18641f1db88c807">More...</a><br /></td></tr>
 <tr class="separator:a6ca495624e36f266b18641f1db88c807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a135682d5a23cc9f3a5c33671281ff2a3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a135682d5a23cc9f3a5c33671281ff2a3">run</a> () -&gt; void</td></tr>
 <tr class="separator:a135682d5a23cc9f3a5c33671281ff2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,18 +154,25 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:af3e92ebf4f7dd144674a2fa377d16926"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classrisa_1_1_receiver_module.html">ReceiverModule</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#af3e92ebf4f7dd144674a2fa377d16926">modules_</a></td></tr>
 <tr class="separator:af3e92ebf4f7dd144674a2fa377d16926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ef88c824b7f5dfd21adedb619f9d12d"><td class="memItemLeft" align="right" valign="top">std::map&lt; unsigned int, std::vector&lt; unsigned short &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a4ef88c824b7f5dfd21adedb619f9d12d">buffers_</a></td></tr>
+<tr class="memdesc:a4ef88c824b7f5dfd21adedb619f9d12d"><td class="mdescLeft">&#160;</td><td class="mdescRight">one input buffer for each detector module  <a href="#a4ef88c824b7f5dfd21adedb619f9d12d">More...</a><br /></td></tr>
 <tr class="separator:a4ef88c824b7f5dfd21adedb619f9d12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a2464d817e41631301f0cf1084b05e0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::thread &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a0a2464d817e41631301f0cf1084b05e0">moduleThreads_</a></td></tr>
+<tr class="memdesc:a0a2464d817e41631301f0cf1084b05e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> threads  <a href="#a0a2464d817e41631301f0cf1084b05e0">More...</a><br /></td></tr>
 <tr class="separator:a0a2464d817e41631301f0cf1084b05e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ebc7d15989bd09900052c954ed40dd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrisa_1_1_online_receiver_notification.html">OnlineReceiverNotification</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a0ebc7d15989bd09900052c954ed40dd0">notification_</a></td></tr>
+<tr class="memdesc:a0ebc7d15989bd09900052c954ed40dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs the synchronization between the <a class="el" href="classrisa_1_1_receiver.html" title="This class controls the ReceiverModule objects. ">Receiver</a> and the ReceiverModules, to know when a complete sinogramm is ready  <a href="#a0ebc7d15989bd09900052c954ed40dd0">More...</a><br /></td></tr>
 <tr class="separator:a0ebc7d15989bd09900052c954ed40dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9faa14801b8bf5f5ce46d732aa0b6779"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::atomic&lt; int &gt;, 27 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a9faa14801b8bf5f5ce46d732aa0b6779">lastEntry_</a></td></tr>
+<tr class="memdesc:a9faa14801b8bf5f5ce46d732aa0b6779"><td class="mdescLeft">&#160;</td><td class="mdescRight">stores the last indices of the received sinogramms  <a href="#a9faa14801b8bf5f5ce46d732aa0b6779">More...</a><br /></td></tr>
 <tr class="separator:a9faa14801b8bf5f5ce46d732aa0b6779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9af6f1c1ec5da7176370ff6af4143987"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a9af6f1c1ec5da7176370ff6af4143987">numberOfDetectorModules_</a></td></tr>
+<tr class="memdesc:a9af6f1c1ec5da7176370ff6af4143987"><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of detector modules  <a href="#a9af6f1c1ec5da7176370ff6af4143987">More...</a><br /></td></tr>
 <tr class="separator:a9af6f1c1ec5da7176370ff6af4143987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af99bebd413f8b471bfba439dc35358b8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#af99bebd413f8b471bfba439dc35358b8">numberOfDetectors_</a></td></tr>
+<tr class="memdesc:af99bebd413f8b471bfba439dc35358b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of detectors in the fan beam sinogram  <a href="#af99bebd413f8b471bfba439dc35358b8">More...</a><br /></td></tr>
 <tr class="separator:af99bebd413f8b471bfba439dc35358b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06feec5a20bd6fdbc4b94e6ac7e82e27"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a06feec5a20bd6fdbc4b94e6ac7e82e27">numberOfProjections_</a></td></tr>
+<tr class="memdesc:a06feec5a20bd6fdbc4b94e6ac7e82e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of projections in the fan beam sinogram  <a href="#a06feec5a20bd6fdbc4b94e6ac7e82e27">More...</a><br /></td></tr>
 <tr class="separator:a06feec5a20bd6fdbc4b94e6ac7e82e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cf979b130f4481c4612ee5a77943306"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_receiver.html#a7cf979b130f4481c4612ee5a77943306">memoryPoolIndex_</a></td></tr>
 <tr class="separator:a7cf979b130f4481c4612ee5a77943306"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,8 +180,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a978c4a10f8edb4dbb6ef09f0b8707a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00028">28</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<div class="textblock"><p>This class controls the <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> objects. </p>
+<p>It gets notified, when a new sinogram arrived. If all ReceiverModules notified this class, it pushes the complete sinogram through the software pipeline. (If the pipeline is reader, otherwise it skips sinogramms). </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00034">34</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="ae36044e04619bc613643f3fe380e0fa6"></a>
 <div class="memitem">
@@ -182,7 +195,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00031">31</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00037">37</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -229,7 +242,10 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8cpp_source.html#l00058">58</a> of file <a class="el" href="_receiver_8cpp_source.html">Receiver.cpp</a>.</p>
+<p><a class="el" href="classrisa_1_1_receiver.html#a6ca495624e36f266b18641f1db88c807" title="loadImage is called, when the software pipeline is able to process a new image ">loadImage</a> is called, when the software pipeline is able to process a new image </p>
+<dl class="section return"><dt>Returns</dt><dd>the image that is pushed through the software pipeline </dd></dl>
+
+<p>Definition at line <a class="el" href="_receiver_8cpp_source.html#l00055">55</a> of file <a class="el" href="_receiver_8cpp_source.html">Receiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -255,7 +271,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8cpp_source.html#l00089">89</a> of file <a class="el" href="_receiver_8cpp_source.html">Receiver.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_receiver_8cpp_source.html#l00075">75</a> of file <a class="el" href="_receiver_8cpp_source.html">Receiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -272,7 +288,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8cpp_source.html#l00054">54</a> of file <a class="el" href="_receiver_8cpp_source.html">Receiver.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_receiver_8cpp_source.html#l00051">51</a> of file <a class="el" href="_receiver_8cpp_source.html">Receiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -295,7 +311,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00043">43</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>one input buffer for each detector module </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00052">52</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -317,7 +335,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00057">57</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00066">66</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -339,7 +357,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00049">49</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>stores the last indices of the received sinogramms </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00058">58</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -361,7 +381,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00055">55</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00064">64</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -383,7 +403,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00041">41</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00050">50</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -405,7 +425,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00045">45</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>stores the <a class="el" href="classrisa_1_1_receiver_module.html" title="Each ReceiverModule is bound to one DetectorModule. ">ReceiverModule</a> threads </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00054">54</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -427,7 +449,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00047">47</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>performs the synchronization between the <a class="el" href="classrisa_1_1_receiver.html" title="This class controls the ReceiverModule objects. ">Receiver</a> and the ReceiverModules, to know when a complete sinogramm is ready </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00056">56</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -449,7 +473,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00051">51</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>the number of detector modules </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00060">60</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -471,7 +497,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00052">52</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>the number of detectors in the fan beam sinogram </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00061">61</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -493,7 +521,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00053">53</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
+<p>the number of projections in the fan beam sinogram </p>
+
+<p>Definition at line <a class="el" href="_receiver_8h_source.html#l00062">62</a> of file <a class="el" href="_receiver_8h_source.html">Receiver.h</a>.</p>
 
 </div>
 </div>
@@ -507,7 +537,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacerisa.html">risa</a></li><li class="navelem"><a class="el" href="classrisa_1_1_receiver.html">Receiver</a></li>
-    <li class="footer">Generated on Wed Oct 5 2016 09:42:45 for RISA by
+    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

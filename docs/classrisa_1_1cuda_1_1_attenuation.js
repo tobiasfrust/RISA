@@ -18,6 +18,7 @@ var classrisa_1_1cuda_1_1_attenuation =
     [ "avgDark_", "classrisa_1_1cuda_1_1_attenuation.html#a772ab6796b9508cbec2b1e9ac59fc0ab", null ],
     [ "avgReference_", "classrisa_1_1cuda_1_1_attenuation.html#a900ae9ece93eb17ed5dcbecc41a63afd", null ],
     [ "blockSize2D_", "classrisa_1_1cuda_1_1_attenuation.html#ae50ea78ab0ddea024a2bde48d3e73017", null ],
+    [ "chunkSize_", "classrisa_1_1cuda_1_1_attenuation.html#a5d4f08d8f30017d7237a73bc1e5298df", null ],
     [ "lowerLimOffset_", "classrisa_1_1cuda_1_1_attenuation.html#a7661373667023f0164ebaf9a01445166", null ],
     [ "memoryPoolIdxs_", "classrisa_1_1cuda_1_1_attenuation.html#a8a7d73ccaaf4e8a43ad60b378287e1e9", null ],
     [ "memPoolSize_", "classrisa_1_1cuda_1_1_attenuation.html#adb58de7d5ec4a18914319b1d2a38c947", null ],

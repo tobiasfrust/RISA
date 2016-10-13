@@ -24,7 +24,9 @@ var searchData=
   ['thetagoalray2_5fd_5f',['thetaGoalRay2_d_',['../classrisa_1_1cuda_1_1_fan2_para.html#a20af94f07e4d45a0a1becafb202fee96',1,'risa::cuda::Fan2Para']]],
   ['threshmax_5f',['threshMax_',['../classrisa_1_1cuda_1_1_attenuation.html#afbef9006f9297fbbeb5e01977153d285',1,'risa::cuda::Attenuation::threshMax_()'],['../classrisa_1_1cuda_1_1_detector_interpolation.html#acdb784e89cdfa8a2c819333f30ce6219',1,'risa::cuda::DetectorInterpolation::threshMax_()']]],
   ['threshmin_5f',['threshMin_',['../classrisa_1_1cuda_1_1_attenuation.html#a7b6b37c552604a495495352cbd8c3ca9',1,'risa::cuda::Attenuation::threshMin_()'],['../classrisa_1_1cuda_1_1_detector_interpolation.html#aa5440032210b8b413b7397ee8caa73cd',1,'risa::cuda::DetectorInterpolation::threshMin_()']]],
-  ['tmr_5f',['tmr_',['../classrisa_1_1cuda_1_1_d2_h.html#a4ce8f3e9410a05e03c495556482c8c15',1,'risa::cuda::D2H::tmr_()'],['../classrisa_1_1cuda_1_1_h2_d.html#addf5c9d26df39141d941071e7cd800d6',1,'risa::cuda::H2D::tmr_()'],['../classrisa_1_1_offline_loader.html#a6703fb30bf40cdaa87a61f92d6ee70ed',1,'risa::OfflineLoader::tmr_()']]],
+  ['timeout_5f',['timeout_',['../classrisa_1_1_receiver_module.html#a3005e78ba1bebd0ae53b546dc0692a27',1,'risa::ReceiverModule']]],
+  ['tmr_5f',['tmr_',['../classrisa_1_1cuda_1_1_d2_h.html#a4ce8f3e9410a05e03c495556482c8c15',1,'risa::cuda::D2H::tmr_()'],['../classrisa_1_1cuda_1_1_h2_d.html#addf5c9d26df39141d941071e7cd800d6',1,'risa::cuda::H2D::tmr_()'],['../classrisa_1_1_offline_loader.html#a6703fb30bf40cdaa87a61f92d6ee70ed',1,'risa::OfflineLoader::tmr_()'],['../classrisa_1_1_offline_loader_perf_test.html#acaade66ae4368b17a3d8a5f5767237ea',1,'risa::OfflineLoaderPerfTest::tmr_()']]],
   ['tmrs_5f',['tmrs_',['../classrisa_1_1_offline_saver.html#ad58e4afd090cd6e4db8f116188f33de1',1,'risa::OfflineSaver']]],
+  ['transportprotocol_5f',['transportProtocol_',['../classrisa_1_1_receiver_module.html#abc2598c27818a4a6b3f66bebbae891e3',1,'risa::ReceiverModule']]],
   ['type_5fof_5fnumbers',['type_of_numbers',['../structddrf_1_1loaders_1_1_h_i_s_header.html#a1ac4925198cb710cbaa95cbfd78746c1',1,'ddrf::loaders::HISHeader']]]
 ];

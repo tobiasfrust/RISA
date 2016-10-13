@@ -1,9 +1,10 @@
 var searchData=
 [
   ['params_5f',['params_',['../classrisa_1_1cuda_1_1_fan2_para.html#a2519d9cbb4444ecd0d2f37c794d9b429',1,'risa::cuda::Fan2Para']]],
-  ['path_5f',['path_',['../classddrf_1_1pipeline_1_1_sink_stage.html#a767c00586288cc4603bb1437ef263e4e',1,'ddrf::pipeline::SinkStage::path_()'],['../classddrf_1_1pipeline_1_1_source_stage.html#af3cc677b549890b3682d1992669b5b3e',1,'ddrf::pipeline::SourceStage::path_()'],['../classrisa_1_1_offline_loader.html#a48a96b22b4b0466bf2f5d9c57fa7ffef',1,'risa::OfflineLoader::path_()']]],
+  ['path_5f',['path_',['../classddrf_1_1pipeline_1_1_sink_stage.html#a767c00586288cc4603bb1437ef263e4e',1,'ddrf::pipeline::SinkStage::path_()'],['../classddrf_1_1pipeline_1_1_source_stage.html#af3cc677b549890b3682d1992669b5b3e',1,'ddrf::pipeline::SourceStage::path_()'],['../classrisa_1_1_offline_loader.html#a48a96b22b4b0466bf2f5d9c57fa7ffef',1,'risa::OfflineLoader::path_()'],['../classrisa_1_1_offline_loader_perf_test.html#abf0781006a949efe549f444628d0e737',1,'risa::OfflineLoaderPerfTest::path_()']]],
   ['pathdark_5f',['pathDark_',['../classrisa_1_1cuda_1_1_attenuation.html#a536dd4d53e9577e350e23b571b074295',1,'risa::cuda::Attenuation']]],
   ['pathreference_5f',['pathReference_',['../classrisa_1_1cuda_1_1_attenuation.html#af6646aac3068ae0637551c090b2db14a',1,'risa::cuda::Attenuation']]],
+  ['performnormalization_5f',['performNormalization_',['../classrisa_1_1cuda_1_1_masking.html#a293c2a977156868a5a66a6e58d084d28',1,'risa::cuda::Masking']]],
   ['pitch_5f',['pitch_',['../classddrf_1_1pitched__ptr.html#a60bdeb4bb82b59b38919afa3c342338d',1,'ddrf::pitched_ptr']]],
   ['plane_5f',['plane_',['../classddrf_1_1_image.html#a3e61b99b9c71cb56f9e66a61f904ec14',1,'ddrf::Image']]],
   ['plansfwd_5f',['plansFwd_',['../classrisa_1_1cuda_1_1_filter.html#a3ad1ac1942ec9a3468bd6e726d536170',1,'risa::cuda::Filter']]],
