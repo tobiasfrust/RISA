@@ -7,8 +7,6 @@
  *      Author: Tobias Frust (t.frust@hzdr.de)
  */
 
-#include "UDPClient.h"
-
 #include <risa/ReceiverModule/ReceiverModule.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
