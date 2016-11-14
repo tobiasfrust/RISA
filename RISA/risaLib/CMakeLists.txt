@@ -24,7 +24,8 @@ set(SOURCES
    "${CMAKE_SOURCE_DIR}/risaLib/src/Saver/OfflineSaver.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/Receiver/Receiver.cpp"
    "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/ReceiverModule/ReceiverModule.cpp"
-   "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/UDPServer/UDPServer.cpp"	         
+   "${CMAKE_SOURCE_DIR}/risaLib/src/UDPReceiver/UDPServer/UDPServer.cpp"
+   "${CMAKE_SOURCE_DIR}/risaLib/src/template/Template.cu"
 )
 
 set(LINK_LIBRARIES ${LINK_LIBRARIES}
