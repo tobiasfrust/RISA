@@ -26,8 +26,8 @@
 #include <risa/Basics/performance.h>
 #include "cuda_kernels_filter.h"
 
-#include <ddrf/cuda/Launch.h>
-#include <ddrf/cuda/Check.h>
+#include <glados/cuda/Launch.h>
+#include <glados/cuda/Check.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -102,13 +102,13 @@ auto Filter::wait() -> output_type {
 auto Filter::processor(const int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "Filter");
    CHECK(cudaSetDevice(deviceID));
-   auto sinoFreq = ddrf::cuda::make_device_ptr<cufftComplex,
-         ddrf::cuda::async_copy_policy>(
+   auto sinoFreq = glados::cuda::make_device_ptr<cufftComplex,
+         glados::cuda::async_copy_policy>(
          numberOfProjections_ * ((numberOfDetectors_ / 2.0) + 1));
    dim3 dimBlock(blockSize2D_, blockSize2D_);
    dim3 dimGrid((int) ceil((numberOfDetectors_ / 2.0 + 1) / (float) blockSize2D_),
          (int) ceil(numberOfProjections_ / (float) blockSize2D_));
-   auto filterFunction_d = ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(filter_.size());
+   auto filterFunction_d = glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(filter_.size());
    CHECK(cudaMemcpy(filterFunction_d.get(), filter_.data(), sizeof(float)*filter_.size(), cudaMemcpyHostToDevice));
    BOOST_LOG_TRIVIAL(info) << "recoLib::cuda::Filter: Running Thread for Device " << deviceID;
    while (true) {

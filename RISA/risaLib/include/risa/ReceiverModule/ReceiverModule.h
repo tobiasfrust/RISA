@@ -26,7 +26,7 @@
 #include "../UDPServer/UDPServer.h"
 #include "../Receiver/OnlineReceiverNotification.h"
 
-#include <ddrf/Queue.h>
+#include <glados/Queue.h>
 
 #include <vector>
 #include <thread>

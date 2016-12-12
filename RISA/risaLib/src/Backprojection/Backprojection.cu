@@ -24,8 +24,8 @@
 #include <risa/Backprojection/Backprojection.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/MemoryPool.h>
-#include <ddrf/cuda/Coordinates.h>
+#include <glados/MemoryPool.h>
+#include <glados/cuda/Coordinates.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -56,7 +56,7 @@ Backprojection::Backprojection(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       memoryPoolIdxs_.push_back(
-         ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(
+         glados::MemoryPool<deviceManagerType>::instance()->registerStage(
                memPoolSize_, numberOfPixels_ * numberOfPixels_));
    }
 
@@ -79,7 +79,7 @@ Backprojection::Backprojection(const std::string& configFile) {
 
 Backprojection::~Backprojection() {
    for (auto idx : memoryPoolIdxs_) {
-      ddrf::MemoryPool<deviceManagerType>::instance()->freeMemory(idx);
+      glados::MemoryPool<deviceManagerType>::instance()->freeMemory(idx);
    }
    for (auto& ele : streams_) {
       //CHECK(cudaSetDevice(ele.first/numberOfStreams_));
@@ -158,7 +158,7 @@ auto Backprojection::processor(const int deviceID) -> void {
 
       //allocate device memory for reconstructed picture
       auto recoImage =
-            ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(
+            glados::MemoryPool<deviceManagerType>::instance()->requestMemory(
                   memoryPoolIdxs_[deviceID]);
 
       if(useTextureMemory_){
@@ -241,8 +241,8 @@ __global__ void backProjectLinear(const float* const __restrict__ sinogram,
          const int numberOfProjections,
          const int numberOfDetectors){
 
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
+   const auto x = glados::cuda::getX();
+   const auto y = glados::cuda::getY();
 
    float sum = 0.0;
 
@@ -276,8 +276,8 @@ __global__ void backProjectTex(cudaTextureObject_t tex,
          const int numberOfProjections,
          const int numberOfDetectors){
 
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
+   const auto x = glados::cuda::getX();
+   const auto y = glados::cuda::getY();
 
    float sum = 0.0;
 
@@ -306,8 +306,8 @@ __global__ void backProjectNearest(const float* const __restrict__ sinogram,
       float* __restrict__ image, const int numberOfPixels,
       const int numberOfProjections, const int numberOfDetectors) {
 
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
+   const auto x = glados::cuda::getX();
+   const auto y = glados::cuda::getY();
 
    if (x >= numberOfPixels || y >= numberOfPixels)
       return;

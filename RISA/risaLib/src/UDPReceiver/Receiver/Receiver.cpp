@@ -25,7 +25,7 @@
 
 #include <risa/Receiver/Receiver.h>
 
-#include <ddrf/MemoryPool.h>
+#include <glados/MemoryPool.h>
 
 #include <iostream>
 
@@ -48,7 +48,7 @@ Receiver::Receiver(const std::string& address, const std::string& configPath) : 
       modules_.emplace_back(address, configPath, i, buffers_[i], notification_);
    }
 
-   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(100, numberOfDetectors_*numberOfProjections_);
+   memoryPoolIndex_ = glados::MemoryPool<manager_type>::instance()->registerStage(100, numberOfDetectors_*numberOfProjections_);
 
    for(auto i = 0u; i < numberOfDetectorModules_; i++){
       std::function<void(void)> f = [=]() {
@@ -66,12 +66,12 @@ auto Receiver::run() -> void {
 
 }
 
-auto Receiver::loadImage() -> ddrf::Image<manager_type> {
+auto Receiver::loadImage() -> glados::Image<manager_type> {
    int numberOfDetectorsPerModule = 16;
    //create sinograms here
    std::size_t index = notification_.fetch();
-   if(index == -1) return ddrf::Image<manager_type>();
-   auto sino = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
+   if(index == -1) return glados::Image<manager_type>();
+   auto sino = glados::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
 
    for(auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++){
       std::size_t startIndex = (index%bufferSize_) * numberOfDetectorsPerModule*numberOfProjections_;

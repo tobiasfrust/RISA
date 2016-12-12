@@ -1,6 +1,6 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/ReceiverModule/ReceiverModule.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/ReceiverModule/ReceiverModule.h">
-<area shape="rect" id="node2" href="$_receiver_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/include/risa/Receiver/Receiver.h" alt="" coords="93,131,308,187"/>
-<area shape="rect" id="node5" href="$_receiver_module_8cpp.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/UDPReceiver/ReceiverModule\l/ReceiverModule.cpp" alt="" coords="333,124,559,195"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/example\l/main.cpp" alt="" coords="5,250,188,306"/>
-<area shape="rect" id="node4" href="$_receiver_8cpp.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/UDPReceiver/Receiver\l/Receiver.cpp" alt="" coords="212,243,397,313"/>
+<map id="/home/frust45/RISA/RISA/risaLib/include/risa/ReceiverModule/ReceiverModule.h" name="/home/frust45/RISA/RISA/risaLib/include/risa/ReceiverModule/ReceiverModule.h">
+<area shape="rect" id="node2" href="$_receiver_8h.html" title="/home/frust45/RISA\l/RISA/risaLib/include\l/risa/Receiver/Receiver.h" alt="" coords="115,124,289,180"/>
+<area shape="rect" id="node5" href="$_receiver_module_8cpp.html" title="/home/frust45/RISA\l/RISA/risaLib/src/UDPReceiver\l/ReceiverModule/ReceiverModule.cpp" alt="" coords="313,124,568,180"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="/home/frust45/RISA\l/RISA/example/main.cpp" alt="" coords="5,235,183,277"/>
+<area shape="rect" id="node4" href="$_receiver_8cpp.html" title="/home/frust45/RISA\l/RISA/risaLib/src/UDPReceiver\l/Receiver/Receiver.cpp" alt="" coords="207,228,415,284"/>
 </map>

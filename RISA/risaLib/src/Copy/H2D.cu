@@ -24,9 +24,9 @@
 #include <risa/Copy/H2D.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/cuda/Coordinates.h>
-#include <ddrf/cuda/Check.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/cuda/Coordinates.h>
+#include <glados/cuda/Check.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -51,7 +51,7 @@ H2D::H2D(const std::string& configFile) : lastDevice_{0}, worstCaseTime_{0.0}, b
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       memoryPoolIdxs_[i] =
-            ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
+            glados::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
                   numberOfDetectors_ * numberOfProjections_);
       //custom streams are necessary, because profiling with nvprof seems to be
       //not possible with -default-stream per-thread option
@@ -71,7 +71,7 @@ H2D::H2D(const std::string& configFile) : lastDevice_{0}, worstCaseTime_{0.0}, b
 H2D::~H2D() {
    for (auto idx : memoryPoolIdxs_) {
       CHECK(cudaSetDevice(idx.first));
-      ddrf::MemoryPool<deviceManagerType>::instance()->freeMemory(idx.second);
+      glados::MemoryPool<deviceManagerType>::instance()->freeMemory(idx.second);
    }
    for(auto i = 0; i < numberOfDevices_; i++){
       CHECK(cudaSetDevice(i));
@@ -136,7 +136,7 @@ auto H2D::processor(int deviceID) -> void {
    CHECK(cudaSetDevice(deviceID));
    //for conversion from short to float
    std::vector<float> temp(numberOfProjections_*numberOfDetectors_);
-   auto inputShort_d = ddrf::cuda::make_device_ptr<unsigned short>(numberOfProjections_*numberOfDetectors_);
+   auto inputShort_d = glados::cuda::make_device_ptr<unsigned short>(numberOfProjections_*numberOfDetectors_);
    BOOST_LOG_TRIVIAL(info) << "recoLib::cuda::H2D: Running Thread for Device " << deviceID;
    while (true) {
       auto sinogram = sinograms_[deviceID].take();
@@ -146,7 +146,7 @@ auto H2D::processor(int deviceID) -> void {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::H2D: Copy sinogram " << sinogram.index() << " to device " << deviceID;
 
       //copy image from device to host
-      auto img = ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(
+      auto img = glados::MemoryPool<deviceManagerType>::instance()->requestMemory(
             memoryPoolIdxs_[deviceID]);
 
       CHECK(

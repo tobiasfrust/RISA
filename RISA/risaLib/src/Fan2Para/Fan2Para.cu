@@ -26,9 +26,9 @@
 #include <risa/Fan2Para/Fan2Para.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/MemoryPool.h>
-#include <ddrf/cuda/Check.h>
-#include <ddrf/cuda/Launch.h>
+#include <glados/MemoryPool.h>
+#include <glados/cuda/Check.h>
+#include <glados/cuda/Launch.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -56,58 +56,58 @@ Fan2Para::Fan2Para(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       theta_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   params_.numberOfFanProjections_));
       gamma_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   params_.numberOfFanDetectors_));
       s_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   params_.numberOfParallelDetectors_));
       alphaCircle_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   params_.numberOfParallelProjections_));
       thetaAfterRay1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       thetaAfterRay2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       thetaBeforeRay1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       thetaBeforeRay2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       gammaAfterRay1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       gammaAfterRay2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       gammaBeforeRay1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       gammaBeforeRay2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       gammaGoalRay1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   dataSetSize));
       gammaGoalRay2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   dataSetSize));
       thetaGoalRay1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   dataSetSize));
       thetaGoalRay2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<float, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<float, glados::cuda::async_copy_policy>(
                   dataSetSize));
       ray1_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
       ray2_d_[i] = std::move(
-            ddrf::cuda::make_device_ptr<int, ddrf::cuda::async_copy_policy>(
+            glados::cuda::make_device_ptr<int, glados::cuda::async_copy_policy>(
                   dataSetSize));
    }
 
@@ -137,7 +137,7 @@ Fan2Para::Fan2Para(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       memoryPoolIdxs_.push_back(
-            ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
+            glados::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
                   params_.numberOfParallelProjections_
                         * params_.numberOfParallelDetectors_/2.0));
    }
@@ -151,7 +151,7 @@ Fan2Para::Fan2Para(const std::string& configFile) {
 Fan2Para::~Fan2Para() {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
-      ddrf::MemoryPool<deviceManagerType>::instance()->freeMemory(
+      glados::MemoryPool<deviceManagerType>::instance()->freeMemory(
             memoryPoolIdxs_[i]);
       CHECK(cudaStreamDestroy(streams_[i]));
    }
@@ -200,7 +200,7 @@ auto Fan2Para::processor(const int deviceID) -> void {
                params_.numberOfParallelProjections_
                      * params_.numberOfParallelDetectors_
                      / (float) blockSize1D_));
-   auto params_d = ddrf::cuda::make_device_ptr<parameters>(1);
+   auto params_d = glados::cuda::make_device_ptr<parameters>(1);
    CHECK(
          cudaMemcpyAsync(params_d.get(), &params_, sizeof(parameters),
                cudaMemcpyHostToDevice, streams_[deviceID]));
@@ -214,7 +214,7 @@ auto Fan2Para::processor(const int deviceID) -> void {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Fan2Para: Fan2Para of sinogram with Index " << sinogram.index();
 
       //copy image from device to host
-      auto img = ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(
+      auto img = glados::MemoryPool<deviceManagerType>::instance()->requestMemory(
             memoryPoolIdxs_[deviceID]);
 
       setValue<float> <<<grids1D, blocks1D, 0, streams_[deviceID]>>>(

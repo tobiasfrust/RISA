@@ -1,8 +1,8 @@
 var classrisa_1_1cuda_1_1_detector_interpolation =
 [
-    [ "deviceManagerType", "classrisa_1_1cuda_1_1_detector_interpolation.html#aa9a57cc33ca7270c995e5204226f7452", null ],
-    [ "input_type", "classrisa_1_1cuda_1_1_detector_interpolation.html#aa13e867da648a34d0fa49aa6233e7d82", null ],
-    [ "output_type", "classrisa_1_1cuda_1_1_detector_interpolation.html#ae11ef6f95f012f9fa56614f01b07db25", null ],
+    [ "deviceManagerType", "classrisa_1_1cuda_1_1_detector_interpolation.html#ae6aad4cb6118d0904e5ea47c17c2314d", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_detector_interpolation.html#ae651feca115d007b673f0718932e308b", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_detector_interpolation.html#a84b38af75422b65040b3b96845b50e00", null ],
     [ "DetectorInterpolation", "classrisa_1_1cuda_1_1_detector_interpolation.html#a3c4c087a30996face8fd7a47f1a28e96", null ],
     [ "~DetectorInterpolation", "classrisa_1_1cuda_1_1_detector_interpolation.html#a60b9f69f17a7c440a2ef77305c99cb14", null ],
     [ "process", "classrisa_1_1cuda_1_1_detector_interpolation.html#ae397245a9066aefd2b66f4670f2b68b7", null ],
@@ -16,8 +16,8 @@ var classrisa_1_1cuda_1_1_detector_interpolation =
     [ "numberOfDevices_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a304ae6d0ef802b375c422381b67d9b5e", null ],
     [ "numberOfProjections_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a4ad20430f1c5bd9e02aa9c55f1261585", null ],
     [ "processorThreads_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a4e7961f94711c81bab8cc673b6700464", null ],
-    [ "results_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a2dd75403bfd4c3d78d59deb1a83459a1", null ],
-    [ "sinograms_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a67c92da5d3b59c86a1890972c8820367", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a481bdf7bf7b78d8a8d3028c7f6a101de", null ],
+    [ "sinograms_", "classrisa_1_1cuda_1_1_detector_interpolation.html#aa70aa3d476078214dbf2c6892b0b640c", null ],
     [ "streams_", "classrisa_1_1cuda_1_1_detector_interpolation.html#a310e00d8598f3e9a0213af90713d4618", null ],
     [ "threshMax_", "classrisa_1_1cuda_1_1_detector_interpolation.html#acdb784e89cdfa8a2c819333f30ce6219", null ],
     [ "threshMin_", "classrisa_1_1cuda_1_1_detector_interpolation.html#aa5440032210b8b413b7397ee8caa73cd", null ]

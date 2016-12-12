@@ -1,13 +1,13 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Saver/OfflineSaver.cu" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Saver/OfflineSaver.cu">
-<area shape="rect" id="node2" href="$_offline_saver_8h.html" title="risa/Saver/OfflineSaver.h" alt="" coords="1127,117,1295,143"/>
-<area shape="rect" id="node18" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="891,199,986,225"/>
-<area shape="rect" id="node19" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1240,273,1347,300"/>
-<area shape="rect" id="node32" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="1609,109,1778,151"/>
-<area shape="rect" id="node3" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="1189,199,1350,225"/>
-<area shape="rect" id="node5" href="$_host_memory_manager_8h.html" title="ddrf/cuda/HostMemoryManager.h" alt="" coords="424,199,640,225"/>
-<area shape="rect" id="node29" href="$_circular_buffer_8h.html" title="ddrf/CircularBuffer.h" alt="" coords="1027,273,1165,300"/>
-<area shape="rect" id="node8" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="453,273,533,300"/>
-<area shape="rect" id="node12" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="504,348,611,375"/>
-<area shape="rect" id="node13" href="$_check_8h.html" title="Check.h" alt="" coords="257,348,327,375"/>
-<area shape="rect" id="node20" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1161,348,1247,375"/>
+<map id="/home/frust45/RISA/RISA/risaLib/src/Saver/OfflineSaver.cu" name="/home/frust45/RISA/RISA/risaLib/src/Saver/OfflineSaver.cu">
+<area shape="rect" id="node2" href="$_offline_saver_8h.html" title="risa/Saver/OfflineSaver.h" alt="" coords="1193,117,1372,143"/>
+<area shape="rect" id="node18" href="$_image_8h.html" title="glados/Image.h" alt="" coords="923,199,1043,225"/>
+<area shape="rect" id="node19" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1311,273,1425,300"/>
+<area shape="rect" id="node32" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="1693,109,1870,151"/>
+<area shape="rect" id="node3" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="1257,199,1431,225"/>
+<area shape="rect" id="node5" href="$_host_memory_manager_8h.html" title="glados/cuda/HostMemoryManager.h" alt="" coords="431,199,683,225"/>
+<area shape="rect" id="node29" href="$_circular_buffer_8h.html" title="glados/CircularBuffer.h" alt="" coords="1071,273,1236,300"/>
+<area shape="rect" id="node8" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="475,273,559,300"/>
+<area shape="rect" id="node12" href="$_memory_8h.html" title="glados/Memory.h" alt="" coords="525,348,656,375"/>
+<area shape="rect" id="node13" href="$_check_8h.html" title="Check.h" alt="" coords="275,348,349,375"/>
+<area shape="rect" id="node20" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1215,348,1310,375"/>
 </map>

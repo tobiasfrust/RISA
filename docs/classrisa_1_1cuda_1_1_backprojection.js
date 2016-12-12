@@ -1,8 +1,8 @@
 var classrisa_1_1cuda_1_1_backprojection =
 [
-    [ "deviceManagerType", "classrisa_1_1cuda_1_1_backprojection.html#a5fb413e8c7925f29dadf14aa385f5202", null ],
-    [ "input_type", "classrisa_1_1cuda_1_1_backprojection.html#a5def26e2d4a75b391685b95a5919df07", null ],
-    [ "output_type", "classrisa_1_1cuda_1_1_backprojection.html#a6d04a4f24f6731c94e8200db58690ec6", null ],
+    [ "deviceManagerType", "classrisa_1_1cuda_1_1_backprojection.html#a2f3c8d3ca2ef30ce37e2a38271935b71", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_backprojection.html#a36b13efe47d8330c439315ff2ba46621", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_backprojection.html#a51e77146f707c28d6e41efc4bb44bbf9", null ],
     [ "Backprojection", "classrisa_1_1cuda_1_1_backprojection.html#a768a4bd6872dcb8e1848ec48a5b7d581", null ],
     [ "~Backprojection", "classrisa_1_1cuda_1_1_backprojection.html#a67791f53a7892e2da3864ff8bb55acc5", null ],
     [ "process", "classrisa_1_1cuda_1_1_backprojection.html#a4ecbceb3fc3b80d07ce101c262b570a5", null ],
@@ -19,9 +19,9 @@ var classrisa_1_1cuda_1_1_backprojection =
     [ "numberOfPixels_", "classrisa_1_1cuda_1_1_backprojection.html#a1e04feb00806e224c412ebc59dfea7b5", null ],
     [ "numberOfProjections_", "classrisa_1_1cuda_1_1_backprojection.html#a6e8956cd2eb63c9f2ed0b37c41b52d8a", null ],
     [ "processorThreads_", "classrisa_1_1cuda_1_1_backprojection.html#a767395555a7837aaf3b9e9b1c2f37812", null ],
-    [ "results_", "classrisa_1_1cuda_1_1_backprojection.html#a843e7e2e1e7a8910982884c1bf1e43b0", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_backprojection.html#a5f19f21799ad79227513ac661415901d", null ],
     [ "rotationOffset_", "classrisa_1_1cuda_1_1_backprojection.html#ad9a4b157c0e1ed0567e2ac3e896fe86b", null ],
-    [ "sinograms_", "classrisa_1_1cuda_1_1_backprojection.html#a1cbe7003609430b6b4db9fd57d73c56b", null ],
+    [ "sinograms_", "classrisa_1_1cuda_1_1_backprojection.html#a780c0b79f8ef7146bda46235716ec61e", null ],
     [ "streams_", "classrisa_1_1cuda_1_1_backprojection.html#a3dcf1cfd7aabce7d3cf0f96b31f7ecc7", null ],
     [ "useTextureMemory_", "classrisa_1_1cuda_1_1_backprojection.html#ae3680ae2dae285d4878d902818b9f1d3", null ]
 ];

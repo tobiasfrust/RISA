@@ -1,5 +1,5 @@
 var _queue_8h =
 [
-    [ "Queue", "classddrf_1_1_queue.html", "classddrf_1_1_queue" ],
-    [ "queue_limit", "_queue_8h.html#a48dac289c73b99177e8633cb6473e6a2", null ]
+    [ "Queue", "classglados_1_1_queue.html", "classglados_1_1_queue" ],
+    [ "queue_limit", "_queue_8h.html#ad87e2011e039cfa353edf3310c25c7e9", null ]
 ];

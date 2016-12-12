@@ -1,5 +1,0 @@
-var dir_8662e757481c869e1639154b05c8c52b =
-[
-    [ "HIS", "dir_774bb1f80e90904579f7b717007cbc48.html", "dir_774bb1f80e90904579f7b717007cbc48" ],
-    [ "TIFF", "dir_f603e48ee83f095c0d2150aa638398e3.html", "dir_f603e48ee83f095c0d2150aa638398e3" ]
-];

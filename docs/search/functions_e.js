@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['queue',['Queue',['../classddrf_1_1_queue.html#ae81881af2d9685fd9b084bac579b2ecd',1,'ddrf::Queue::Queue()'],['../classddrf_1_1_queue.html#a2bc2a116c83825a792c140a2ca4b9250',1,'ddrf::Queue::Queue(std::size_t limit)']]],
-  ['queue_5flimit',['queue_limit',['../namespaceddrf.html#a48dac289c73b99177e8633cb6473e6a2',1,'ddrf']]]
+  ['queue',['Queue',['../classglados_1_1_queue.html#ad1362f101a15ebba6e8b705e26995c4f',1,'glados::Queue::Queue()'],['../classglados_1_1_queue.html#a0be9b98b80f0ef750369a9a1a9694341',1,'glados::Queue::Queue(std::size_t limit)']]],
+  ['queue_5flimit',['queue_limit',['../namespaceglados.html#ad87e2011e039cfa353edf3310c25c7e9',1,'glados']]]
 ];

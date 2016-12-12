@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['x',['x',['../structddrf_1_1loaders_1_1_h_i_s_header.html#a2713dd727aa711552f1cc02b4469fc02',1,'ddrf::loaders::HISHeader']]],
+  ['x',['x',['../structglados_1_1loaders_1_1_h_i_s_header.html#a282000e8b474898da687e35c62c773c2',1,'glados::loaders::HISHeader']]],
   ['xa_5f',['xa_',['../classrisa_1_1cuda_1_1_attenuation.html#a606c1bedda8aee31ad4115ba2db1b3eb',1,'risa::cuda::Attenuation']]],
   ['xb_5f',['xb_',['../classrisa_1_1cuda_1_1_attenuation.html#a0fb76739338adde6dde4bbc8722fe35b',1,'risa::cuda::Attenuation']]],
   ['xc_5f',['xc_',['../classrisa_1_1cuda_1_1_attenuation.html#a766aa3146bbfb57089491b16be057cee',1,'risa::cuda::Attenuation']]],

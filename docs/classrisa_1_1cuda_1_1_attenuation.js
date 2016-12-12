@@ -1,8 +1,8 @@
 var classrisa_1_1cuda_1_1_attenuation =
 [
-    [ "deviceManagerType", "classrisa_1_1cuda_1_1_attenuation.html#a6252de758a33d71143cedaaab6018aee", null ],
-    [ "input_type", "classrisa_1_1cuda_1_1_attenuation.html#a809ab6be9397a5efa9431b1900fa30c5", null ],
-    [ "output_type", "classrisa_1_1cuda_1_1_attenuation.html#ac0383ddee78ed54ead63f141cb24fedc", null ],
+    [ "deviceManagerType", "classrisa_1_1cuda_1_1_attenuation.html#a68f7865ef50364d67886897af952c28f", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_attenuation.html#a50410b13875fda854422179acc66cc59", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_attenuation.html#a8d855833a2bb5d1346e66a7cda14191d", null ],
     [ "Attenuation", "classrisa_1_1cuda_1_1_attenuation.html#a3a244781d05d7a4012939a2ae6312f06", null ],
     [ "~Attenuation", "classrisa_1_1cuda_1_1_attenuation.html#aaecc4e0542881e3a0bbb2b3886aa3d27", null ],
     [ "computeAverage", "classrisa_1_1cuda_1_1_attenuation.html#a8be07c9a0f7d6e24b13d1720a786c63b", null ],
@@ -32,8 +32,8 @@ var classrisa_1_1cuda_1_1_attenuation =
     [ "pathDark_", "classrisa_1_1cuda_1_1_attenuation.html#a536dd4d53e9577e350e23b571b074295", null ],
     [ "pathReference_", "classrisa_1_1cuda_1_1_attenuation.html#af6646aac3068ae0637551c090b2db14a", null ],
     [ "processorThreads_", "classrisa_1_1cuda_1_1_attenuation.html#a625027925a3ff2114b78f8a63f5e3b54", null ],
-    [ "results_", "classrisa_1_1cuda_1_1_attenuation.html#a771775cf8352d3846df581c93cd9eb16", null ],
-    [ "sinograms_", "classrisa_1_1cuda_1_1_attenuation.html#ad77ebd68bdc51eec933b1d54bd917f8e", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_attenuation.html#a778e7180244259199a0b92905571f1ea", null ],
+    [ "sinograms_", "classrisa_1_1cuda_1_1_attenuation.html#a965bd73159d738a39a3f1543909f1a31", null ],
     [ "sourceOffset_", "classrisa_1_1cuda_1_1_attenuation.html#a27eb8952aab142c8a2d89cd93449dbde", null ],
     [ "streams_", "classrisa_1_1cuda_1_1_attenuation.html#a5c1b191a7fdcf1ee1e2c4d2847f469f6", null ],
     [ "threshMax_", "classrisa_1_1cuda_1_1_attenuation.html#afbef9006f9297fbbeb5e01977153d285", null ],

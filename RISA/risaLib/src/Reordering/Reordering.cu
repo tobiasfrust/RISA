@@ -25,10 +25,10 @@
 #include <risa/ConfigReader/ConfigReader.h>
 #include <risa/Basics/performance.h>
 
-#include <ddrf/cuda/Launch.h>
-#include <ddrf/cuda/Check.h>
-#include <ddrf/cuda/Coordinates.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/cuda/Launch.h>
+#include <glados/cuda/Check.h>
+#include <glados/cuda/Coordinates.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -57,7 +57,7 @@ Reordering::Reordering(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       //register in memory pool
-      memoryPoolIdxs_[i] = ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_, numberOfFanDetectors_*numberOfFanProjections_);
+      memoryPoolIdxs_[i] = glados::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_, numberOfFanDetectors_*numberOfFanProjections_);
       cudaStream_t stream;
       CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 6));
       streams_[i] = stream;
@@ -73,7 +73,7 @@ Reordering::Reordering(const std::string& configFile) {
 Reordering::~Reordering() {
    for (auto idx : memoryPoolIdxs_) {
       CHECK(cudaSetDevice(idx.first));
-      ddrf::MemoryPool<deviceManagerType>::instance()->freeMemory(idx.second);
+      glados::MemoryPool<deviceManagerType>::instance()->freeMemory(idx.second);
    }
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
@@ -125,7 +125,7 @@ auto Reordering::processor(const int deviceID) -> void {
    std::vector<int> hashTable(numberOfFanDetectors_*numberOfFanProjections_);
    createHashTable(hashTable);
 
-   auto d_hashTable = ddrf::cuda::make_device_ptr<int>(numberOfFanDetectors_*numberOfFanProjections_);
+   auto d_hashTable = glados::cuda::make_device_ptr<int>(numberOfFanDetectors_*numberOfFanProjections_);
    CHECK(cudaMemcpy(d_hashTable.get(), hashTable.data(), sizeof(int)*hashTable.size(), cudaMemcpyHostToDevice));
 
    BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::Reordering: Running Thread for Device " << deviceID;
@@ -135,7 +135,7 @@ auto Reordering::processor(const int deviceID) -> void {
          break;
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Reordering: Reordering image with Index " << img.index();
 
-      auto sino_ordered = ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(memoryPoolIdxs_[deviceID]);
+      auto sino_ordered = glados::MemoryPool<deviceManagerType>::instance()->requestMemory(memoryPoolIdxs_[deviceID]);
 
       reorder<<<grids, blocks, 0, streams_[deviceID]>>>(img.container().get(), sino_ordered.container().get(), d_hashTable.get(), numberOfFanProjections_, numberOfFanDetectors_);
       CHECK(cudaPeekAtLastError());
@@ -194,8 +194,8 @@ auto Reordering::createHashTable(std::vector<int>& hashTable) -> void {
 
 __global__ void reorder(const unsigned short* __restrict__ unorderedSino, unsigned short* __restrict__ orderedSino,
       const int* __restrict__ hashTable, const int numberOfProjections, const int numberOfDetectors) {
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
+   const auto x = glados::cuda::getX();
+   const auto y = glados::cuda::getY();
    if (x >= numberOfDetectors || y >= numberOfProjections)
       return;
 

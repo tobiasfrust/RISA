@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>RISA: /home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Attenuation/Attenuation.cu File Reference</title>
+<title>RISA: /home/frust45/RISA/RISA/risaLib/src/Attenuation/Attenuation.cu File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -114,10 +114,10 @@ $(document).ready(function(){initNavTree('_attenuation_8cu.html','');});
 <code>#include &lt;<a class="el" href="_attenuation_8h_source.html">risa/Attenuation/Attenuation.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_config_reader_8h_source.html">risa/ConfigReader/ConfigReader.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="performance_8h_source.html">risa/Basics/performance.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_launch_8h_source.html">ddrf/cuda/Launch.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_check_8h_source.html">ddrf/cuda/Check.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_coordinates_8h_source.html">ddrf/cuda/Coordinates.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_memory_pool_8h_source.html">ddrf/MemoryPool.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_launch_8h_source.html">glados/cuda/Launch.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_check_8h_source.html">glados/cuda/Check.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_coordinates_8h_source.html">glados/cuda/Coordinates.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_memory_pool_8h_source.html">glados/MemoryPool.h</a>&gt;</code><br />
 <code>#include &lt;boost/log/trivial.hpp&gt;</code><br />
 <code>#include &lt;omp.h&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
@@ -129,22 +129,22 @@ $(document).ready(function(){initNavTree('_attenuation_8cu.html','');});
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Attenuation.cu:</div>
 <div class="dyncontent">
-<div class="center"><img src="_attenuation_8cu__incl.png" border="0" usemap="#_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_attenuation_2_attenuation_8cu" alt=""/></div>
-<map name="_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_attenuation_2_attenuation_8cu" id="_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_attenuation_2_attenuation_8cu">
-<area shape="rect" id="node2" href="interpolation_functions_8h.html" title="../DetectorInterpolation\l/interpolationFunctions.h" alt="" coords="367,184,531,225"/>
-<area shape="rect" id="node4" href="_attenuation_8h.html" title="risa/Attenuation/Attenuation.h" alt="" coords="1086,109,1281,136"/>
-<area shape="rect" id="node6" href="_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1355,273,1462,300"/>
-<area shape="rect" id="node26" href="_check_8h.html" title="Check.h" alt="" coords="1909,348,1980,375"/>
-<area shape="rect" id="node34" href="_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="5,184,175,225"/>
-<area shape="rect" id="node36" href="performance_8h.html" title="risa/Basics/performance.h" alt="" coords="1736,109,1911,136"/>
-<area shape="rect" id="node38" href="_launch_8h.html" title="ddrf/cuda/Launch.h" alt="" coords="1686,191,1819,218"/>
-<area shape="rect" id="node39" href="_coordinates_8h.html" title="ddrf/cuda/Coordinates.h" alt="" coords="1935,109,2096,136"/>
-<area shape="rect" id="node5" href="_image_8h.html" title="ddrf/Image.h" alt="" coords="1085,191,1180,218"/>
-<area shape="rect" id="node20" href="_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="823,191,1053,218"/>
-<area shape="rect" id="node24" href="cuda_2_memory_8h.html" title="Memory.h" alt="" coords="801,273,881,300"/>
-<area shape="rect" id="node30" href="_queue_8h.html" title="ddrf/Queue.h" alt="" coords="1547,273,1644,300"/>
-<area shape="rect" id="node7" href="_singleton_8h.html" title="Singleton.h" alt="" coords="1175,348,1261,375"/>
-<area shape="rect" id="node25" href="_memory_8h.html" title="ddrf/Memory.h" alt="" coords="614,348,721,375"/>
+<div class="center"><img src="_attenuation_8cu__incl.png" border="0" usemap="#_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_attenuation_2_attenuation_8cu" alt=""/></div>
+<map name="_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_attenuation_2_attenuation_8cu" id="_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_attenuation_2_attenuation_8cu">
+<area shape="rect" id="node2" href="interpolation_functions_8h.html" title="../DetectorInterpolation\l/interpolationFunctions.h" alt="" coords="382,184,561,225"/>
+<area shape="rect" id="node4" href="_attenuation_8h.html" title="risa/Attenuation/Attenuation.h" alt="" coords="1131,109,1345,136"/>
+<area shape="rect" id="node6" href="_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1417,273,1531,300"/>
+<area shape="rect" id="node26" href="_check_8h.html" title="Check.h" alt="" coords="1991,348,2064,375"/>
+<area shape="rect" id="node34" href="_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="5,184,183,225"/>
+<area shape="rect" id="node36" href="performance_8h.html" title="risa/Basics/performance.h" alt="" coords="1816,109,2004,136"/>
+<area shape="rect" id="node38" href="_launch_8h.html" title="glados/cuda/Launch.h" alt="" coords="1756,191,1917,218"/>
+<area shape="rect" id="node39" href="_coordinates_8h.html" title="glados/cuda/Coordinates.h" alt="" coords="2029,109,2221,136"/>
+<area shape="rect" id="node5" href="_image_8h.html" title="glados/Image.h" alt="" coords="1121,191,1241,218"/>
+<area shape="rect" id="node20" href="_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="888,184,1087,225"/>
+<area shape="rect" id="node24" href="cuda_2_memory_8h.html" title="Memory.h" alt="" coords="840,273,924,300"/>
+<area shape="rect" id="node30" href="_queue_8h.html" title="glados/Queue.h" alt="" coords="1606,273,1729,300"/>
+<area shape="rect" id="node7" href="_singleton_8h.html" title="Singleton.h" alt="" coords="1224,348,1319,375"/>
+<area shape="rect" id="node25" href="_memory_8h.html" title="glados/Memory.h" alt="" coords="626,348,757,375"/>
 </map>
 </div>
 </div>
@@ -169,7 +169,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_75dfe969499885e8e76e2070fb384c29.html">RISA</a></li><li class="navelem"><a class="el" href="dir_3c660e8b87a9869a1179775b41541930.html">risaLib</a></li><li class="navelem"><a class="el" href="dir_943d5c9b772e61ccd9cc91d8a4893314.html">src</a></li><li class="navelem"><a class="el" href="dir_15cc2b054147ef94c0b22811d44308f5.html">Attenuation</a></li><li class="navelem"><a class="el" href="_attenuation_8cu.html">Attenuation.cu</a></li>
-    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
+    <li class="footer">Generated on Mon Dec 12 2016 10:36:52 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

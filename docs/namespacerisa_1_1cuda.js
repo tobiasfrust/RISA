@@ -10,5 +10,6 @@ var namespacerisa_1_1cuda =
     [ "hashTable", "structrisa_1_1cuda_1_1hash_table.html", "structrisa_1_1cuda_1_1hash_table" ],
     [ "Masking", "classrisa_1_1cuda_1_1_masking.html", "classrisa_1_1cuda_1_1_masking" ],
     [ "parameters", "structrisa_1_1cuda_1_1parameters.html", "structrisa_1_1cuda_1_1parameters" ],
-    [ "Reordering", "classrisa_1_1cuda_1_1_reordering.html", "classrisa_1_1cuda_1_1_reordering" ]
+    [ "Reordering", "classrisa_1_1cuda_1_1_reordering.html", "classrisa_1_1cuda_1_1_reordering" ],
+    [ "Template", "classrisa_1_1cuda_1_1_template.html", "classrisa_1_1cuda_1_1_template" ]
 ];

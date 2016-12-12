@@ -22,7 +22,7 @@ include_directories(
    ${BOOST_INCLUDE_DIRS}
    ${TIFF_INCLUDE_DIR}
    "${CMAKE_SOURCE_DIR}/risaLib/include"
-   "${CMAKE_SOURCE_DIR}/ddrf/include"
+   "${CMAKE_SOURCE_DIR}/glados/include"
 )
 
 set(SOURCES

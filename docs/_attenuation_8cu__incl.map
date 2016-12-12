@@ -1,16 +1,16 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Attenuation/Attenuation.cu" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Attenuation/Attenuation.cu">
-<area shape="rect" id="node2" href="$interpolation_functions_8h.html" title="../DetectorInterpolation\l/interpolationFunctions.h" alt="" coords="367,184,531,225"/>
-<area shape="rect" id="node4" href="$_attenuation_8h.html" title="risa/Attenuation/Attenuation.h" alt="" coords="1086,109,1281,136"/>
-<area shape="rect" id="node6" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1355,273,1462,300"/>
-<area shape="rect" id="node26" href="$_check_8h.html" title="Check.h" alt="" coords="1909,348,1980,375"/>
-<area shape="rect" id="node34" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="5,184,175,225"/>
-<area shape="rect" id="node36" href="$performance_8h.html" title="risa/Basics/performance.h" alt="" coords="1736,109,1911,136"/>
-<area shape="rect" id="node38" href="$_launch_8h.html" title="ddrf/cuda/Launch.h" alt="" coords="1686,191,1819,218"/>
-<area shape="rect" id="node39" href="$_coordinates_8h.html" title="ddrf/cuda/Coordinates.h" alt="" coords="1935,109,2096,136"/>
-<area shape="rect" id="node5" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="1085,191,1180,218"/>
-<area shape="rect" id="node20" href="$_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="823,191,1053,218"/>
-<area shape="rect" id="node24" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="801,273,881,300"/>
-<area shape="rect" id="node30" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="1547,273,1644,300"/>
-<area shape="rect" id="node7" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1175,348,1261,375"/>
-<area shape="rect" id="node25" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="614,348,721,375"/>
+<map id="/home/frust45/RISA/RISA/risaLib/src/Attenuation/Attenuation.cu" name="/home/frust45/RISA/RISA/risaLib/src/Attenuation/Attenuation.cu">
+<area shape="rect" id="node2" href="$interpolation_functions_8h.html" title="../DetectorInterpolation\l/interpolationFunctions.h" alt="" coords="382,184,561,225"/>
+<area shape="rect" id="node4" href="$_attenuation_8h.html" title="risa/Attenuation/Attenuation.h" alt="" coords="1131,109,1345,136"/>
+<area shape="rect" id="node6" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1417,273,1531,300"/>
+<area shape="rect" id="node26" href="$_check_8h.html" title="Check.h" alt="" coords="1991,348,2064,375"/>
+<area shape="rect" id="node34" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="5,184,183,225"/>
+<area shape="rect" id="node36" href="$performance_8h.html" title="risa/Basics/performance.h" alt="" coords="1816,109,2004,136"/>
+<area shape="rect" id="node38" href="$_launch_8h.html" title="glados/cuda/Launch.h" alt="" coords="1756,191,1917,218"/>
+<area shape="rect" id="node39" href="$_coordinates_8h.html" title="glados/cuda/Coordinates.h" alt="" coords="2029,109,2221,136"/>
+<area shape="rect" id="node5" href="$_image_8h.html" title="glados/Image.h" alt="" coords="1121,191,1241,218"/>
+<area shape="rect" id="node20" href="$_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="888,184,1087,225"/>
+<area shape="rect" id="node24" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="840,273,924,300"/>
+<area shape="rect" id="node30" href="$_queue_8h.html" title="glados/Queue.h" alt="" coords="1606,273,1729,300"/>
+<area shape="rect" id="node7" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1224,348,1319,375"/>
+<area shape="rect" id="node25" href="$_memory_8h.html" title="glados/Memory.h" alt="" coords="626,348,757,375"/>
 </map>

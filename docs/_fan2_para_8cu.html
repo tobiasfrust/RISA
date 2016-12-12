@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>RISA: /home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Fan2Para/Fan2Para.cu File Reference</title>
+<title>RISA: /home/frust45/RISA/RISA/risaLib/src/Fan2Para/Fan2Para.cu File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,9 +112,9 @@ $(document).ready(function(){initNavTree('_fan2_para_8cu.html','');});
 <div class="textblock"><code>#include &quot;<a class="el" href="cuda__kernels__fan2para_8h_source.html">cuda_kernels_fan2para.h</a>&quot;</code><br />
 <code>#include &lt;<a class="el" href="_fan2_para_8h_source.html">risa/Fan2Para/Fan2Para.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_config_reader_8h_source.html">risa/ConfigReader/ConfigReader.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_memory_pool_8h_source.html">ddrf/MemoryPool.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_check_8h_source.html">ddrf/cuda/Check.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_launch_8h_source.html">ddrf/cuda/Launch.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_memory_pool_8h_source.html">glados/MemoryPool.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_check_8h_source.html">glados/cuda/Check.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_launch_8h_source.html">glados/cuda/Launch.h</a>&gt;</code><br />
 <code>#include &lt;boost/log/trivial.hpp&gt;</code><br />
 <code>#include &lt;nvToolsExt.h&gt;</code><br />
 <code>#include &lt;exception&gt;</code><br />
@@ -123,21 +123,21 @@ $(document).ready(function(){initNavTree('_fan2_para_8cu.html','');});
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Fan2Para.cu:</div>
 <div class="dyncontent">
-<div class="center"><img src="_fan2_para_8cu__incl.png" border="0" usemap="#_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_fan2_para_2_fan2_para_8cu" alt=""/></div>
-<map name="_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_fan2_para_2_fan2_para_8cu" id="_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_fan2_para_2_fan2_para_8cu">
-<area shape="rect" id="node2" href="cuda__kernels__fan2para_8h.html" title="cuda_kernels_fan2para.h" alt="" coords="1077,109,1243,136"/>
-<area shape="rect" id="node3" href="_fan2_para_8h.html" title="risa/Fan2Para/Fan2Para.h" alt="" coords="1073,184,1247,211"/>
-<area shape="rect" id="node5" href="_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="715,348,821,375"/>
-<area shape="rect" id="node26" href="_check_8h.html" title="Check.h" alt="" coords="373,423,443,449"/>
-<area shape="rect" id="node39" href="_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="102,259,271,300"/>
-<area shape="rect" id="node41" href="_launch_8h.html" title="ddrf/cuda/Launch.h" alt="" coords="397,266,531,293"/>
-<area shape="rect" id="node36" href="_coordinates_8h.html" title="ddrf/cuda/Coordinates.h" alt="" coords="1271,184,1433,211"/>
-<area shape="rect" id="node4" href="_image_8h.html" title="ddrf/Image.h" alt="" coords="1019,266,1114,293"/>
-<area shape="rect" id="node20" href="_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="1145,266,1375,293"/>
-<area shape="rect" id="node24" href="cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1453,348,1533,375"/>
-<area shape="rect" id="node30" href="_queue_8h.html" title="ddrf/Queue.h" alt="" coords="846,348,943,375"/>
-<area shape="rect" id="node6" href="_singleton_8h.html" title="Singleton.h" alt="" coords="522,423,609,449"/>
-<area shape="rect" id="node25" href="_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1543,423,1649,449"/>
+<div class="center"><img src="_fan2_para_8cu__incl.png" border="0" usemap="#_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_fan2_para_2_fan2_para_8cu" alt=""/></div>
+<map name="_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_fan2_para_2_fan2_para_8cu" id="_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_fan2_para_2_fan2_para_8cu">
+<area shape="rect" id="node2" href="cuda__kernels__fan2para_8h.html" title="cuda_kernels_fan2para.h" alt="" coords="1137,109,1320,136"/>
+<area shape="rect" id="node3" href="_fan2_para_8h.html" title="risa/Fan2Para/Fan2Para.h" alt="" coords="1138,184,1319,211"/>
+<area shape="rect" id="node5" href="_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="745,348,859,375"/>
+<area shape="rect" id="node26" href="_check_8h.html" title="Check.h" alt="" coords="396,423,469,449"/>
+<area shape="rect" id="node39" href="_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="116,259,293,300"/>
+<area shape="rect" id="node41" href="_launch_8h.html" title="glados/cuda/Launch.h" alt="" coords="420,266,581,293"/>
+<area shape="rect" id="node36" href="_coordinates_8h.html" title="glados/cuda/Coordinates.h" alt="" coords="1343,184,1535,211"/>
+<area shape="rect" id="node4" href="_image_8h.html" title="glados/Image.h" alt="" coords="1077,266,1197,293"/>
+<area shape="rect" id="node20" href="_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="1233,259,1432,300"/>
+<area shape="rect" id="node24" href="cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1529,348,1613,375"/>
+<area shape="rect" id="node30" href="_queue_8h.html" title="glados/Queue.h" alt="" coords="883,348,1006,375"/>
+<area shape="rect" id="node6" href="_singleton_8h.html" title="Singleton.h" alt="" coords="563,423,657,449"/>
+<area shape="rect" id="node25" href="_memory_8h.html" title="glados/Memory.h" alt="" coords="1619,423,1750,449"/>
 </map>
 </div>
 </div>
@@ -156,7 +156,7 @@ Namespaces</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_75dfe969499885e8e76e2070fb384c29.html">RISA</a></li><li class="navelem"><a class="el" href="dir_3c660e8b87a9869a1179775b41541930.html">risaLib</a></li><li class="navelem"><a class="el" href="dir_943d5c9b772e61ccd9cc91d8a4893314.html">src</a></li><li class="navelem"><a class="el" href="dir_7326662bbd6960892492f67a77440156.html">Fan2Para</a></li><li class="navelem"><a class="el" href="_fan2_para_8cu.html">Fan2Para.cu</a></li>
-    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
+    <li class="footer">Generated on Mon Dec 12 2016 10:36:52 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

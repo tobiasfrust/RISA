@@ -1,8 +1,8 @@
 var classrisa_1_1cuda_1_1_h2_d =
 [
-    [ "deviceManagerType", "classrisa_1_1cuda_1_1_h2_d.html#afeb9dd8d18ee0cff103091ad195c4466", null ],
-    [ "input_type", "classrisa_1_1cuda_1_1_h2_d.html#a8b714506bc9fb9a71e948e8992fe4e2f", null ],
-    [ "output_type", "classrisa_1_1cuda_1_1_h2_d.html#ac599a7447194c86dd24e146cd5f7b880", null ],
+    [ "deviceManagerType", "classrisa_1_1cuda_1_1_h2_d.html#aa7e60f9b287e0e1f173ab5b9c27fe633", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_h2_d.html#a981138fa0c6fc07a515aecad9a7853da", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_h2_d.html#a83fb2746699a6bef54e38dcf3d3d111f", null ],
     [ "H2D", "classrisa_1_1cuda_1_1_h2_d.html#a652f7e8aaedffed245f98222de3a5419", null ],
     [ "~H2D", "classrisa_1_1cuda_1_1_h2_d.html#a9c50af867fb0180538a3a016338edd20", null ],
     [ "process", "classrisa_1_1cuda_1_1_h2_d.html#acda3bed3ab21bf4ee2c394cc2cb37b5d", null ],
@@ -20,8 +20,8 @@ var classrisa_1_1cuda_1_1_h2_d =
     [ "numberOfDevices_", "classrisa_1_1cuda_1_1_h2_d.html#a4c903f11c9169e5c58863cf4cd674f36", null ],
     [ "numberOfProjections_", "classrisa_1_1cuda_1_1_h2_d.html#ad97e5deef905dc499d7304b93660415f", null ],
     [ "processorThreads_", "classrisa_1_1cuda_1_1_h2_d.html#ae05881c02180f73bc3473e2ecf82b800", null ],
-    [ "results_", "classrisa_1_1cuda_1_1_h2_d.html#aacc414915320cb65800938cd12e65d09", null ],
-    [ "sinograms_", "classrisa_1_1cuda_1_1_h2_d.html#af43c87692c42d161b232da8d01922b95", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_h2_d.html#a3baf20900427cc3dff792f7c32cc0ed3", null ],
+    [ "sinograms_", "classrisa_1_1cuda_1_1_h2_d.html#a29ffe9f60e5d809eb5ac1b7709d20e97", null ],
     [ "streams_", "classrisa_1_1cuda_1_1_h2_d.html#a8f59f3f8f4ea6ad8e5588be9c25d0a20", null ],
     [ "tmr_", "classrisa_1_1cuda_1_1_h2_d.html#addf5c9d26df39141d941071e7cd800d6", null ],
     [ "worstCaseTime_", "classrisa_1_1cuda_1_1_h2_d.html#ae294a02c82b3dfe131255305d86c4e65", null ]

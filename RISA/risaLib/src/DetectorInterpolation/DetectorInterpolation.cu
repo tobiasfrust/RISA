@@ -26,9 +26,9 @@
 #include <risa/DetectorInterpolation/DetectorInterpolation.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/cuda/Coordinates.h>
-#include <ddrf/cuda/Check.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/cuda/Coordinates.h>
+#include <glados/cuda/Check.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -52,7 +52,7 @@ DetectorInterpolation::DetectorInterpolation(const std::string& configFile){
 
    CHECK(cudaGetDeviceCount(&numberOfDevices_));
    for(auto i = 0; i < numberOfDevices_; i++){
-      memoryPoolIdxs_[i] = ddrf::MemoryPool<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>::instance()->registerStage(500, numberOfDetectors_*numberOfProjections_);
+      memoryPoolIdxs_[i] = glados::MemoryPool<glados::cuda::HostMemoryManager<unsigned short, glados::cuda::async_copy_policy>>::instance()->registerStage(500, numberOfDetectors_*numberOfProjections_);
       //custom streams are necessary, because profiling with nvprof seems to be
       //not possible with -default-stream per-thread option
       cudaStream_t stream;
@@ -117,7 +117,7 @@ auto DetectorInterpolation::processor(int deviceID) -> void {
 
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::DetectorInterpolation: Copy sinogram " << sinogram.index() << " to device " << deviceID;
 
-      auto h_sino = ddrf::MemoryPool<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>::instance()->requestMemory(memoryPoolIdxs_[deviceID]);
+      auto h_sino = glados::MemoryPool<glados::cuda::HostMemoryManager<unsigned short, glados::cuda::async_copy_policy>>::instance()->requestMemory(memoryPoolIdxs_[deviceID]);
 
       CHECK(cudaMemcpyAsync(h_sino.container().get(), sinogram.container().get(), sizeof(unsigned short)*numberOfProjections_*numberOfDetectors_, cudaMemcpyDeviceToHost, streams_[deviceID]));
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5finstance',['_instance',['../classddrf_1_1_singleton.html#a4dbb6613dcdbcdbb5e2eeee19326cc8a',1,'ddrf::Singleton']]]
+  ['_5finstance',['_instance',['../classglados_1_1_singleton.html#a439d2cd0b6bed8f490e7647a8c669c9f',1,'glados::Singleton']]]
 ];

@@ -1,6 +1,6 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/ddrf/include/ddrf/Volume.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/ddrf/include/ddrf/Volume.h">
-<area shape="rect" id="node2" href="$_image_saver_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/ImageSaver.h" alt="" coords="5,117,184,173"/>
-<area shape="rect" id="node4" href="$image_savers_2_t_i_f_f_2_t_i_f_f_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/imageSavers\l/TIFF/TIFF.h" alt="" coords="208,109,381,180"/>
-<area shape="rect" id="node5" href="$_sink_stage_8h.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/ddrf\l/include/ddrf/pipeline\l/SinkStage.h" alt="" coords="405,109,568,180"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/example\l/main.cpp" alt="" coords="203,228,386,284"/>
+<map id="/home/frust45/RISA/RISA/glados/include/glados/Volume.h" name="/home/frust45/RISA/RISA/glados/include/glados/Volume.h">
+<area shape="rect" id="node2" href="$_image_saver_8h.html" title="/home/frust45/RISA\l/RISA/glados/include\l/glados/ImageSaver.h" alt="" coords="5,117,165,173"/>
+<area shape="rect" id="node4" href="$image_savers_2_t_i_f_f_2_t_i_f_f_8h.html" title="/home/frust45/RISA\l/RISA/glados/include\l/glados/imageSavers/TIFF\l/TIFF.h" alt="" coords="189,109,373,180"/>
+<area shape="rect" id="node5" href="$_sink_stage_8h.html" title="/home/frust45/RISA\l/RISA/glados/include\l/glados/pipeline/SinkStage.h" alt="" coords="397,117,600,173"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="/home/frust45/RISA\l/RISA/example/main.cpp" alt="" coords="193,228,370,269"/>
 </map>

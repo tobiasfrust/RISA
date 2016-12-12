@@ -1,4 +1,4 @@
 <map id="risa::cuda::D2H" name="risa::cuda::D2H">
-<area shape="rect" id="node2" href="$classrisa_1_1_timer.html" title="The Timer&#45;class uses the std::chrono library and provides a high precision timer. ..." alt="" coords="5,13,89,39"/>
-<area shape="rect" id="node3" href="$classddrf_1_1_queue.html" title="ddrf::Queue\&lt; ddrf::\lImage \&gt;" alt="" coords="113,5,245,47"/>
+<area shape="rect" id="node2" href="$classrisa_1_1_timer.html" title="The Timer&#45;class uses the std::chrono library and provides a high precision timer. ..." alt="" coords="5,13,95,39"/>
+<area shape="rect" id="node3" href="$classglados_1_1_queue.html" title="glados::Queue\&lt; glados\l::Image \&gt;" alt="" coords="119,5,290,47"/>
 </map>

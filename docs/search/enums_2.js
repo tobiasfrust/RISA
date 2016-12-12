@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hisconst',['HISConst',['../namespaceddrf_1_1loaders.html#a25411014ee0634a830e15b8871b6939d',1,'ddrf::loaders']]]
+  ['hisconst',['HISConst',['../namespaceglados_1_1loaders.html#ac429e94c883bc55092765c8bf14dbe29',1,'glados::loaders']]]
 ];

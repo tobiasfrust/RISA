@@ -25,9 +25,9 @@
 #include <risa/ConfigReader/ConfigReader.h>
 #include <risa/Basics/performance.h>
 
-#include <ddrf/cuda/Launch.h>
-#include <ddrf/cuda/Check.h>
-#include <ddrf/cuda/Coordinates.h>
+#include <glados/cuda/Launch.h>
+#include <glados/cuda/Check.h>
+#include <glados/cuda/Coordinates.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -155,8 +155,8 @@ auto Masking::readConfig(const std::string& configFile) -> bool {
 }
 
 __global__ void mask(float* __restrict__ img, const float value, const int numberOfPixels) {
-   const auto x = ddrf::cuda::getX();
-   const auto y = ddrf::cuda::getY();
+   const auto x = glados::cuda::getX();
+   const auto y = glados::cuda::getY();
    if (x >= numberOfPixels || y >= numberOfPixels)
       return;
    const float center = (numberOfPixels - 1.0) * 0.5;

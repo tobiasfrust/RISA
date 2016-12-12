@@ -1,5 +1,5 @@
 var namespaces =
 [
-    [ "ddrf", "namespaceddrf.html", "namespaceddrf" ],
+    [ "glados", "namespaceglados.html", "namespaceglados" ],
     [ "risa", "namespacerisa.html", "namespacerisa" ]
 ];

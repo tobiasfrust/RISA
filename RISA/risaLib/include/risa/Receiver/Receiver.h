@@ -27,9 +27,9 @@
 #include "../ReceiverModule/ReceiverModule.h"
 #include "OnlineReceiverNotification.h"
 
-#include <ddrf/Queue.h>
-#include <ddrf/Image.h>
-#include <ddrf/cuda/HostMemoryManager.h>
+#include <glados/Queue.h>
+#include <glados/Image.h>
+#include <glados/cuda/HostMemoryManager.h>
 
 #include <vector>
 #include <thread>
@@ -48,7 +48,7 @@ namespace risa {
 class Receiver {
 
 public:
-   using manager_type = ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
+   using manager_type = glados::cuda::HostMemoryManager<unsigned short, glados::cuda::async_copy_policy>;
 
 public:
    Receiver(const std::string& address, const std::string& configPath);
@@ -57,7 +57,7 @@ public:
    /**
     * @return  the image that is pushed through the software pipeline
     */
-   auto loadImage() -> ddrf::Image<manager_type>;
+   auto loadImage() -> glados::Image<manager_type>;
 
    auto run() -> void;
 private:

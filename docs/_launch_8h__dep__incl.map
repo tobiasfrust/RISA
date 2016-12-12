@@ -1,7 +1,7 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/ddrf/include/ddrf/cuda/Launch.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/ddrf/include/ddrf/cuda/Launch.h">
-<area shape="rect" id="node2" href="$_attenuation_8cu.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/Attenuation/Attenuation.cu" alt="" coords="5,109,208,165"/>
-<area shape="rect" id="node3" href="$_fan2_para_8cu.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/Fan2Para/Fan2Para.cu" alt="" coords="233,109,415,165"/>
-<area shape="rect" id="node4" href="$_filter_8cu.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/Filter/Filter.cu" alt="" coords="439,109,611,165"/>
-<area shape="rect" id="node5" href="$_masking_8cu.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/Masking/Masking.cu" alt="" coords="635,109,807,165"/>
-<area shape="rect" id="node6" href="$_reordering_8cu.html" title="/home/tfrust/Dokumente\l/repos/RISA/RISA/risaLib\l/src/Reordering/Reordering.cu" alt="" coords="831,109,1027,165"/>
+<map id="/home/frust45/RISA/RISA/glados/include/glados/cuda/Launch.h" name="/home/frust45/RISA/RISA/glados/include/glados/cuda/Launch.h">
+<area shape="rect" id="node2" href="$_attenuation_8cu.html" title="/home/frust45/RISA\l/RISA/risaLib/src/Attenuation\l/Attenuation.cu" alt="" coords="5,109,208,165"/>
+<area shape="rect" id="node3" href="$_fan2_para_8cu.html" title="/home/frust45/RISA\l/RISA/risaLib/src/Fan2Para\l/Fan2Para.cu" alt="" coords="233,109,418,165"/>
+<area shape="rect" id="node4" href="$_filter_8cu.html" title="/home/frust45/RISA\l/RISA/risaLib/src/Filter\l/Filter.cu" alt="" coords="443,109,600,165"/>
+<area shape="rect" id="node5" href="$_masking_8cu.html" title="/home/frust45/RISA\l/RISA/risaLib/src/Masking\l/Masking.cu" alt="" coords="624,109,803,165"/>
+<area shape="rect" id="node6" href="$_reordering_8cu.html" title="/home/frust45/RISA\l/RISA/risaLib/src/Reordering\l/Reordering.cu" alt="" coords="827,109,1021,165"/>
 </map>

@@ -24,8 +24,8 @@
 #include <risa/Copy/D2H.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/cuda/Check.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/cuda/Check.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -47,11 +47,11 @@ D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
    CHECK(cudaGetDeviceCount(&numberOfDevices_));
 
    memoryPoolIdx_ =
-         ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
+         glados::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
                numberOfPixels_ * numberOfPixels_);
 
 //   memoryPoolIdx_ =
-//        ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
+//        glados::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
 //               256*1024);
 
    //custom streams are necessary, because profiling with nvprof not possible with
@@ -73,7 +73,7 @@ D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
 
 D2H::~D2H() {
    BOOST_LOG_TRIVIAL(info) << "Reconstructed " << reconstructionRate_ << " Images/s in average.";
-   ddrf::MemoryPool<hostManagerType>::instance()->freeMemory(memoryPoolIdx_);
+   glados::MemoryPool<hostManagerType>::instance()->freeMemory(memoryPoolIdx_);
    for(auto i = 0; i < numberOfDevices_; i++){
       CHECK(cudaSetDevice(i));
       CHECK(cudaStreamDestroy(streams_[i]));
@@ -130,7 +130,7 @@ auto D2H::processor(const int deviceID) -> void {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::D2H: Copy sinogram " << img.index() << " from device " << img.device();
 
       //copy image from device to host
-      auto ret = ddrf::MemoryPool<hostManagerType>::instance()->requestMemory(
+      auto ret = glados::MemoryPool<hostManagerType>::instance()->requestMemory(
             memoryPoolIdx_);
       CHECK(
             cudaMemcpyAsync(ret.container().get(), img.container().get(),

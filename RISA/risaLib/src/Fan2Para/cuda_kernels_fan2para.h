@@ -26,7 +26,7 @@
 
 #include <risa/Fan2Para/Fan2Para.h>
 
-#include <ddrf/cuda/Coordinates.h>
+#include <glados/cuda/Coordinates.h>
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -78,8 +78,8 @@ __global__ void interpolation(int k, const float* __restrict__ SinFan_data,
       const float* __restrict__ gamma_ziel_ray_2, const int* __restrict__ ray_1,
       const int* __restrict__ ray_2, const parameters* __restrict__ params) {
 
-   int i = ddrf::cuda::getX();
-   int j = ddrf::cuda::getY();
+   int i = glados::cuda::getX();
+   int j = glados::cuda::getY();
    //finish all threads, that operate outside the bounds of the data field
    if (i >= (*params).numberOfParallelDetectors_
          && j >= (*params).numberOfParallelProjections_)
@@ -178,7 +178,7 @@ __global__ void interpolation(int k, const float* __restrict__ SinFan_data,
 
 template<typename T>
 __global__ void setValue(T* data, T value, int size) {
-   auto id = ddrf::cuda::getX();
+   auto id = glados::cuda::getX();
    if (id >= size)
       return;
    data[id] = value;

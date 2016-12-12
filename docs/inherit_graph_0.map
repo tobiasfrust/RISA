@@ -1,8 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classddrf_1_1base__ptr.html" title="ddrf::base_ptr\&lt; T,\l CopyPolicy, Ptr \&gt;" alt="" coords="184,49,315,90"/>
-<area shape="rect" id="node5" href="$structddrf_1_1cuda_1_1detail_1_1copy__ftor.html" title="ddrf::cuda::detail\l::copy_ftor\&lt; CopyPolicy \&gt;" alt="" coords="162,114,337,155"/>
-<area shape="rect" id="node6" href="$classddrf_1_1cuda_1_1_device_memory_manager.html" title="ddrf::cuda::DeviceMemory\lManager\&lt; T, CopyPolicy \&gt;" alt="" coords="160,179,339,221"/>
-<area shape="rect" id="node7" href="$classddrf_1_1cuda_1_1_host_memory_manager.html" title="ddrf::cuda::HostMemoryManager\l\&lt; T, CopyPolicy \&gt;" alt="" coords="143,245,356,286"/>
-<area shape="rect" id="node3" href="$classddrf_1_1pitched__ptr.html" title="ddrf::pitched_ptr\&lt;\l T, CopyPolicy, is3D,\l Ptr \&gt;" alt="" coords="413,5,561,61"/>
-<area shape="rect" id="node4" href="$classddrf_1_1ptr.html" title="ddrf::ptr\&lt; T, CopyPolicy,\l Ptr \&gt;" alt="" coords="404,85,571,126"/>
+<area shape="rect" id="node2" href="$classglados_1_1base__ptr.html" title="glados::base_ptr\&lt; T,\l CopyPolicy, Ptr \&gt;" alt="" coords="170,49,325,90"/>
+<area shape="rect" id="node5" href="$structglados_1_1cuda_1_1detail_1_1copy__ftor.html" title="glados::cuda::detail\l::copy_ftor\&lt; CopyPolicy \&gt;" alt="" coords="154,114,341,155"/>
+<area shape="rect" id="node6" href="$classglados_1_1cuda_1_1_device_memory_manager.html" title="glados::cuda::DeviceMemory\lManager\&lt; T, CopyPolicy \&gt;" alt="" coords="144,179,351,221"/>
+<area shape="rect" id="node7" href="$classglados_1_1cuda_1_1_host_memory_manager.html" title="glados::cuda::HostMemory\lManager\&lt; T, CopyPolicy \&gt;" alt="" coords="151,245,344,286"/>
+<area shape="rect" id="node3" href="$classglados_1_1pitched__ptr.html" title="glados::pitched_ptr\l\&lt; T, CopyPolicy, is3D,\l Ptr \&gt;" alt="" coords="415,5,575,61"/>
+<area shape="rect" id="node4" href="$classglados_1_1ptr.html" title="glados::ptr\&lt; T, CopyPolicy,\l Ptr \&gt;" alt="" coords="399,85,591,126"/>
 </map>

@@ -27,10 +27,10 @@
 #include <risa/ConfigReader/ConfigReader.h>
 #include <risa/Basics/performance.h>
 
-#include <ddrf/cuda/Launch.h>
-#include <ddrf/cuda/Check.h>
-#include <ddrf/cuda/Coordinates.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/cuda/Launch.h>
+#include <glados/cuda/Check.h>
+#include <glados/cuda/Coordinates.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -61,7 +61,7 @@ Attenuation::Attenuation(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
       memoryPoolIdxs_[i] =
-            ddrf::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
+            glados::MemoryPool<deviceManagerType>::instance()->registerStage(memPoolSize_,
                   numberOfDetectors_ * numberOfProjections_);
       cudaStream_t stream;
       CHECK(cudaStreamCreateWithPriority(&stream, cudaStreamNonBlocking, 5));
@@ -81,7 +81,7 @@ Attenuation::Attenuation(const std::string& configFile) {
 Attenuation::~Attenuation() {
    for (auto idx : memoryPoolIdxs_) {
       CHECK(cudaSetDevice(idx.first));
-      ddrf::MemoryPool<deviceManagerType>::instance()->freeMemory(idx.second);
+      glados::MemoryPool<deviceManagerType>::instance()->freeMemory(idx.second);
    }
    for (auto i = 0; i < numberOfDevices_; i++) {
       CHECK(cudaSetDevice(i));
@@ -118,10 +118,10 @@ auto Attenuation::wait() -> output_type {
 auto Attenuation::processor(const int deviceID) -> void {
    //nvtxNameOsThreadA(pthread_self(), "Attenuation");
    CHECK(cudaSetDevice(deviceID));
-   auto avgDark_d = ddrf::cuda::make_device_ptr<float>(avgDark_.size());
-   auto avgReference_d = ddrf::cuda::make_device_ptr<float>(
+   auto avgDark_d = glados::cuda::make_device_ptr<float>(avgDark_.size());
+   auto avgReference_d = glados::cuda::make_device_ptr<float>(
          avgReference_.size());
-   auto mask_d = ddrf::cuda::make_device_ptr<float>(
+   auto mask_d = glados::cuda::make_device_ptr<float>(
          numberOfDetectors_ * numberOfProjections_);
    CHECK(
          cudaMemcpyAsync(avgDark_d.get(), avgDark_.data(),
@@ -152,7 +152,7 @@ auto Attenuation::processor(const int deviceID) -> void {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Attenuation: Attenuationing image with Index " << sinogram.index();
 
       auto sino =
-            ddrf::MemoryPool<deviceManagerType>::instance()->requestMemory(
+            glados::MemoryPool<deviceManagerType>::instance()->requestMemory(
                   memoryPoolIdxs_[deviceID]);
 
       computeAttenuation<<<grids, blocks, 0, streams_[deviceID]>>>(
@@ -420,8 +420,8 @@ __global__ void computeAttenuation(
       const float temp, const int numberOfDetectors,
       const int numberOfProjections, const int planeId) {
 
-   auto x = ddrf::cuda::getX();
-   auto y = ddrf::cuda::getY();
+   auto x = glados::cuda::getX();
+   auto y = glados::cuda::getY();
    if (x >= numberOfDetectors || y >= numberOfProjections)
       return;
 

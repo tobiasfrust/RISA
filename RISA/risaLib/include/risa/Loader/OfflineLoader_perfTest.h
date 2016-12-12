@@ -37,9 +37,9 @@
 
 #include <boost/log/trivial.hpp>
 
-#include "ddrf/Image.h"
-#include "ddrf/MemoryPool.h"
-#include "ddrf/cuda/HostMemoryManager.h"
+#include "glados/Image.h"
+#include "glados/MemoryPool.h"
+#include "glados/cuda/HostMemoryManager.h"
 
 namespace risa
 {
@@ -51,7 +51,7 @@ namespace risa
       class OfflineLoaderPerfTest
       {
          public:
-            using manager_type = ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
+            using manager_type = glados::cuda::HostMemoryManager<unsigned short, glados::cuda::async_copy_policy>;
 
          public:
             OfflineLoaderPerfTest(const std::string& address, const std::string& configFile);
@@ -60,7 +60,7 @@ namespace risa
             /**
              * @return  the image that is pushed through the software pipeline
              */
-            auto loadImage() -> ddrf::Image<manager_type>;
+            auto loadImage() -> glados::Image<manager_type>;
 
          protected:
             ~OfflineLoaderPerfTest();
@@ -68,7 +68,7 @@ namespace risa
 
          private:
             unsigned int memoryPoolIndex_;   //!<  stores the indeces received when registering in MemoryPool
-            std::queue<ddrf::Image<manager_type>> buffer_;  //!<  the buffer which stores the test data set
+            std::queue<glados::Image<manager_type>> buffer_;  //!<  the buffer which stores the test data set
 
             double worstCaseTime_;
             double bestCaseTime_;

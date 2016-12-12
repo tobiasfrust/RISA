@@ -1,10 +1,10 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Masking/Masking.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Masking/Masking.h">
-<area shape="rect" id="node2" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="399,184,493,211"/>
-<area shape="rect" id="node18" href="$_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="757,109,986,136"/>
-<area shape="rect" id="node22" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="983,184,1063,211"/>
-<area shape="rect" id="node28" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="736,259,833,285"/>
-<area shape="rect" id="node3" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="234,259,341,285"/>
-<area shape="rect" id="node4" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="351,333,437,360"/>
-<area shape="rect" id="node23" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1061,259,1167,285"/>
-<area shape="rect" id="node24" href="$_check_8h.html" title="Check.h" alt="" coords="1519,259,1589,285"/>
+<map id="/home/frust45/RISA/RISA/risaLib/include/risa/Masking/Masking.h" name="/home/frust45/RISA/RISA/risaLib/include/risa/Masking/Masking.h">
+<area shape="rect" id="node2" href="$_image_8h.html" title="glados/Image.h" alt="" coords="407,199,527,225"/>
+<area shape="rect" id="node18" href="$_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="829,109,1027,151"/>
+<area shape="rect" id="node22" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1037,199,1121,225"/>
+<area shape="rect" id="node28" href="$_queue_8h.html" title="glados/Queue.h" alt="" coords="767,273,889,300"/>
+<area shape="rect" id="node3" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="249,273,362,300"/>
+<area shape="rect" id="node4" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="371,348,466,375"/>
+<area shape="rect" id="node23" href="$_memory_8h.html" title="glados/Memory.h" alt="" coords="1116,273,1247,300"/>
+<area shape="rect" id="node24" href="$_check_8h.html" title="Check.h" alt="" coords="1618,273,1691,300"/>
 </map>

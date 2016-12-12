@@ -1,7 +1,7 @@
 var classrisa_1_1cuda_1_1_filter =
 [
-    [ "input_type", "classrisa_1_1cuda_1_1_filter.html#a00a76774253261cafca31bf7ef796b2f", null ],
-    [ "output_type", "classrisa_1_1cuda_1_1_filter.html#a63692a344b9e2722687411a3df4df92e", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_filter.html#a416ca2d10b47e6794f0cd3087b352e2f", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_filter.html#a3447aa64ef6546a0e6bb0ee5b89f0619", null ],
     [ "Filter", "classrisa_1_1cuda_1_1_filter.html#a2f649b14d58ed4c4a916c404009f4bc8", null ],
     [ "~Filter", "classrisa_1_1cuda_1_1_filter.html#af1201f58aff89a57d8590d189db21e74", null ],
     [ "designFilter", "classrisa_1_1cuda_1_1_filter.html#a62e9b0380ecfc8bfb86246ca2b788d30", null ],
@@ -21,7 +21,7 @@ var classrisa_1_1cuda_1_1_filter =
     [ "plansFwd_", "classrisa_1_1cuda_1_1_filter.html#a3ad1ac1942ec9a3468bd6e726d536170", null ],
     [ "plansInv_", "classrisa_1_1cuda_1_1_filter.html#ad5fc9bea2ce12357a0ea10cb61c191bc", null ],
     [ "processorThreads_", "classrisa_1_1cuda_1_1_filter.html#a5da076c5250308896f4330155775f240", null ],
-    [ "results_", "classrisa_1_1cuda_1_1_filter.html#af8e793222a1b4ddc920375a1f1d7af19", null ],
-    [ "sinograms_", "classrisa_1_1cuda_1_1_filter.html#a6e74b9700606824d15ecaf8ad5278784", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_filter.html#a3ec31b4023953c1d5023d880436a11ee", null ],
+    [ "sinograms_", "classrisa_1_1cuda_1_1_filter.html#a485182fadd04719b491ad8f9ec3bcd3f", null ],
     [ "streams_", "classrisa_1_1cuda_1_1_filter.html#a842b74c4ddf634740cf3204b86f39055", null ]
 ];

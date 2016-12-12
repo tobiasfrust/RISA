@@ -34,18 +34,18 @@
 #include <risa/Receiver/Receiver.h>
 #include <risa/Reordering/Reordering.h>
 
-#include <ddrf/Image.h>
-#include <ddrf/ImageLoader.h>
-#include <ddrf/ImageSaver.h>
-#include <ddrf/imageLoaders/TIFF/TIFF.h>
-#include <ddrf/imageSavers/TIFF/TIFF.h>
+#include <glados/Image.h>
+#include <glados/ImageLoader.h>
+#include <glados/ImageSaver.h>
+#include <glados/imageLoaders/TIFF/TIFF.h>
+#include <glados/imageSavers/TIFF/TIFF.h>
 
-#include <ddrf/pipeline/Pipeline.h>
-#include <ddrf/pipeline/SinkStage.h>
-#include <ddrf/pipeline/SourceStage.h>
-#include <ddrf/pipeline/Stage.h>
+#include <glados/pipeline/Pipeline.h>
+#include <glados/pipeline/SinkStage.h>
+#include <glados/pipeline/SourceStage.h>
+#include <glados/pipeline/Stage.h>
 
-#include <ddrf/cuda/HostMemoryManager.h>
+#include <glados/cuda/HostMemoryManager.h>
 
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
@@ -86,29 +86,29 @@ int main(int argc, char *argv[]) {
    //auto configFile = std::string { "config.cfg" };
    auto address = std::string { "10.0.0.10" };
 
-   //using tiffLoader = ddrf::ImageLoader<ddrf::loaders::TIFF<ddrf::cuda::HostMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>>;
-   using offlineLoader = ddrf::ImageLoader<risa::OfflineLoader>;
-   using onlineReceiver = ddrf::ImageLoader<risa::Receiver>;
-   //using tiffSaver = ddrf::ImageSaver<ddrf::savers::TIFF<ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>>>;
-   using offlineSaver = ddrf::ImageSaver<risa::OfflineSaver>;
+   //using tiffLoader = glados::ImageLoader<glados::loaders::TIFF<glados::cuda::HostMemoryManager<unsigned short, glados::cuda::async_copy_policy>>>;
+   using offlineLoader = glados::ImageLoader<risa::OfflineLoader>;
+   using onlineReceiver = glados::ImageLoader<risa::Receiver>;
+   //using tiffSaver = glados::ImageSaver<glados::savers::TIFF<glados::cuda::HostMemoryManager<float, glados::cuda::async_copy_policy>>>;
+   using offlineSaver = glados::ImageSaver<risa::OfflineSaver>;
 
-   using sourceStage = ddrf::pipeline::SourceStage<offlineLoader>;
-   using copyStageH2D = ddrf::pipeline::Stage<risa::cuda::H2D>;
-   using reorderingStage = ddrf::pipeline::Stage<risa::cuda::Reordering>;
-   using attenuationStage = ddrf::pipeline::Stage<risa::cuda::Attenuation>;
-   using fan2ParaStage = ddrf::pipeline::Stage<risa::cuda::Fan2Para>;
-   using filterStage = ddrf::pipeline::Stage<risa::cuda::Filter>;
-   using backProjectionStage = ddrf::pipeline::Stage<risa::cuda::Backprojection>;
-   using maskingStage = ddrf::pipeline::Stage<risa::cuda::Masking>;
-   using copyStageD2H = ddrf::pipeline::Stage<risa::cuda::D2H>;
-   using sinkStage = ddrf::pipeline::SinkStage<offlineSaver>;
+   using sourceStage = glados::pipeline::SourceStage<offlineLoader>;
+   using copyStageH2D = glados::pipeline::Stage<risa::cuda::H2D>;
+   using reorderingStage = glados::pipeline::Stage<risa::cuda::Reordering>;
+   using attenuationStage = glados::pipeline::Stage<risa::cuda::Attenuation>;
+   using fan2ParaStage = glados::pipeline::Stage<risa::cuda::Fan2Para>;
+   using filterStage = glados::pipeline::Stage<risa::cuda::Filter>;
+   using backProjectionStage = glados::pipeline::Stage<risa::cuda::Backprojection>;
+   using maskingStage = glados::pipeline::Stage<risa::cuda::Masking>;
+   using copyStageD2H = glados::pipeline::Stage<risa::cuda::D2H>;
+   using sinkStage = glados::pipeline::SinkStage<offlineSaver>;
 
    int numberofDevices;
    CHECK(cudaGetDeviceCount(&numberofDevices));
 
    try {
       //set up pipeline
-      auto pipeline = ddrf::pipeline::Pipeline { };
+      auto pipeline = glados::pipeline::Pipeline { };
 
       auto h2d = pipeline.create<copyStageH2D>(configFile);
       auto reordering = pipeline.create<reorderingStage>(configFile);

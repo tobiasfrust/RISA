@@ -124,16 +124,16 @@ $(document).ready(function(){initNavTree('classrisa_1_1_offline_saver.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a3446cc60c72c7a67a9430ca035ae9a59"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a> = <a class="el" href="classddrf_1_1cuda_1_1_host_memory_manager.html">ddrf::cuda::HostMemoryManager</a>&lt; float, <a class="el" href="classddrf_1_1cuda_1_1async__copy__policy.html">ddrf::cuda::async_copy_policy</a> &gt;</td></tr>
-<tr class="separator:a3446cc60c72c7a67a9430ca035ae9a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eea945d5fd2f5ee5156ff400ae08cec"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a> = <a class="el" href="classglados_1_1cuda_1_1_host_memory_manager.html">glados::cuda::HostMemoryManager</a>&lt; float, <a class="el" href="classglados_1_1cuda_1_1async__copy__policy.html">glados::cuda::async_copy_policy</a> &gt;</td></tr>
+<tr class="separator:a4eea945d5fd2f5ee5156ff400ae08cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a64b6bbb41099c8fd4791db71aecfd7b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a64b6bbb41099c8fd4791db71aecfd7b2">OfflineSaver</a> (const std::string &amp;configFile)</td></tr>
 <tr class="memdesc:a64b6bbb41099c8fd4791db71aecfd7b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">this function is called, when an image exits the software pipeline  <a href="#a64b6bbb41099c8fd4791db71aecfd7b2">More...</a><br /></td></tr>
 <tr class="separator:a64b6bbb41099c8fd4791db71aecfd7b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cb17d1083cc08257ede2f545c2e1ac0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a5cb17d1083cc08257ede2f545c2e1ac0">saveImage</a> (<a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a> &gt; image, std::string path) -&gt; void</td></tr>
-<tr class="separator:a5cb17d1083cc08257ede2f545c2e1ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60af4def7493e93742e07a8a4e7b1597"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a60af4def7493e93742e07a8a4e7b1597">saveImage</a> (<a class="el" href="classglados_1_1_image.html">glados::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a> &gt; image, std::string path) -&gt; void</td></tr>
+<tr class="separator:a60af4def7493e93742e07a8a4e7b1597"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -147,9 +147,9 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a216d45618272816e045b8c6284229f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1880e39479e38c59b923bdd6ee3b6b44"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a1880e39479e38c59b923bdd6ee3b6b44">readConfig</a> (const std::string &amp;configFile) -&gt; bool</td></tr>
 <tr class="separator:a1880e39479e38c59b923bdd6ee3b6b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fdd0ab1034beecfd5ecef04c88265b9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a0fdd0ab1034beecfd5ecef04c88265b9">writeToTiff</a> (::TIFF *tif, <a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a> &gt; img) const -&gt; void</td></tr>
-<tr class="memdesc:a0fdd0ab1034beecfd5ecef04c88265b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">writes a single image to the tiff sequence  <a href="#a0fdd0ab1034beecfd5ecef04c88265b9">More...</a><br /></td></tr>
-<tr class="separator:a0fdd0ab1034beecfd5ecef04c88265b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa87056997dfc1d45a1cfe9f636dd4451"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#aa87056997dfc1d45a1cfe9f636dd4451">writeToTiff</a> (::TIFF *tif, <a class="el" href="classglados_1_1_image.html">glados::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a> &gt; img) const -&gt; void</td></tr>
+<tr class="memdesc:aa87056997dfc1d45a1cfe9f636dd4451"><td class="mdescLeft">&#160;</td><td class="mdescRight">writes a single image to the tiff sequence  <a href="#aa87056997dfc1d45a1cfe9f636dd4451">More...</a><br /></td></tr>
+<tr class="separator:aa87056997dfc1d45a1cfe9f636dd4451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -182,26 +182,26 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad58e4afd090cd6e4db8f116188f33de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb21b19e750c8143750638ba3eaa5086"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#aeb21b19e750c8143750638ba3eaa5086">fileIndex_</a></td></tr>
 <tr class="separator:aeb21b19e750c8143750638ba3eaa5086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab30162499ae4ee7799b81d09ac100db5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classddrf_1_1_circular_buffer.html">ddrf::CircularBuffer</a>&lt; <a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#ab30162499ae4ee7799b81d09ac100db5">outputBuffers_</a></td></tr>
-<tr class="separator:ab30162499ae4ee7799b81d09ac100db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a8445b85511ec0477510fdfba64f2df"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classglados_1_1_circular_buffer.html">glados::CircularBuffer</a>&lt; <a class="el" href="classglados_1_1_image.html">glados::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrisa_1_1_offline_saver.html#a6a8445b85511ec0477510fdfba64f2df">outputBuffers_</a></td></tr>
+<tr class="separator:a6a8445b85511ec0477510fdfba64f2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This stage is suited for online and offline processing via configuration options. </p>
 <p>In offline mode it has numberOfPlanes output buffers of fixed size. If a buffer is full, it is written to disk and cleared afterwars. In online mode, the output acts as a circular buffer. The oldest values are overwritten, if the buffer is full. At program exit, the buffer is written to disk </p>
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00041">41</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00055">55</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a class="anchor" id="a3446cc60c72c7a67a9430ca035ae9a59"></a>
+<a class="anchor" id="a4eea945d5fd2f5ee5156ff400ae08cec"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">risa::OfflineSaver::manager_type</a> =  <a class="el" href="classddrf_1_1cuda_1_1_host_memory_manager.html">ddrf::cuda::HostMemoryManager</a>&lt;float, <a class="el" href="classddrf_1_1cuda_1_1async__copy__policy.html">ddrf::cuda::async_copy_policy</a>&gt;</td>
+          <td class="memname">using <a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">risa::OfflineSaver::manager_type</a> =  <a class="el" href="classglados_1_1cuda_1_1_host_memory_manager.html">glados::cuda::HostMemoryManager</a>&lt;float, <a class="el" href="classglados_1_1cuda_1_1async__copy__policy.html">glados::cuda::async_copy_policy</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00043">43</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00057">57</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -222,7 +222,7 @@ Private Attributes</h2></td></tr>
 
 <p>this function is called, when an image exits the software pipeline </p>
 
-<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00054">54</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00068">68</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
 
 </div>
 </div>
@@ -247,7 +247,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00080">80</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00094">94</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
 
 </div>
 </div>
@@ -282,18 +282,18 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>returns true, if configuration file could be read successfully, else false </dd></dl>
 
-<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00174">174</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00188">188</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5cb17d1083cc08257ede2f545c2e1ac0"></a>
+<a class="anchor" id="a60af4def7493e93742e07a8a4e7b1597"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">auto risa::OfflineSaver::saveImage </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a> &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classglados_1_1_image.html">glados::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a> &gt;&#160;</td>
           <td class="paramname"><em>image</em>, </td>
         </tr>
         <tr>
@@ -310,7 +310,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00088">88</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00102">102</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
 
 </div>
 </div>
@@ -344,11 +344,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00125">125</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00139">139</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0fdd0ab1034beecfd5ecef04c88265b9"></a>
+<a class="anchor" id="aa87056997dfc1d45a1cfe9f636dd4451"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -364,7 +364,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a> &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classglados_1_1_image.html">glados::Image</a>&lt; <a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a> &gt;&#160;</td>
           <td class="paramname"><em>img</em>&#160;</td>
         </tr>
         <tr>
@@ -389,7 +389,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00146">146</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8cu_source.html#l00160">160</a> of file <a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a>.</p>
 
 </div>
 </div>
@@ -414,7 +414,7 @@ Private Attributes</h2></td></tr>
 
 <p>the size of the output buffers </p>
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00077">77</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00091">91</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -436,7 +436,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00086">86</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00100">100</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -458,7 +458,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00079">79</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00093">93</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -480,7 +480,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00073">73</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00087">87</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -502,7 +502,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00082">82</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00096">96</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -524,7 +524,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00068">68</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00082">82</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -546,7 +546,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00081">81</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00095">95</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -568,7 +568,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00075">75</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00089">89</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -590,7 +590,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00071">71</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00085">85</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -614,7 +614,7 @@ Private Attributes</h2></td></tr>
 
 <p>the number of pixels in the reconstructed image in one dimension </p>
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00070">70</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00084">84</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -638,11 +638,11 @@ Private Attributes</h2></td></tr>
 
 <p>the number of planes </p>
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00072">72</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00086">86</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab30162499ae4ee7799b81d09ac100db5"></a>
+<a class="anchor" id="a6a8445b85511ec0477510fdfba64f2df"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -650,7 +650,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classddrf_1_1_circular_buffer.html">ddrf::CircularBuffer</a>&lt;<a class="el" href="classddrf_1_1_image.html">ddrf::Image</a>&lt;<a class="el" href="classrisa_1_1_offline_saver.html#a3446cc60c72c7a67a9430ca035ae9a59">manager_type</a>&gt; &gt; &gt; risa::OfflineSaver::outputBuffers_</td>
+          <td class="memname">std::vector&lt;<a class="el" href="classglados_1_1_circular_buffer.html">glados::CircularBuffer</a>&lt;<a class="el" href="classglados_1_1_image.html">glados::Image</a>&lt;<a class="el" href="classrisa_1_1_offline_saver.html#a4eea945d5fd2f5ee5156ff400ae08cec">manager_type</a>&gt; &gt; &gt; risa::OfflineSaver::outputBuffers_</td>
         </tr>
       </table>
   </td>
@@ -660,7 +660,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00087">87</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00101">101</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -682,7 +682,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00079">79</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00093">93</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
@@ -704,13 +704,13 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00084">84</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
+<p>Definition at line <a class="el" href="_offline_saver_8h_source.html#l00098">98</a> of file <a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Saver/<a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a></li>
-<li>/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Saver/<a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a></li>
+<li>/home/frust45/RISA/RISA/risaLib/include/risa/Saver/<a class="el" href="_offline_saver_8h_source.html">OfflineSaver.h</a></li>
+<li>/home/frust45/RISA/RISA/risaLib/src/Saver/<a class="el" href="_offline_saver_8cu_source.html">OfflineSaver.cu</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -718,7 +718,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacerisa.html">risa</a></li><li class="navelem"><a class="el" href="classrisa_1_1_offline_saver.html">OfflineSaver</a></li>
-    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
+    <li class="footer">Generated on Mon Dec 12 2016 10:36:52 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

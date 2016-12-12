@@ -1,0 +1,5 @@
+<map id="glados::pipeline::SinkStage&lt; ImageSaver &gt;" name="glados::pipeline::SinkStage&lt; ImageSaver &gt;">
+<area shape="rect" id="node2" href="$classglados_1_1_image_saver.html" title="glados::ImageSaver\l\&lt; Implementation \&gt;" alt="" coords="347,5,501,47"/>
+<area shape="rect" id="node4" href="$classglados_1_1pipeline_1_1_input_side.html" title="glados::pipeline::InputSide\l\&lt; glados::Image\&lt; ImageSaver\l::manager_type \&gt; \&gt;" alt="" coords="315,70,533,126"/>
+<area shape="rect" id="node5" href="$classglados_1_1_queue.html" title="glados::Queue\&lt; glados\l::Image\&lt; ImageSaver::\lmanager_type \&gt; \&gt;" alt="" coords="5,70,176,126"/>
+</map>

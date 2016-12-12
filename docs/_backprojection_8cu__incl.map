@@ -1,13 +1,13 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Backprojection/Backprojection.cu" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/Backprojection/Backprojection.cu">
-<area shape="rect" id="node2" href="$_backprojection_8h.html" title="risa/Backprojection\l/Backprojection.h" alt="" coords="1101,109,1234,151"/>
-<area shape="rect" id="node4" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1331,288,1438,315"/>
-<area shape="rect" id="node35" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="5,199,175,240"/>
-<area shape="rect" id="node37" href="$_coordinates_8h.html" title="ddrf/cuda/Coordinates.h" alt="" coords="1539,117,1700,143"/>
-<area shape="rect" id="node3" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="1047,206,1141,233"/>
-<area shape="rect" id="node19" href="$_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="479,206,709,233"/>
-<area shape="rect" id="node29" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="1605,288,1703,315"/>
-<area shape="rect" id="node5" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1212,363,1299,389"/>
-<area shape="rect" id="node23" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="618,288,698,315"/>
-<area shape="rect" id="node24" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="598,363,705,389"/>
-<area shape="rect" id="node25" href="$_check_8h.html" title="Check.h" alt="" coords="244,363,315,389"/>
+<map id="/home/frust45/RISA/RISA/risaLib/src/Backprojection/Backprojection.cu" name="/home/frust45/RISA/RISA/risaLib/src/Backprojection/Backprojection.cu">
+<area shape="rect" id="node2" href="$_backprojection_8h.html" title="risa/Backprojection\l/Backprojection.h" alt="" coords="1148,109,1291,151"/>
+<area shape="rect" id="node4" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="1395,288,1508,315"/>
+<area shape="rect" id="node35" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="11,199,188,240"/>
+<area shape="rect" id="node37" href="$_coordinates_8h.html" title="glados/cuda/Coordinates.h" alt="" coords="1609,117,1801,143"/>
+<area shape="rect" id="node3" href="$_image_8h.html" title="glados/Image.h" alt="" coords="1077,206,1197,233"/>
+<area shape="rect" id="node19" href="$_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="515,199,713,240"/>
+<area shape="rect" id="node29" href="$_queue_8h.html" title="glados/Queue.h" alt="" coords="1675,288,1798,315"/>
+<area shape="rect" id="node5" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="1271,363,1365,389"/>
+<area shape="rect" id="node23" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="637,288,721,315"/>
+<area shape="rect" id="node24" href="$_memory_8h.html" title="glados/Memory.h" alt="" coords="614,363,745,389"/>
+<area shape="rect" id="node25" href="$_check_8h.html" title="Check.h" alt="" coords="249,363,323,389"/>
 </map>

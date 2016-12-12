@@ -25,7 +25,7 @@
 #include <risa/Loader/OfflineLoader.h>
 #include <risa/Basics/performance.h>
 
-#include <ddrf/MemoryPool.h>
+#include <glados/MemoryPool.h>
 
 #include <exception>
 #include <chrono>
@@ -42,22 +42,22 @@ OfflineLoader::OfflineLoader(const std::string& address,
 
    numberOfDetectorsPerModule_ = numberOfDetectors_ / numberOfDetectorModules_;
 
-   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
+   memoryPoolIndex_ = glados::MemoryPool<manager_type>::instance()->registerStage(
          250, numberOfProjections_ * numberOfDetectors_);
 
    readInput();
 }
 
 OfflineLoader::~OfflineLoader() {
-   ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
+   glados::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
    BOOST_LOG_TRIVIAL(info)<< "recoLib::OfflineLoader: WorstCaseTime: " << worstCaseTime_ << "s; BestCaseTime: " << bestCaseTime_ << "s;";
 }
 
-auto OfflineLoader::loadImage() -> ddrf::Image<manager_type> {
+auto OfflineLoader::loadImage() -> glados::Image<manager_type> {
    if (index_ >= numberOfFrames_ * numberOfPlanes_)
-      return ddrf::Image<manager_type>();
+      return glados::Image<manager_type>();
    BOOST_LOG_TRIVIAL(debug) << "risa::Offlineloader: Loading image with index " << index_;
-   auto sino = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
+   auto sino = glados::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
 #pragma omp parallel for
    for (auto detModInd = 0; detModInd < numberOfDetectorModules_; detModInd++) {
       ifstreams_[detModInd].get()->seekg(index_ * numberOfProjections_ * numberOfDetectorsPerModule_ * sizeof(unsigned short),

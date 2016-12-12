@@ -23,8 +23,8 @@
 #include <risa/template/Template.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/cuda/Check.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/cuda/Check.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -47,7 +47,7 @@ Template::Template(const std::string& configFile){
 
    //when MemoryPool is required, register here:
    //memoryPoolIdx_ =
-   //      ddrf::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
+   //      glados::MemoryPool<hostManagerType>::instance()->registerStage(memPoolSize_,
    //            numberOfPixels_ * numberOfPixels_);
 
    //custom streams are necessary, because profiling with nvprof not possible with
@@ -69,7 +69,7 @@ Template::Template(const std::string& configFile){
 
 Template::~Template() {
    //when Memorypool was used, free memory here
-   //ddrf::MemoryPool<hostManagerType>::instance()->freeMemory(memoryPoolIdx_);
+   //glados::MemoryPool<hostManagerType>::instance()->freeMemory(memoryPoolIdx_);
    //when use of cudaStreams, destroy them here
    //for(auto i = 0; i < numberOfDevices_; i++){
    //   CHECK(cudaSetDevice(i));
@@ -116,7 +116,7 @@ auto Template::processor(const int deviceID) -> void {
       BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Template: ";
 
       //if necessary, request memory from MemoryPool here
-      auto ret = ddrf::MemoryPool<hostManagerType>::instance()->requestMemory(
+      auto ret = glados::MemoryPool<hostManagerType>::instance()->requestMemory(
             memoryPoolIdx_);
 
       //<-- do work here -->

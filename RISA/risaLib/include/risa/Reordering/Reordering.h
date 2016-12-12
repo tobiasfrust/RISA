@@ -24,10 +24,10 @@
 #ifndef REORDERING_H_
 #define REORDERING_H_
 
-#include <ddrf/Image.h>
-#include <ddrf/cuda/DeviceMemoryManager.h>
-#include <ddrf/Queue.h>
-#include <ddrf/cuda/Memory.h>
+#include <glados/Image.h>
+#include <glados/cuda/DeviceMemoryManager.h>
+#include <glados/Queue.h>
+#include <glados/cuda/Memory.h>
 
 #include <thread>
 #include <map>
@@ -42,11 +42,11 @@ namespace cuda {
  */
 class Reordering {
 public:
-   using input_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   using input_type = glados::Image<glados::cuda::DeviceMemoryManager<unsigned short, glados::cuda::async_copy_policy>>;
    //!< The input data type that needs to fit the output type of the previous stage
-   using output_type = ddrf::Image<ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>>;
+   using output_type = glados::Image<glados::cuda::DeviceMemoryManager<unsigned short, glados::cuda::async_copy_policy>>;
    //!< The output data type that needs to fit the input type of the following stage
-   using deviceManagerType = ddrf::cuda::DeviceMemoryManager<unsigned short, ddrf::cuda::async_copy_policy>;
+   using deviceManagerType = glados::cuda::DeviceMemoryManager<unsigned short, glados::cuda::async_copy_policy>;
 
 public:
    //!   Initializes everything, that needs to be done only once
@@ -80,8 +80,8 @@ public:
 
 private:
 
-   std::map<int, ddrf::Queue<input_type>> sinos_;  //!<  one separate input queue for each available CUDA device
-   ddrf::Queue<output_type> results_;              //!<  the output queue in which the processed sinograms are stored
+   std::map<int, glados::Queue<input_type>> sinos_;  //!<  one separate input queue for each available CUDA device
+   glados::Queue<output_type> results_;              //!<  the output queue in which the processed sinograms are stored
 
    std::map<int, std::thread> processorThreads_;   //!<  stores the processor()-threads
    std::map<int, cudaStream_t> streams_;           //!<  stores the cudaStreams that are created once

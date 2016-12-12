@@ -23,6 +23,7 @@ Installation on Ubuntu 16.04
     ```sudo apt install doxygen graphviz```
 
 Building the software:
+- If the software is built for another CUDA device architecture, this architecture needs to be added in the top-level CmakeLists.txt
 - create a new path, outside of src-directory, called e.g. 'build'
 - move into this path and enter following command in terminal:
     ```ccmake <path_to_src>```
@@ -34,3 +35,8 @@ Building the software:
     ```make -j all```
 - if build was successful, there is an executable in the ```build/bin``` folder
 - the documentation can be found in the ```doc/html``` folder
+
+Running the software:
+- first the configuration file in the example directory needs to be adapted. Especially the paths to the input data.
+- the software can be invoked by issuing the following command:
+    ```./example <path_to_configuration_file>```

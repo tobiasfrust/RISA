@@ -1,8 +1,8 @@
 var classrisa_1_1cuda_1_1_reordering =
 [
-    [ "deviceManagerType", "classrisa_1_1cuda_1_1_reordering.html#afca97431fa76c585a6757d25efd06165", null ],
-    [ "input_type", "classrisa_1_1cuda_1_1_reordering.html#a9ff4c2dbc21740851f4c5388af1d7eb1", null ],
-    [ "output_type", "classrisa_1_1cuda_1_1_reordering.html#a4c56e30aaa20b68371911211cb8ed4c4", null ],
+    [ "deviceManagerType", "classrisa_1_1cuda_1_1_reordering.html#abb2fc3b07b72671f5caf01eeffa7195c", null ],
+    [ "input_type", "classrisa_1_1cuda_1_1_reordering.html#aa1d0a026a6e3fa6263d60c2258123996", null ],
+    [ "output_type", "classrisa_1_1cuda_1_1_reordering.html#ae5658cd63b66be6d0728f63b656dc716", null ],
     [ "Reordering", "classrisa_1_1cuda_1_1_reordering.html#a8256487137ef4bfea0ca1631bf460850", null ],
     [ "~Reordering", "classrisa_1_1cuda_1_1_reordering.html#a05b61fcd4512de4a65d33d3f05842f3e", null ],
     [ "createHashTable", "classrisa_1_1cuda_1_1_reordering.html#abbab83f1610b2d2122b821483bc67e99", null ],
@@ -17,7 +17,7 @@ var classrisa_1_1cuda_1_1_reordering =
     [ "numberOfFanDetectors_", "classrisa_1_1cuda_1_1_reordering.html#ad0aceea4f22dec3ec762500bc42dc76f", null ],
     [ "numberOfFanProjections_", "classrisa_1_1cuda_1_1_reordering.html#a5f7082f4c4d8c615e3ff7cc20867e8f0", null ],
     [ "processorThreads_", "classrisa_1_1cuda_1_1_reordering.html#a8a13b5166a4a043e6a2df1bed427607b", null ],
-    [ "results_", "classrisa_1_1cuda_1_1_reordering.html#a26ebee849cd39e37ecf51401afe99dda", null ],
-    [ "sinos_", "classrisa_1_1cuda_1_1_reordering.html#a9980e74230d58a32e1f1273403292aa5", null ],
+    [ "results_", "classrisa_1_1cuda_1_1_reordering.html#afecff6292dbb76bf9b9fd1477e6692f1", null ],
+    [ "sinos_", "classrisa_1_1cuda_1_1_reordering.html#a503bd612c67baef14fbc90430b88256a", null ],
     [ "streams_", "classrisa_1_1cuda_1_1_reordering.html#af71316c609591dba9dd92c8d2f3a6c6f", null ]
 ];

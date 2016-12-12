@@ -25,7 +25,7 @@
 #include <risa/Loader/OfflineLoader_perfTest.h>
 #include <risa/Basics/performance.h>
 
-#include <ddrf/MemoryPool.h>
+#include <glados/MemoryPool.h>
 
 #include <exception>
 #include <fstream>
@@ -44,7 +44,7 @@ OfflineLoaderPerfTest::OfflineLoaderPerfTest(const std::string& address,
    stopFrame_ = 50000u;
    index_ = 1000u;
 
-   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
+   memoryPoolIndex_ = glados::MemoryPool<manager_type>::instance()->registerStage(
          (numberOfFrames_ + 1) * numberOfPlanes_,
          numberOfProjections_ * numberOfDetectors_);
 
@@ -52,13 +52,13 @@ OfflineLoaderPerfTest::OfflineLoaderPerfTest(const std::string& address,
 }
 
 OfflineLoaderPerfTest::~OfflineLoaderPerfTest() {
-   ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
+   glados::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
    BOOST_LOG_TRIVIAL(info)<< "recoLib::OfflineLoader: WorstCaseTime: " << worstCaseTime_ << "s; BestCaseTime: " << bestCaseTime_ << "s;";
 }
 
-auto OfflineLoaderPerfTest::loadImage() -> ddrf::Image<manager_type> {
+auto OfflineLoaderPerfTest::loadImage() -> glados::Image<manager_type> {
    if (buffer_.empty())
-      return ddrf::Image<manager_type>();
+      return glados::Image<manager_type>();
    auto sino = std::move(buffer_.front());
    if (sino.index() > 0) {
       tmr_.stop();
@@ -70,7 +70,7 @@ auto OfflineLoaderPerfTest::loadImage() -> ddrf::Image<manager_type> {
    }
    buffer_.pop();
    if (index_ < stopFrame_) {
-      auto img = ddrf::MemoryPool<manager_type>::instance()->requestMemory(
+      auto img = glados::MemoryPool<manager_type>::instance()->requestMemory(
             memoryPoolIndex_);
       img.setIdx(index_);
       buffer_.push(std::move(img));
@@ -111,7 +111,7 @@ auto OfflineLoaderPerfTest::readInput() -> void {
    tmr2.stop();
    for (unsigned int i = 0; i < numberOfFrames_; i++) {
       for (auto planeInd = 0; planeInd < numberOfPlanes_; planeInd++) {
-         auto sino = ddrf::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
+         auto sino = glados::MemoryPool<manager_type>::instance()->requestMemory(memoryPoolIndex_);
          for (auto detModInd = 0; detModInd < numberOfDetectorModules_;
                detModInd++) {
             std::size_t startIndex = (planeInd + i * numberOfPlanes_) * numberOfDetPerModule * numberOfProjections_;

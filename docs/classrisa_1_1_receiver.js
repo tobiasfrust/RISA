@@ -1,8 +1,8 @@
 var classrisa_1_1_receiver =
 [
-    [ "manager_type", "classrisa_1_1_receiver.html#ae36044e04619bc613643f3fe380e0fa6", null ],
+    [ "manager_type", "classrisa_1_1_receiver.html#aae85073dd1606c833045276f5f4f448c", null ],
     [ "Receiver", "classrisa_1_1_receiver.html#a25a8c2469ea57c11fd74a4be9b524c86", null ],
-    [ "loadImage", "classrisa_1_1_receiver.html#a6ca495624e36f266b18641f1db88c807", null ],
+    [ "loadImage", "classrisa_1_1_receiver.html#a5239de9999e0001e856d807a6d73633b", null ],
     [ "readConfig", "classrisa_1_1_receiver.html#af4b96707a35f4f24406f686d09cd835e", null ],
     [ "run", "classrisa_1_1_receiver.html#a135682d5a23cc9f3a5c33671281ff2a3", null ],
     [ "buffers_", "classrisa_1_1_receiver.html#a4ef88c824b7f5dfd21adedb619f9d12d", null ],

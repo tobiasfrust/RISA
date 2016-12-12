@@ -1,12 +1,12 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Copy/H2D.h" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/include/risa/Copy/H2D.h">
-<area shape="rect" id="node2" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="772,109,867,136"/>
-<area shape="rect" id="node18" href="$_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="1349,109,1578,136"/>
-<area shape="rect" id="node22" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1250,184,1330,211"/>
-<area shape="rect" id="node28" href="$_host_memory_manager_8h.html" title="ddrf/cuda/HostMemoryManager.h" alt="" coords="1109,109,1325,136"/>
-<area shape="rect" id="node29" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="136,184,233,211"/>
-<area shape="rect" id="node31" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="1603,109,1764,136"/>
-<area shape="rect" id="node3" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="567,184,674,211"/>
-<area shape="rect" id="node4" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="557,259,644,285"/>
-<area shape="rect" id="node23" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1378,259,1485,285"/>
-<area shape="rect" id="node24" href="$_check_8h.html" title="Check.h" alt="" coords="1712,259,1783,285"/>
+<map id="/home/frust45/RISA/RISA/risaLib/include/risa/Copy/H2D.h" name="/home/frust45/RISA/RISA/risaLib/include/risa/Copy/H2D.h">
+<area shape="rect" id="node2" href="$_image_8h.html" title="glados/Image.h" alt="" coords="801,117,921,143"/>
+<area shape="rect" id="node18" href="$_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="1420,109,1619,151"/>
+<area shape="rect" id="node22" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1305,199,1389,225"/>
+<area shape="rect" id="node28" href="$_host_memory_manager_8h.html" title="glados/cuda/HostMemoryManager.h" alt="" coords="1144,117,1396,143"/>
+<area shape="rect" id="node29" href="$_queue_8h.html" title="glados/Queue.h" alt="" coords="130,199,253,225"/>
+<area shape="rect" id="node31" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="1643,117,1817,143"/>
+<area shape="rect" id="node3" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="597,199,711,225"/>
+<area shape="rect" id="node4" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="581,273,676,300"/>
+<area shape="rect" id="node23" href="$_memory_8h.html" title="glados/Memory.h" alt="" coords="1435,273,1566,300"/>
+<area shape="rect" id="node24" href="$_check_8h.html" title="Check.h" alt="" coords="1793,273,1867,300"/>
 </map>

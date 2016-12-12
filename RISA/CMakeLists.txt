@@ -81,6 +81,6 @@ list(APPEND CUDA_NVCC_FLAGS "--ptxas-options=-v")
 list(APPEND CUDA_NVCC_FLAGS "-Xcompiler -Wall")
 
 #descend into subdirectories
-add_subdirectory(ddrf)
+add_subdirectory(glados)
 add_subdirectory(risaLib)
 add_subdirectory(example)

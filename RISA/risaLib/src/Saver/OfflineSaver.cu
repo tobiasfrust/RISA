@@ -24,8 +24,8 @@
 #include <risa/Saver/OfflineSaver.h>
 #include <risa/ConfigReader/ConfigReader.h>
 
-#include <ddrf/Image.h>
-#include <ddrf/MemoryPool.h>
+#include <glados/Image.h>
+#include <glados/MemoryPool.h>
 
 #include <boost/log/trivial.hpp>
 
@@ -77,11 +77,11 @@ OfflineSaver::OfflineSaver(const std::string& configFile) {
       //outputBuffers_[i].reserve(numberOfFrames_);
    }
 
-   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
+   memoryPoolIndex_ = glados::MemoryPool<manager_type>::instance()->registerStage(
          numberOfPlanes_ * (circularBufferSize_+1),
          numberOfPixels_ * numberOfPixels_);
 
-//   memoryPoolIndex_ = ddrf::MemoryPool<manager_type>::instance()->registerStage(
+//   memoryPoolIndex_ = glados::MemoryPool<manager_type>::instance()->registerStage(
 //         numberOfPlanes_ * (circularBufferSize_+1),
 //         256*1024);
 
@@ -96,12 +96,12 @@ OfflineSaver::~OfflineSaver() {
       writeTiffSequence(i);
    }
    BOOST_LOG_TRIVIAL(info) << "Maximum latency: " << maxLatency_ << " ms; minimum latency: " << minLatency_ << " ms";
-   ddrf::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
+   glados::MemoryPool<manager_type>::instance()->freeMemory(memoryPoolIndex_);
 }
 
-auto OfflineSaver::saveImage(ddrf::Image<manager_type> image,
+auto OfflineSaver::saveImage(glados::Image<manager_type> image,
       std::string path) -> void {
-   auto img = ddrf::MemoryPool<manager_type>::instance()->requestMemory(
+   auto img = glados::MemoryPool<manager_type>::instance()->requestMemory(
          memoryPoolIndex_);
    std::copy(image.container().get(),
          image.container().get() + image.size(),
@@ -157,7 +157,7 @@ auto OfflineSaver::writeTiffSequence(const int planeID) -> void {
    outputBuffers_[planeID].clear();
 }
 
-auto OfflineSaver::writeToTiff(::TIFF* tif, ddrf::Image<manager_type> img) const -> void {
+auto OfflineSaver::writeToTiff(::TIFF* tif, glados::Image<manager_type> img) const -> void {
 
    TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, numberOfPixels_);
    TIFFSetField(tif, TIFFTAG_IMAGELENGTH, numberOfPixels_);

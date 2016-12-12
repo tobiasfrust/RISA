@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>RISA: /home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu File Reference</title>
+<title>RISA: /home/frust45/RISA/RISA/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -112,9 +112,9 @@ $(document).ready(function(){initNavTree('_detector_interpolation_8cu.html','');
 <div class="textblock"><code>#include &quot;<a class="el" href="interpolation_functions_8h_source.html">interpolationFunctions.h</a>&quot;</code><br />
 <code>#include &lt;<a class="el" href="_detector_interpolation_8h_source.html">risa/DetectorInterpolation/DetectorInterpolation.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_config_reader_8h_source.html">risa/ConfigReader/ConfigReader.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_coordinates_8h_source.html">ddrf/cuda/Coordinates.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_check_8h_source.html">ddrf/cuda/Check.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_memory_pool_8h_source.html">ddrf/MemoryPool.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_coordinates_8h_source.html">glados/cuda/Coordinates.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_check_8h_source.html">glados/cuda/Check.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_memory_pool_8h_source.html">glados/MemoryPool.h</a>&gt;</code><br />
 <code>#include &lt;boost/log/trivial.hpp&gt;</code><br />
 <code>#include &lt;nvToolsExt.h&gt;</code><br />
 <code>#include &lt;exception&gt;</code><br />
@@ -125,22 +125,22 @@ $(document).ready(function(){initNavTree('_detector_interpolation_8cu.html','');
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for DetectorInterpolation.cu:</div>
 <div class="dyncontent">
-<div class="center"><img src="_detector_interpolation_8cu__incl.png" border="0" usemap="#_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_detector_interpolation_2_detector_interpolation_8cu" alt=""/></div>
-<map name="_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_detector_interpolation_2_detector_interpolation_8cu" id="_2home_2tfrust_2_dokumente_2repos_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_detector_interpolation_2_detector_interpolation_8cu">
-<area shape="rect" id="node2" href="interpolation_functions_8h.html" title="interpolationFunctions.h" alt="" coords="188,131,348,158"/>
-<area shape="rect" id="node4" href="_detector_interpolation_8h.html" title="risa/DetectorInterpolation\l/DetectorInterpolation.h" alt="" coords="798,124,966,165"/>
-<area shape="rect" id="node6" href="_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="457,303,564,329"/>
-<area shape="rect" id="node26" href="_check_8h.html" title="Check.h" alt="" coords="1524,377,1595,404"/>
-<area shape="rect" id="node38" href="_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="1783,213,1952,255"/>
-<area shape="rect" id="node40" href="_coordinates_8h.html" title="ddrf/cuda/Coordinates.h" alt="" coords="1863,131,2024,158"/>
-<area shape="rect" id="node5" href="_image_8h.html" title="ddrf/Image.h" alt="" coords="746,221,840,247"/>
-<area shape="rect" id="node20" href="_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="1366,221,1596,247"/>
-<area shape="rect" id="node24" href="cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1217,303,1297,329"/>
-<area shape="rect" id="node30" href="_host_memory_manager_8h.html" title="ddrf/cuda/HostMemoryManager.h" alt="" coords="865,221,1081,247"/>
-<area shape="rect" id="node31" href="_queue_8h.html" title="ddrf/Queue.h" alt="" coords="72,303,170,329"/>
-<area shape="rect" id="node33" href="performance_8h.html" title="../Basics/performance.h" alt="" coords="246,221,407,247"/>
-<area shape="rect" id="node7" href="_singleton_8h.html" title="Singleton.h" alt="" coords="476,377,563,404"/>
-<area shape="rect" id="node25" href="_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1089,377,1196,404"/>
+<div class="center"><img src="_detector_interpolation_8cu__incl.png" border="0" usemap="#_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_detector_interpolation_2_detector_interpolation_8cu" alt=""/></div>
+<map name="_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_detector_interpolation_2_detector_interpolation_8cu" id="_2home_2frust45_2_r_i_s_a_2_r_i_s_a_2risa_lib_2src_2_detector_interpolation_2_detector_interpolation_8cu">
+<area shape="rect" id="node2" href="interpolation_functions_8h.html" title="interpolationFunctions.h" alt="" coords="199,117,374,143"/>
+<area shape="rect" id="node4" href="_detector_interpolation_8h.html" title="risa/DetectorInterpolation\l/DetectorInterpolation.h" alt="" coords="818,109,1003,151"/>
+<area shape="rect" id="node6" href="_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="481,288,594,315"/>
+<area shape="rect" id="node26" href="_check_8h.html" title="Check.h" alt="" coords="1593,363,1666,389"/>
+<area shape="rect" id="node38" href="_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="1857,199,2034,240"/>
+<area shape="rect" id="node40" href="_coordinates_8h.html" title="glados/cuda/Coordinates.h" alt="" coords="1933,117,2125,143"/>
+<area shape="rect" id="node5" href="_image_8h.html" title="glados/Image.h" alt="" coords="745,206,865,233"/>
+<area shape="rect" id="node20" href="_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="1441,199,1639,240"/>
+<area shape="rect" id="node24" href="cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1281,288,1365,315"/>
+<area shape="rect" id="node30" href="_host_memory_manager_8h.html" title="glados/cuda/HostMemoryManager.h" alt="" coords="890,206,1142,233"/>
+<area shape="rect" id="node31" href="_queue_8h.html" title="glados/Queue.h" alt="" coords="65,288,188,315"/>
+<area shape="rect" id="node33" href="performance_8h.html" title="../Basics/performance.h" alt="" coords="263,206,436,233"/>
+<area shape="rect" id="node7" href="_singleton_8h.html" title="Singleton.h" alt="" coords="499,363,594,389"/>
+<area shape="rect" id="node25" href="_memory_8h.html" title="glados/Memory.h" alt="" coords="1133,363,1264,389"/>
 </map>
 </div>
 </div>
@@ -159,7 +159,7 @@ Namespaces</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_75dfe969499885e8e76e2070fb384c29.html">RISA</a></li><li class="navelem"><a class="el" href="dir_3c660e8b87a9869a1179775b41541930.html">risaLib</a></li><li class="navelem"><a class="el" href="dir_943d5c9b772e61ccd9cc91d8a4893314.html">src</a></li><li class="navelem"><a class="el" href="dir_7bb616d1693b02e554137c842bc24b40.html">DetectorInterpolation</a></li><li class="navelem"><a class="el" href="_detector_interpolation_8cu.html">DetectorInterpolation.cu</a></li>
-    <li class="footer">Generated on Thu Oct 13 2016 13:54:03 for RISA by
+    <li class="footer">Generated on Mon Dec 12 2016 10:36:52 for RISA by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

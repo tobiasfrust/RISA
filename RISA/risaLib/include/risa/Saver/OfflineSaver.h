@@ -26,9 +26,9 @@
 
 #include "../Basics/performance.h"
 
-#include <ddrf/cuda/HostMemoryManager.h>
-#include <ddrf/Image.h>
-#include <ddrf/CircularBuffer.h>
+#include <glados/cuda/HostMemoryManager.h>
+#include <glados/Image.h>
+#include <glados/CircularBuffer.h>
 
 #include <tiffio.h>
 
@@ -54,13 +54,13 @@ namespace risa{
     */
    class OfflineSaver {
    public:
-      using manager_type = ddrf::cuda::HostMemoryManager<float, ddrf::cuda::async_copy_policy>;
+      using manager_type = glados::cuda::HostMemoryManager<float, glados::cuda::async_copy_policy>;
 
    public:
       OfflineSaver(const std::string& configFile);
 
       //!< this function is called, when an image exits the software pipeline
-      auto saveImage(ddrf::Image<manager_type> image, std::string path) -> void;
+      auto saveImage(glados::Image<manager_type> image, std::string path) -> void;
 
    protected:
       ~OfflineSaver();
@@ -77,7 +77,7 @@ namespace risa{
        * @param[in]  tif   pointer to the TIFF-sequence
        * @param[in]  img   the image to be written into the tiff-file
        */
-      auto writeToTiff(::TIFF* tif, ddrf::Image<manager_type> img) const -> void;
+      auto writeToTiff(::TIFF* tif, glados::Image<manager_type> img) const -> void;
 
       int memoryPoolIndex_;
 
@@ -98,8 +98,8 @@ namespace risa{
       std::vector<Timer> tmrs_;
 
       std::vector<std::size_t> fileIndex_;
-      std::vector<ddrf::CircularBuffer<ddrf::Image<manager_type>>> outputBuffers_;
-      //std::vector<std::vector<ddrf::Image<manager_type>>> outputBuffers_;
+      std::vector<glados::CircularBuffer<glados::Image<manager_type>>> outputBuffers_;
+      //std::vector<std::vector<glados::Image<manager_type>>> outputBuffers_;
 
    };
 

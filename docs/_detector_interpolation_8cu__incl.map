@@ -1,16 +1,16 @@
-<map id="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu" name="/home/tfrust/Dokumente/repos/RISA/RISA/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu">
-<area shape="rect" id="node2" href="$interpolation_functions_8h.html" title="interpolationFunctions.h" alt="" coords="188,131,348,158"/>
-<area shape="rect" id="node4" href="$_detector_interpolation_8h.html" title="risa/DetectorInterpolation\l/DetectorInterpolation.h" alt="" coords="798,124,966,165"/>
-<area shape="rect" id="node6" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="457,303,564,329"/>
-<area shape="rect" id="node26" href="$_check_8h.html" title="Check.h" alt="" coords="1524,377,1595,404"/>
-<area shape="rect" id="node38" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="1783,213,1952,255"/>
-<area shape="rect" id="node40" href="$_coordinates_8h.html" title="ddrf/cuda/Coordinates.h" alt="" coords="1863,131,2024,158"/>
-<area shape="rect" id="node5" href="$_image_8h.html" title="ddrf/Image.h" alt="" coords="746,221,840,247"/>
-<area shape="rect" id="node20" href="$_device_memory_manager_8h.html" title="ddrf/cuda/DeviceMemoryManager.h" alt="" coords="1366,221,1596,247"/>
-<area shape="rect" id="node24" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1217,303,1297,329"/>
-<area shape="rect" id="node30" href="$_host_memory_manager_8h.html" title="ddrf/cuda/HostMemoryManager.h" alt="" coords="865,221,1081,247"/>
-<area shape="rect" id="node31" href="$_queue_8h.html" title="ddrf/Queue.h" alt="" coords="72,303,170,329"/>
-<area shape="rect" id="node33" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="246,221,407,247"/>
-<area shape="rect" id="node7" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="476,377,563,404"/>
-<area shape="rect" id="node25" href="$_memory_8h.html" title="ddrf/Memory.h" alt="" coords="1089,377,1196,404"/>
+<map id="/home/frust45/RISA/RISA/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu" name="/home/frust45/RISA/RISA/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu">
+<area shape="rect" id="node2" href="$interpolation_functions_8h.html" title="interpolationFunctions.h" alt="" coords="199,117,374,143"/>
+<area shape="rect" id="node4" href="$_detector_interpolation_8h.html" title="risa/DetectorInterpolation\l/DetectorInterpolation.h" alt="" coords="818,109,1003,151"/>
+<area shape="rect" id="node6" href="$_memory_pool_8h.html" title="MemoryPool.h" alt="" coords="481,288,594,315"/>
+<area shape="rect" id="node26" href="$_check_8h.html" title="Check.h" alt="" coords="1593,363,1666,389"/>
+<area shape="rect" id="node38" href="$_config_reader_8h.html" title="risa/ConfigReader/Config\lReader.h" alt="" coords="1857,199,2034,240"/>
+<area shape="rect" id="node40" href="$_coordinates_8h.html" title="glados/cuda/Coordinates.h" alt="" coords="1933,117,2125,143"/>
+<area shape="rect" id="node5" href="$_image_8h.html" title="glados/Image.h" alt="" coords="745,206,865,233"/>
+<area shape="rect" id="node20" href="$_device_memory_manager_8h.html" title="glados/cuda/DeviceMemory\lManager.h" alt="" coords="1441,199,1639,240"/>
+<area shape="rect" id="node24" href="$cuda_2_memory_8h.html" title="Memory.h" alt="" coords="1281,288,1365,315"/>
+<area shape="rect" id="node30" href="$_host_memory_manager_8h.html" title="glados/cuda/HostMemoryManager.h" alt="" coords="890,206,1142,233"/>
+<area shape="rect" id="node31" href="$_queue_8h.html" title="glados/Queue.h" alt="" coords="65,288,188,315"/>
+<area shape="rect" id="node33" href="$performance_8h.html" title="../Basics/performance.h" alt="" coords="263,206,436,233"/>
+<area shape="rect" id="node7" href="$_singleton_8h.html" title="Singleton.h" alt="" coords="499,363,594,389"/>
+<area shape="rect" id="node25" href="$_memory_8h.html" title="glados/Memory.h" alt="" coords="1133,363,1264,389"/>
 </map>

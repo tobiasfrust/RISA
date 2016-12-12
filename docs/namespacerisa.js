@@ -2,7 +2,6 @@ var namespacerisa =
 [
     [ "cuda", "namespacerisa_1_1cuda.html", "namespacerisa_1_1cuda" ],
     [ "detail", "namespacerisa_1_1detail.html", "namespacerisa_1_1detail" ],
-    [ "client", "classrisa_1_1client.html", "classrisa_1_1client" ],
     [ "ConfigReader", "classrisa_1_1_config_reader.html", "classrisa_1_1_config_reader" ],
     [ "OfflineLoader", "classrisa_1_1_offline_loader.html", "classrisa_1_1_offline_loader" ],
     [ "OfflineLoaderPerfTest", "classrisa_1_1_offline_loader_perf_test.html", "classrisa_1_1_offline_loader_perf_test" ],
