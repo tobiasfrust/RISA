@@ -344,7 +344,7 @@ auto Fan2Para::computeFan2ParaTransp() -> void {
             temp_1 = (s_[i] - L * sin(alphaCircle_[j] - kappa)) / params_.rDetector_;
 
             //Prüfen, ob asin möglich
-            if (temp_1 <= 1 || temp_1 >= -1)
+            if (temp_1 <= 1 && temp_1 >= -1)
                computeAngles(i, j, ind, k, L, kappa);
          }
       }

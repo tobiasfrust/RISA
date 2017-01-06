@@ -96,7 +96,7 @@ __global__ void interpolation(int k, const float* __restrict__ SinFan_data,
 
    float temp_1 = s[i] / (*params).rDetector_;
 
-   if (temp_1 <= 1 || temp_1 >= -1) {
+   if (temp_1 <= 1 && temp_1 >= -1) {
 
       if (ray_1[ind] == true) {
          //Interpolationspunkte nehmen für Fall 1
