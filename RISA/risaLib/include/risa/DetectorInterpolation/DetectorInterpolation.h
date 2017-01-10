@@ -24,13 +24,14 @@
 #ifndef DETECTORINTERPOLATION_H_
 #define DETECTORINTERPOLATION_H_
 
+#include "../Basics/performance.h"
+#include "../ConfigReader/read_json.hpp"
+
 #include <glados/Image.h>
 #include <glados/cuda/DeviceMemoryManager.h>
 #include <glados/cuda/HostMemoryManager.h>
 #include <glados/Queue.h>
 #include <glados/cuda/Memory.h>
-
-#include "../Basics/performance.h"
 
 #include <thread>
 #include <vector>
@@ -122,7 +123,7 @@ private:
     * @retval  true  configuration options were read successfully
     * @retval  false configuration options could not be read successfully
     */
-   auto readConfig(const std::string& configFile) -> bool;
+   auto readConfig(const read_json& config_reader) -> bool;
 };
 }
 }

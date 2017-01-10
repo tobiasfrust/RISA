@@ -24,6 +24,7 @@
 #ifndef RECEIVER_H_
 #define RECEIVER_H_
 
+#include "../ConfigReader/read_json.hpp"
 #include "../ReceiverModule/ReceiverModule.h"
 #include "OnlineReceiverNotification.h"
 
@@ -79,7 +80,7 @@ private:
 
    unsigned int bufferSize_;
 
-   auto readConfig(const std::string& configFile) -> bool;
+   auto readConfig(const read_json& config_reader) -> bool;
 
 };
 

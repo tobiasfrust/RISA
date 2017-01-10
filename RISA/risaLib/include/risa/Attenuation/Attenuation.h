@@ -24,6 +24,8 @@
 #ifndef ATTENUATION_H_
 #define ATTENUATION_H_
 
+#include "../ConfigReader/read_json.hpp"
+
 #include <glados/Image.h>
 #include <glados/cuda/DeviceMemoryManager.h>
 #include <glados/Queue.h>
@@ -82,7 +84,7 @@ public:
     *
     *    @param[in]  configFile  path to configuration file
     */
-   Attenuation(const std::string& configFile);
+   Attenuation(const std::string& config_file);
 
    //!   Destroys everything that is not destroyed automatically
    /**
@@ -213,7 +215,7 @@ private:
     * @retval  true  configuration options were read successfully
     * @retval  false configuration options could not be read successfully
     */
-   auto readConfig(const std::string& configFile) -> bool;
+   auto readConfig(const read_json& config_reader) -> bool;
 
 };
 }

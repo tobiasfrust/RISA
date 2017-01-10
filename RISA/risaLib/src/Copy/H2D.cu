@@ -21,8 +21,7 @@
  *
  */
 
-#include <risa/Copy/H2D.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../include/risa/Copy/H2D.h"
 
 #include <glados/cuda/Coordinates.h>
 #include <glados/cuda/Check.h>
@@ -38,10 +37,12 @@
 namespace risa {
 namespace cuda {
 
-H2D::H2D(const std::string& configFile) : lastDevice_{0}, worstCaseTime_{0.0}, bestCaseTime_{std::numeric_limits<double>::max()},
+H2D::H2D(const std::string& config_file) : lastDevice_{0}, worstCaseTime_{0.0}, bestCaseTime_{std::numeric_limits<double>::max()},
       lastIndex_{0u}, lostSinos_{0u}{
 
-   if (readConfig(configFile)) {
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "Configuration file could not be read. Please check!");
    }
@@ -168,19 +169,19 @@ auto H2D::processor(int deviceID) -> void {
    }
 }
 
-auto H2D::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(
-         configFile.data());
-   int samplingRate, scanRate;
-   if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-         && configReader.lookupValue("memPoolSize_H2D", memPoolSize_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)){
-      numberOfProjections_ = samplingRate * 1000000 / scanRate;
-      return EXIT_SUCCESS;
+auto H2D::readConfig(const read_json& config_reader) -> bool {
+   int sampling_rate, scan_rate;
+   try {
+	   numberOfDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+	   memPoolSize_ = config_reader.get_value<int>("mempoolsize_h2d");
+	   sampling_rate = config_reader.get_value<int>("sampling_rate");
+	   scan_rate = config_reader.get_value<int>("scan_rate");
+   } catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda:H2D: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
    }
-   else
-      return EXIT_FAILURE;
+   numberOfProjections_ = sampling_rate * 1000000 / scan_rate;
+   return EXIT_SUCCESS;
 
 }
 

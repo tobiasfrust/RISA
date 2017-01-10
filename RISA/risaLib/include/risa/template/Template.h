@@ -23,6 +23,8 @@
 #ifndef TEMPLATE_H_
 #define TEMPLATE_H_
 
+#include "../ConfigReader/read_json.hpp"
+
 #include <glados/Image.h>
 #include <glados/cuda/DeviceMemoryManager.h>
 #include <glados/cuda/HostMemoryManager.h>
@@ -111,7 +113,7 @@ private:
     * @retval  true  configuration options were read successfully
     * @retval  false configuration options could not be read successfully
     */
-	auto readConfig(const std::string& configFile) -> bool;
+	auto readConfig(const read_json& config_reader) -> bool;
 };
 }
 }

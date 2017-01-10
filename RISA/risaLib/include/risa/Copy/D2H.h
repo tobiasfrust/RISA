@@ -25,6 +25,7 @@
 #define D2H_H_
 
 #include "../Basics/performance.h"
+#include "../ConfigReader/read_json.hpp"
 
 #include <glados/Image.h>
 #include <glados/cuda/DeviceMemoryManager.h>
@@ -57,7 +58,7 @@ public:
     *
     *    @param[in]  configFile  path to configuration file
     */
-	D2H(const std::string& configFile);
+	D2H(const std::string& config_file);
 
    //!   Destroys everything that is not destroyed automatically
    /**
@@ -121,7 +122,7 @@ private:
     * @retval  true  configuration options were read successfully
     * @retval  false configuration options could not be read successfully
     */
-	auto readConfig(const std::string& configFile) -> bool;
+	auto readConfig(const read_json& config_reader) -> bool;
 };
 }
 }

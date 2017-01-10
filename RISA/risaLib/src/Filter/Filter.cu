@@ -21,9 +21,8 @@
  *
  */
 
-#include <risa/Filter/Filter.h>
-#include <risa/ConfigReader/ConfigReader.h>
-#include <risa/Basics/performance.h>
+#include "../../include/risa/Filter/Filter.h"
+#include "../../include/risa/Basics/performance.h"
 #include "cuda_kernels_filter.h"
 
 #include <glados/cuda/Launch.h>
@@ -41,9 +40,11 @@ namespace cuda {
 
 __global__ void applyFilter(const int x, const int y, cufftComplex *data, const float* const __restrict__ filter);
 
-Filter::Filter(const std::string& configFile) {
+Filter::Filter(const std::string& config_file) {
 
-   if (readConfig(configFile)) {
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::Filter: Configuration file could not be loaded successfully. Please check!");
    }
@@ -190,32 +191,34 @@ auto Filter::designFilter() -> void {
    }
 }
 
-auto Filter::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
-   std::string filterType;
-   if (configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)
-         && configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
-         && configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("blockSize2D_filter", blockSize2D_)
-         && configReader.lookupValue("filterType", filterType)
-         && configReader.lookupValue("cutoffFraction", cutoffFraction_)){
-      if(filterType == "ramp")
-         filterType_ = detail::FilterType::ramp;
-      else if(filterType == "sheppLogan")
-         filterType_ = detail::FilterType::sheppLogan;
-      else if(filterType == "hamming")
-         filterType_ = detail::FilterType::hamming;
-      else if(filterType == "hanning")
-         filterType_ = detail::FilterType::hanning;
-      else if(filterType == "cosine")
-         filterType_ = detail::FilterType::cosine;
-      else{
-         BOOST_LOG_TRIVIAL(error) << "recoLib::cuda::Filter: Requested filter mode not supported. Using Ramp-Filter.";
-         filterType_ = detail::FilterType::ramp;
-      }
-      return EXIT_SUCCESS;
-   }
-   return EXIT_FAILURE;
+auto Filter::readConfig(const read_json& config_reader) -> bool {
+	std::string filterType;
+	try {
+	   numberOfProjections_ = config_reader.get_value<int>("number_of_par_proj");
+	   numberOfDetectors_ = config_reader.get_value<int>("number_of_par_det");
+	   numberOfPixels_ = config_reader.get_value<int>("number_of_pixels");
+	   blockSize2D_ = config_reader.get_value<int>("blocksize_2d_filter");
+	   filterType = config_reader.get_value<std::string>("filter_type");
+	   cutoffFraction_ = config_reader.get_value<float>("cut_off_fraction");
+	}catch (const boost::property_tree::ptree_error& e) {
+		BOOST_LOG_TRIVIAL(error) << "risa::cuda::Filter: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
+	}
+	if(filterType == "ramp")
+		filterType_ = detail::FilterType::ramp;
+	else if(filterType == "sheppLogan")
+		filterType_ = detail::FilterType::sheppLogan;
+	else if(filterType == "hamming")
+		filterType_ = detail::FilterType::hamming;
+	else if(filterType == "hanning")
+		filterType_ = detail::FilterType::hanning;
+	else if(filterType == "cosine")
+		filterType_ = detail::FilterType::cosine;
+	else{
+		BOOST_LOG_TRIVIAL(error) << "recoLib::cuda::Filter: Requested filter mode not supported. Using Ramp-Filter.";
+		filterType_ = detail::FilterType::ramp;
+	}
+   return EXIT_SUCCESS;
 }
 
 //!<  CUDA Kernel that weights all the projections with the filter function

@@ -21,9 +21,7 @@
  *
  */
 
-#include <risa/ConfigReader/ConfigReader.h>
-
-#include <risa/Receiver/Receiver.h>
+#include "../../../include/risa/Receiver/Receiver.h"
 
 #include <glados/MemoryPool.h>
 
@@ -33,7 +31,9 @@ namespace risa {
 
 Receiver::Receiver(const std::string& address, const std::string& configPath) : notification_{27}{
 
-   if (readConfig(configPath)) {
+   read_json config_reader{};
+   config_reader.read(configPath);
+   if (readConfig(config_reader)) {
       BOOST_LOG_TRIVIAL(error) << "Configuration file could not be read successfully. Please check!";
       throw std::runtime_error("Receiver: Configuration file could not be loaded successfully. Please check!");
    }
@@ -86,19 +86,20 @@ auto Receiver::loadImage() -> glados::Image<manager_type> {
    return std::move(sino);
 }
 
-auto Receiver::readConfig(const std::string& configFile) -> bool {
-  ConfigReader configReader = ConfigReader(configFile.data());
-  int samplingRate, scanRate;
-  if (configReader.lookupValue("samplingRate", samplingRate)
-        && configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-        && configReader.lookupValue("scanRate", scanRate)
-        && configReader.lookupValue("inputBufferSize", bufferSize_)
-        && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)) {
-     numberOfProjections_ = samplingRate * 1000000 / scanRate;
-     return EXIT_SUCCESS;
+auto Receiver::readConfig(const read_json& config_reader) -> bool {
+  int sampling_rate, scan_rate;
+  try {
+	  sampling_rate = config_reader.get_value<int>("sampling_rate");
+	  numberOfDetectors_ = config_reader.get_value<int>("number_of_fan_det");
+	  scan_rate = config_reader.get_value<int>("scan_rate");
+	  bufferSize_ = config_reader.get_value<int>("input_buffersize");
+	  numberOfDetectorModules_ = config_reader.get_value<int>("number_of_det_modules");
+  } catch (const boost::property_tree::ptree_error& e) {
+	  BOOST_LOG_TRIVIAL(error) << "risa::Receiver: Failed to read config: " << e.what();
+	  return EXIT_FAILURE;
   }
-
-  return EXIT_FAILURE;
+  numberOfProjections_ = sampling_rate * 1000000 / scan_rate;
+  return EXIT_SUCCESS;
 }
 
 }

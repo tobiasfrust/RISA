@@ -21,8 +21,7 @@
  *
  */
 
-#include <risa/ReceiverModule/ReceiverModule.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../../include/risa/ReceiverModule/ReceiverModule.h"
 
 #include <boost/log/trivial.hpp>
 #include <boost/asio.hpp>
@@ -45,7 +44,9 @@ ReceiverModule::ReceiverModule(const std::string& address, const std::string& co
    port_{4000+moduleID}
    {
 
-   if (readConfig(configPath)) {
+   read_json config_reader{};
+   config_reader.read(configPath);
+   if (readConfig(config_reader)) {
       BOOST_LOG_TRIVIAL(error) << "Configuration file could not be read successfully. Please check!";
       throw std::runtime_error("ReceiverModule: Configuration file could not be loaded successfully. Please check!");
    }
@@ -115,30 +116,31 @@ auto ReceiverModule::run() -> void {
    BOOST_LOG_TRIVIAL(info) << "ReceiverModul " << moduleID_ << ": No packets arriving since " << timeout_ << "s. Finishing.";
 }
 
-auto ReceiverModule::readConfig(const std::string& configFile) -> bool {
-  ConfigReader configReader = ConfigReader(configFile.data());
-  int samplingRate, scanRate;
+auto ReceiverModule::readConfig(const read_json& config_reader) -> bool {
+  int sampling_rate, scan_rate;
   std::string transportProt;
-  if (configReader.lookupValue("samplingRate", samplingRate)
-        && configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-        && configReader.lookupValue("scanRate", scanRate)
-        && configReader.lookupValue("transportProtocol", transportProt)
-        && configReader.lookupValue("timeout", timeout_)
-        && configReader.lookupValue("numberOfDetectorsPerModule", numberOfDetectorsPerModule_)
-        && configReader.lookupValue("numberOfProjectionsPerPacket", numberOfProjectionsPerPacket_)
-        && configReader.lookupValue("inputBufferSize", bufferSize_)
-        && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)) {
-     if(transportProt == "udp")
-        transportProtocol_ = transportProtocol::UDP;
-     else if(transportProt == "tcp")
-        transportProtocol_ = transportProtocol::TCP;
-     else
-        transportProtocol_ = transportProtocol::UDP;
-     numberOfProjections_ = samplingRate * 1000000 / scanRate;
-     return EXIT_SUCCESS;
+  try {
+	  sampling_rate = config_reader.get_value<int>("sampling_rate");
+	  numberOfDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+	  scan_rate = config_reader.get_value<int>("scan_rate");
+	  transportProt = config_reader.get_value<std::string>("transport_prot");
+	  timeout_ = config_reader.get_value<int>("timeout");
+	  numberOfDetectorsPerModule_ = config_reader.get_value<int>("number_of_detectors_per_module");
+	  numberOfProjectionsPerPacket_ = config_reader.get_value<int>("projections_per_packet");
+	  bufferSize_ = config_reader.get_value<int>("input_buffersize");
+	  numberOfDetectorModules_ = config_reader.get_value<int>("number_of_det_modules");
+  } catch (const boost::property_tree::ptree_error& e) {
+	  BOOST_LOG_TRIVIAL(error) << "risa::ReceiverModule: Failed to read config: " << e.what();
+	  return EXIT_FAILURE;
   }
-
-  return EXIT_FAILURE;
+  if(transportProt == "udp")
+	  transportProtocol_ = transportProtocol::UDP;
+  else if(transportProt == "tcp")
+	  transportProtocol_ = transportProtocol::TCP;
+  else
+	  transportProtocol_ = transportProtocol::UDP;
+  numberOfProjections_ = sampling_rate * 1000000 / scan_rate;
+  return EXIT_SUCCESS;
 }
 
 }

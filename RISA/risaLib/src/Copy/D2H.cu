@@ -21,8 +21,7 @@
  *
  */
 
-#include <risa/Copy/D2H.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../include/risa/Copy/D2H.h"
 
 #include <glados/cuda/Check.h>
 #include <glados/MemoryPool.h>
@@ -37,9 +36,11 @@
 namespace risa {
 namespace cuda {
 
-D2H::D2H(const std::string& configFile) : reconstructionRate_(0), counter_(1.0){
+D2H::D2H(const std::string& config_file) : reconstructionRate_(0), counter_(1.0){
 
-   if (!readConfig(configFile)) {
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::D2H: unable to read config file. Please check!");
    }
@@ -147,15 +148,15 @@ auto D2H::processor(const int deviceID) -> void {
    }
 }
 
-auto D2H::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
-
-   if (configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("memPoolSize_D2H", memPoolSize_))
-      return true;
-   else
-      return false;
-
+auto D2H::readConfig(const read_json& config_reader) -> bool {
+   try {
+	   numberOfPixels_ = config_reader.get_value<int>("number_of_pixels");
+	   memPoolSize_ = config_reader.get_value<int>("mempoolsize_d2h");
+   } catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda::D2H: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
+   }
+   return EXIT_SUCCESS;
 }
 
 }

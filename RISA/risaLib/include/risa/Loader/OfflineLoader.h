@@ -23,6 +23,18 @@
 #ifndef LOADER_H_
 #define LOADER_H_
 
+
+#include "../Basics/performance.h"
+#include "../ConfigReader/read_json.hpp"
+
+#include <glados/Image.h>
+#include <glados/MemoryPool.h>
+#include <glados/cuda/HostMemoryManager.h>
+
+#include <tiffio.h>
+
+#include <boost/log/trivial.hpp>
+
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -30,16 +42,6 @@
 #include <type_traits>
 #include <utility>
 #include <queue>
-
-#include <tiffio.h>
-
-#include "../Basics/performance.h"
-
-#include <boost/log/trivial.hpp>
-
-#include "glados/Image.h"
-#include "glados/MemoryPool.h"
-#include "glados/cuda/HostMemoryManager.h"
 
 namespace risa
 {
@@ -55,7 +57,7 @@ namespace risa
             using manager_type = glados::cuda::HostMemoryManager<unsigned short, glados::cuda::async_copy_policy>;
 
          public:
-            OfflineLoader(const std::string& address, const std::string& configFile);
+            OfflineLoader(const std::string& address, const std::string& config_file);
 
             //! #loadImage is called, when the software pipeline is able to process a new image
             /**
@@ -92,7 +94,7 @@ namespace risa
             std::vector<std::unique_ptr<std::ifstream>> ifstreams_; //!< stores the input file streams during the lifetime of the stage
 
             auto readInput() -> void;
-            auto readConfig(const std::string& configFile) -> bool;
+            auto readConfig(const read_json& config_reader) -> bool;
       };
    }
 

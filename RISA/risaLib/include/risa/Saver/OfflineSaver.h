@@ -25,6 +25,7 @@
 #define OFFLINESAVER_H_
 
 #include "../Basics/performance.h"
+#include "../ConfigReader/read_json.hpp"
 
 #include <glados/cuda/HostMemoryManager.h>
 #include <glados/Image.h>
@@ -57,7 +58,7 @@ namespace risa{
       using manager_type = glados::cuda::HostMemoryManager<float, glados::cuda::async_copy_policy>;
 
    public:
-      OfflineSaver(const std::string& configFile);
+      OfflineSaver(const std::string& config_file);
 
       //!< this function is called, when an image exits the software pipeline
       auto saveImage(glados::Image<manager_type> image, std::string path) -> void;
@@ -71,7 +72,7 @@ namespace risa{
        * @param[in] planeID   specifies, which buffer is to be stored on hard disk
        */
       auto writeTiffSequence(const int planeID) -> void;
-      auto readConfig(const std::string& configFile) -> bool;
+      auto readConfig(const read_json& config_reader) -> bool;
       //! writes a single image to the tiff sequence
       /**
        * @param[in]  tif   pointer to the TIFF-sequence

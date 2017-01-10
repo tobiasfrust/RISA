@@ -21,9 +21,8 @@
  *
  */
 
-#include <risa/Reordering/Reordering.h>
-#include <risa/ConfigReader/ConfigReader.h>
-#include <risa/Basics/performance.h>
+#include "../../include/risa/Reordering/Reordering.h"
+#include "../../include/risa/Basics/performance.h"
 
 #include <glados/cuda/Launch.h>
 #include <glados/cuda/Check.h>
@@ -43,11 +42,13 @@ namespace cuda {
 __global__ void reorder(const unsigned short* __restrict__ unorderedSino, unsigned short* __restrict__ orderedSino,
       const int* __restrict__ hashTable, const int numberOfProjections, const int numberOfDetectors);
 
-Reordering::Reordering(const std::string& configFile) {
+Reordering::Reordering(const std::string& config_file) {
 
-   if (readConfig(configFile)) {
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
-            "recoLib::cuda::CropImage: Configuration file could not be loaded successfully. Please check!");
+            "recoLib::cuda::Reordering: Configuration file could not be loaded successfully. Please check!");
    }
 
    CHECK(cudaGetDeviceCount(&numberOfDevices_));
@@ -67,7 +68,7 @@ Reordering::Reordering(const std::string& configFile) {
    for (auto i = 0; i < numberOfDevices_; i++) {
       processorThreads_[i] = std::thread { &Reordering::processor, this, i };
    }
-   BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::CropImage: Running " << numberOfDevices_ << " Threads.";
+   BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Reordering: Running " << numberOfDevices_ << " Threads.";
 }
 
 Reordering::~Reordering() {
@@ -79,15 +80,15 @@ Reordering::~Reordering() {
       CHECK(cudaSetDevice(i));
       CHECK(cudaStreamDestroy(streams_[i]));
    }
-   BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::CropImage: Destroyed.";
+   BOOST_LOG_TRIVIAL(info)<< "recoLib::cuda::Reordering: Destroyed.";
 }
 
 auto Reordering::process(input_type&& img) -> void {
    if (img.valid()) {
-      BOOST_LOG_TRIVIAL(debug)<< "CropImage: Image arrived with Index: " << img.index() << "to device " << img.device();
+      BOOST_LOG_TRIVIAL(debug)<< "Reordering: Image arrived with Index: " << img.index() << "to device " << img.device();
       sinos_[img.device()].push(std::move(img));
    } else {
-      BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::CropImage: Received sentinel, finishing.";
+      BOOST_LOG_TRIVIAL(debug)<< "recoLib::cuda::Reordering: Received sentinel, finishing.";
 
       //send sentinal to processor thread and wait 'til it's finished
       for(auto i = 0; i < numberOfDevices_; i++) {
@@ -99,7 +100,7 @@ auto Reordering::process(input_type&& img) -> void {
       }
       //push sentinel to results for next stage
       results_.push(output_type());
-      BOOST_LOG_TRIVIAL(info) << "recoLib::cuda::CropImage: Finished.";
+      BOOST_LOG_TRIVIAL(info) << "recoLib::cuda::Reordering: Finished.";
    }
 }
 
@@ -116,7 +117,7 @@ auto Reordering::wait() -> output_type {
  *
  */
 auto Reordering::processor(const int deviceID) -> void {
-   //nvtxNameOsThreadA(pthread_self(), "CropImage");
+   //nvtxNameOsThreadA(pthread_self(), "Reordering");
    CHECK(cudaSetDevice(deviceID));
    dim3 blocks(16, 16);
    dim3 grids(std::ceil(numberOfFanDetectors_/16.0),
@@ -161,20 +162,20 @@ auto Reordering::processor(const int deviceID) -> void {
  *
  * @return returns true, if configuration file could be read successfully, else false
  */
-auto Reordering::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
-   int samplingRate, scanRate;
-   if (configReader.lookupValue("numberOfFanDetectors", numberOfFanDetectors_)
-         && configReader.lookupValue("memPoolSize_Reordering", memPoolSize_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)){
-      numberOfDetectorsPerModule_ = 16;
-      numberOfFanProjections_ = samplingRate * 1000000 / scanRate;
-      return EXIT_SUCCESS;
-   }
-   else
-      return EXIT_FAILURE;
-
+auto Reordering::readConfig(const read_json& config_reader) -> bool {
+   int sampling_rate, scan_rate;
+   try{
+	   numberOfFanDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+	   memPoolSize_ = config_reader.get_value<int>("mempoolsize_reordering");
+	   sampling_rate = config_reader.get_value<int>("sampling_rate");
+	   scan_rate = config_reader.get_value<int>("scan_rate");
+	   numberOfDetectorsPerModule_ = config_reader.get_value<int>("number_of_detectors_per_module");
+	}catch (const boost::property_tree::ptree_error& e) {
+		BOOST_LOG_TRIVIAL(error) << "risa::cuda:Reordering: Failed to read config: " << e.what();
+		return EXIT_FAILURE;
+	}
+	numberOfFanProjections_ = sampling_rate * 1000000 / scan_rate;
+	return EXIT_SUCCESS;
 }
 
 auto Reordering::createHashTable(std::vector<int>& hashTable) -> void {
@@ -205,4 +206,3 @@ __global__ void reorder(const unsigned short* __restrict__ unorderedSino, unsign
 
 }
 }
-

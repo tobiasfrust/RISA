@@ -20,7 +20,7 @@
  * Authors: Tobias Frust <t.frust@hzdr.de>
  */
 
-
+#include <risa/ConfigReader/read_json.hpp>
 #include <risa/Filter/Filter.h>
 #include <risa/Backprojection/Backprojection.h>
 #include <risa/Attenuation/Attenuation.h>

@@ -24,6 +24,8 @@
 #ifndef FAN2PARA_H_
 #define FAN2PARA_H_
 
+#include "../ConfigReader/read_json.hpp"
+
 #include <glados/Image.h>
 #include <glados/cuda/DeviceMemoryManager.h>
 #include <glados/Queue.h>
@@ -33,7 +35,7 @@
 
 #include <map>
 #include <thread>
-#include <array>
+#include <vector>
 
 namespace risa {
 namespace cuda {
@@ -99,7 +101,7 @@ public:
     *
     *    @param[in]  configFile  path to configuration file
     */
-   Fan2Para(const std::string& configFile);
+   Fan2Para(const std::string& config_file);
 
    //!   Destroys everything that is not destroyed automatically
    /**
@@ -133,12 +135,12 @@ private:
 
    //configuration parameters
    parameters params_;
-   std::array<float, 2> sourceDiam_;
-   std::array<float, 2> deltaX_;
-   std::array<float, 2> deltaZ_;
-   std::array<float, 2> sourceAngle_;
-   std::array<float, 2> rTarget_;
-   std::array<char, 2> detectorInter_;
+   std::vector<float> sourceDiam_;
+   std::vector<float> deltaX_;
+   std::vector<float> deltaZ_;
+   std::vector<float> sourceAngle_;
+   std::vector<float> rTarget_;
+   std::vector<char> detectorInter_;
 
    //Hash Table on device
    std::map<int, glados::cuda::device_ptr<float, glados::cuda::async_copy_policy>>
@@ -200,7 +202,7 @@ private:
     * @retval  true  configuration options were read successfully
     * @retval  false configuration options could not be read successfully
     */
-   auto readConfig(const std::string& configFile) -> bool;
+   auto readConfig(const read_json& config_reader) -> bool;
 };
 }
 }

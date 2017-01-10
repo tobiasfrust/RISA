@@ -23,8 +23,7 @@
 
 #include "interpolationFunctions.h"
 
-#include <risa/DetectorInterpolation/DetectorInterpolation.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../include/risa/DetectorInterpolation/DetectorInterpolation.h"
 
 #include <glados/cuda/Coordinates.h>
 #include <glados/cuda/Check.h>
@@ -45,7 +44,9 @@ namespace cuda {
 
 DetectorInterpolation::DetectorInterpolation(const std::string& configFile){
 
-   if (readConfig(configFile)) {
+   read_json config_reader{};
+   config_reader.read(configFile);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "Configuration file could not be read. Please check!");
    }
@@ -139,20 +140,20 @@ auto DetectorInterpolation::processor(int deviceID) -> void {
    }
 }
 
-auto DetectorInterpolation::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
-   int samplingRate, scanRate;
-   if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-         && configReader.lookupValue("thresh_min", threshMin_)
-         && configReader.lookupValue("thresh_max", threshMax_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)){
-      numberOfProjections_ = samplingRate * 1000000 / scanRate;
-      return EXIT_SUCCESS;
+auto DetectorInterpolation::readConfig(const read_json& config_reader) -> bool {
+   int sampling_rate, scan_rate;
+   try {
+	   numberOfDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+	   threshMin_ = config_reader.get_value<double>("thresh_min");
+	   threshMax_ = config_reader.get_value<double>("thresh_max");
+	   sampling_rate = config_reader.get_value<int>("sampling_rate");
+	   scan_rate = config_reader.get_value<int>("scan_rate");
+   } catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda::DetectorInterpolation: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
    }
-   else
-      return EXIT_FAILURE;
-
+   numberOfProjections_ = sampling_rate * 1000000 / scan_rate;
+   return EXIT_SUCCESS;
 }
 
 }

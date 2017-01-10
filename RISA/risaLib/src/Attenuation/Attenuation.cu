@@ -22,10 +22,8 @@
  */
 
 #include "../DetectorInterpolation/interpolationFunctions.h"
-
-#include <risa/Attenuation/Attenuation.h>
-#include <risa/ConfigReader/ConfigReader.h>
-#include <risa/Basics/performance.h>
+#include "../../include/risa/Attenuation/Attenuation.h"
+#include "../../include/risa/Basics/performance.h"
 
 #include <glados/cuda/Launch.h>
 #include <glados/cuda/Check.h>
@@ -45,9 +43,12 @@
 namespace risa {
 namespace cuda {
 
-Attenuation::Attenuation(const std::string& configFile) {
+Attenuation::Attenuation(const std::string& config_file) {
 
-   if (readConfig(configFile)) {
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::Attenuation: Configuration file could not be loaded successfully. Please check!");
    }
@@ -380,37 +381,36 @@ auto Attenuation::relevantAreaMask(std::vector<T>& mask) -> void {
          mask.end(), 0.0);
 }
 
-auto Attenuation::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(
-         configFile.data());
-   int samplingRate, scanRate;
-   if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-         && configReader.lookupValue("numberOfDetectorModules", numberOfDetectorModules_)
-         && configReader.lookupValue("numberOfReferenceFrames", numberOfRefFrames_)
-         && configReader.lookupValue("darkInputPath", pathDark_)
-         && configReader.lookupValue("referenceInputPath", pathReference_)
-         && configReader.lookupValue("numberOfPlanes", numberOfPlanes_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)
-         && configReader.lookupValue("sourceOffset", sourceOffset_)
-         && configReader.lookupValue("xa", xa_)
-         && configReader.lookupValue("xb", xb_)
-         && configReader.lookupValue("xc", xc_)
-         && configReader.lookupValue("xd", xd_)
-         && configReader.lookupValue("xe", xe_)
-         && configReader.lookupValue("xf", xf_)
-         && configReader.lookupValue("lowerLimOffset", lowerLimOffset_)
-         && configReader.lookupValue("upperLimOffset", upperLimOffset_)
-         && configReader.lookupValue("blockSize2D_attenuation", blockSize2D_)
-         && configReader.lookupValue("memPoolSize_attenuation", memPoolSize_)
-         && configReader.lookupValue("thresh_min", threshMin_)
-         && configReader.lookupValue("thresh_max", threshMax_)
-         && configReader.lookupValue("chunkSize", chunkSize_)) {
-      numberOfProjections_ = samplingRate * 1000000 / scanRate;
-      return EXIT_SUCCESS;
-   }
-
-   return EXIT_FAILURE;
+auto Attenuation::readConfig(const read_json& config_reader) -> bool {
+	int sampling_rate, scan_rate;
+	try {
+		numberOfDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+		numberOfDetectorModules_ = config_reader.get_value<int>("number_of_det_modules");
+		numberOfRefFrames_ = config_reader.get_value<int>("number_of_reference_frames");
+		pathDark_ = config_reader.get_element_in_list<std::string, std::string>("inputs", "inputpath", std::make_pair("inputtype", "dark"));
+		pathReference_ = config_reader.get_element_in_list<std::string, std::string>("inputs", "inputpath", std::make_pair("inputtype", "reference"));
+		numberOfPlanes_ = config_reader.get_value<int>("number_of_planes");
+		sampling_rate = config_reader.get_value<int>("sampling_rate");
+		scan_rate = config_reader.get_value<int>("scan_rate");
+		sourceOffset_ = config_reader.get_value<float>("source_offset");
+		xa_ = config_reader.get_value<unsigned int>("xa");
+		xb_ = config_reader.get_value<unsigned int>("xb");
+		xc_ = config_reader.get_value<unsigned int>("xc");
+		xd_ = config_reader.get_value<unsigned int>("xd");
+		xe_ = config_reader.get_value<unsigned int>("xe");
+		xf_ = config_reader.get_value<unsigned int>("xf");
+		lowerLimOffset_ = config_reader.get_value<double>("lower_lim_offset");
+		upperLimOffset_ = config_reader.get_value<double>("upper_lim_offset");
+		blockSize2D_ = config_reader.get_value<int>("blocksize_2d_attenutation");
+		memPoolSize_ = config_reader.get_value<int>("mempoolsize_attenuation");
+		threshMin_ = config_reader.get_value<double>("thresh_min");
+		threshMax_ = config_reader.get_value<double>("thresh_max");
+	} catch (const boost::property_tree::ptree_error& e) {
+		BOOST_LOG_TRIVIAL(error) << "risa::cuda:Attenuation: Failed to read config: " << e.what();
+		return EXIT_FAILURE;
+	}
+	numberOfProjections_ = sampling_rate * 1000000 / scan_rate;
+	return EXIT_SUCCESS;
 }
 
 __global__ void computeAttenuation(

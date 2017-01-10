@@ -24,22 +24,23 @@
 #ifndef LOADER_OFFLINE_PERFTEST_H_
 #define LOADER_OFFLINE_PERFTEST_H_
 
+#include "../Basics/performance.h"
+#include "../ConfigReader/read_json.hpp"
+
+#include <glados/Image.h>
+#include <glados/MemoryPool.h>
+#include <glados/cuda/HostMemoryManager.h>
+
+#include <tiffio.h>
+
+#include <boost/log/trivial.hpp>
+
 #include <memory>
 #include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <utility>
 #include <queue>
-
-#include <tiffio.h>
-
-#include "../Basics/performance.h"
-
-#include <boost/log/trivial.hpp>
-
-#include "glados/Image.h"
-#include "glados/MemoryPool.h"
-#include "glados/cuda/HostMemoryManager.h"
 
 namespace risa
 {
@@ -88,7 +89,7 @@ namespace risa
             std::size_t index_;
 
             auto readInput() -> void;
-            auto readConfig(const std::string& configFile) -> bool;
+            auto readConfig(const read_json& config_reader) -> bool;
       };
    }
 

@@ -21,8 +21,7 @@
  *
  */
 
-#include <risa/Saver/OfflineSaver.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../include/risa/Saver/OfflineSaver.h"
 
 #include <glados/Image.h>
 #include <glados/MemoryPool.h>
@@ -65,8 +64,11 @@ struct TIFFDeleter {
 };
 }
 
-OfflineSaver::OfflineSaver(const std::string& configFile) {
-   if (readConfig(configFile)) {
+OfflineSaver::OfflineSaver(const std::string& config_file) {
+
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::OfflineSaver: Configuration file could not be loaded successfully. Please check!");
    }
@@ -185,28 +187,30 @@ auto OfflineSaver::writeToTiff(::TIFF* tif, glados::Image<manager_type> img) con
  *
  * @return returns true, if configuration file could be read successfully, else false
  */
-auto OfflineSaver::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
+auto OfflineSaver::readConfig(const read_json& config_reader) -> bool {
    std::string mode;
-   if (configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("outputPath", outputPath_)
-         && configReader.lookupValue("outputFileName", fileName_)
-         && configReader.lookupValue("numberOfDataFrames", numberOfFrames_)
-         && configReader.lookupValue("numberOfPlanes", numberOfPlanes_)
-         && configReader.lookupValue("outputBufferSize", circularBufferSize_)
-         && configReader.lookupValue("mode", mode)) {
-      if(mode == "offline"){
-         mode_ = detail::RecoMode::offline;
-      }else if(mode == "online"){
-         mode_ = detail::RecoMode::online;
-      }else{
-         BOOST_LOG_TRIVIAL(error) << "Requested mode \"" << mode << "\" not supported.";
-         return EXIT_FAILURE;
-      }
-      return EXIT_SUCCESS;
-   }
 
-   return EXIT_FAILURE;
+   try {
+	   numberOfPixels_ = config_reader.get_value<int>("number_of_pixels");
+	   outputPath_ = config_reader.get_value<std::string>("output_path");
+	   fileName_ = config_reader.get_value<std::string>("output_fileprefix");
+	   numberOfFrames_ = config_reader.get_value<int>("number_of_data_frames");
+	   numberOfPlanes_ = config_reader.get_value<int>("number_of_planes");
+	   mode = config_reader.get_value<std::string>("mode");
+	   circularBufferSize_ = config_reader.get_value<int>("output_buffersize");
+   } catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda:OfflineSaver: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
+   }
+   if(mode == "offline"){
+	   mode_ = detail::RecoMode::offline;
+   }else if(mode == "online"){
+	   mode_ = detail::RecoMode::online;
+   }else{
+	   BOOST_LOG_TRIVIAL(error) << "Requested mode \"" << mode << "\" not supported.";
+	   return EXIT_FAILURE;
+   }
+   return EXIT_SUCCESS;
 }
 
 }

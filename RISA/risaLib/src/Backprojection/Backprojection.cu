@@ -21,8 +21,7 @@
  *
  */
 
-#include <risa/Backprojection/Backprojection.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../include/risa/Backprojection/Backprojection.h"
 
 #include <glados/MemoryPool.h>
 #include <glados/cuda/Coordinates.h>
@@ -43,9 +42,11 @@ __constant__ float normalizationFactor[1];
 __constant__ float scale[1];
 __constant__ float imageCenter[1];
 
-Backprojection::Backprojection(const std::string& configFile) {
+Backprojection::Backprojection(const std::string& config_file) {
 
-   if (readConfig(configFile)) {
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::Backprojection: Configuration file could not be loaded successfully. Please check!");
    }
@@ -207,32 +208,31 @@ auto Backprojection::processor(const int deviceID) -> void {
    }
 }
 
-auto Backprojection::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(
-         configFile.data());
+auto Backprojection::readConfig(const read_json& config_reader) -> bool {
    std::string interpolationStr;
-   if (configReader.lookupValue("numberOfParallelProjections", numberOfProjections_)
-         && configReader.lookupValue("numberOfParallelDetectors", numberOfDetectors_)
-         && configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("rotationOffset", rotationOffset_)
-         && configReader.lookupValue("blockSize2D_backProjection", blockSize2D_)
-         && configReader.lookupValue("memPoolSize_backProjection", memPoolSize_)
-         && configReader.lookupValue("interpolationType", interpolationStr)
-         && configReader.lookupValue("useTextureMemory", useTextureMemory_)
-         && configReader.lookupValue("backProjectionAngleTotal", backProjectionAngleTotal_)){
-      if(interpolationStr == "nearestNeighbour")
-         interpolationType_ = detail::InterpolationType::neareastNeighbor;
-      else if(interpolationStr == "linear")
-         interpolationType_ = detail::InterpolationType::linear;
-      else{
-         BOOST_LOG_TRIVIAL(warning) << "recoLib::cuda::Backprojection: Requested interpolation mode not supported. Using linear-interpolation.";
-         interpolationType_ = detail::InterpolationType::linear;
-      }
-
-      return EXIT_SUCCESS;
+   try {
+	   numberOfProjections_ = config_reader.get_value<int>("number_of_par_proj");
+	   numberOfDetectors_ = config_reader.get_value<int>("number_of_par_det");
+	   numberOfPixels_ = config_reader.get_value<int>("number_of_pixels");
+	   rotationOffset_ = config_reader.get_value<float>("rotation_offset");
+	   blockSize2D_ = config_reader.get_value<int>("blocksize_2d_backprojection");
+	   memPoolSize_ = config_reader.get_value<int>("mempoolsize_backprojection");
+	   interpolationStr = config_reader.get_value<std::string>("interpolation_type");
+	   useTextureMemory_ = config_reader.get_value<bool>("use_texture_memory");
+	   backProjectionAngleTotal_ = config_reader.get_value<float>("backproj_angle_total");
+   } catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda:Backprojection: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
    }
-
-   return EXIT_FAILURE;
+  if(interpolationStr == "nearestNeighbour")
+	 interpolationType_ = detail::InterpolationType::neareastNeighbor;
+  else if(interpolationStr == "linear")
+	 interpolationType_ = detail::InterpolationType::linear;
+  else{
+	 BOOST_LOG_TRIVIAL(warning) << "recoLib::cuda::Backprojection: Requested interpolation mode not supported. Using linear-interpolation.";
+	 interpolationType_ = detail::InterpolationType::linear;
+  }
+  return EXIT_SUCCESS;
 }
 
 __global__ void backProjectLinear(const float* const __restrict__ sinogram,

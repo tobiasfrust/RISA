@@ -23,8 +23,7 @@
 
 #include "cuda_kernels_fan2para.h"
 
-#include <risa/Fan2Para/Fan2Para.h>
-#include <risa/ConfigReader/ConfigReader.h>
+#include "../../include/risa/Fan2Para/Fan2Para.h"
 
 #include <glados/MemoryPool.h>
 #include <glados/cuda/Check.h>
@@ -36,13 +35,17 @@
 
 #include <exception>
 #include <vector>
+#include <algorithm>
 #include <pthread.h>
 
 namespace risa {
 namespace cuda {
 
-Fan2Para::Fan2Para(const std::string& configFile) {
-   if (readConfig(configFile)) {
+Fan2Para::Fan2Para(const std::string& config_file) {
+
+   risa::read_json config_reader{};
+   config_reader.read(config_file);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::Fan2Para: Configuration file could not be loaded successfully. Please check!");
    }
@@ -217,8 +220,7 @@ auto Fan2Para::processor(const int deviceID) -> void {
       auto img = glados::MemoryPool<deviceManagerType>::instance()->requestMemory(
             memoryPoolIdxs_[deviceID]);
 
-      setValue<float> <<<grids1D, blocks1D, 0, streams_[deviceID]>>>(
-            img.container().get(), 0.0, img.size());
+      setValue<float><<<grids1D, blocks1D, 0, streams_[deviceID]>>>(img.container().get(), 0.0, img.size());
       CHECK(cudaPeekAtLastError());
 
       interpolation<<<grids2D, blocks2D, 0, streams_[deviceID]>>>(
@@ -589,38 +591,38 @@ auto Fan2Para::transferToDevice(unsigned int deviceID) -> void {
  *
  * @return returns true, if configuration file could be read successfully, else false
  */
-auto Fan2Para::readConfig(const std::string& configFile) -> bool {
-   int scanRate, samplingRate;
-   ConfigReader configReader = ConfigReader(configFile.data());
-   if (configReader.lookupValue("numberOfParallelProjections", params_.numberOfParallelProjections_)
-         && configReader.lookupValue("numberOfParallelDetectors", params_.numberOfParallelDetectors_)
-         && configReader.lookupValue("numberOfFanDetectors", params_.numberOfFanDetectors_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)
-         && configReader.lookupValue("numberOfPlanes", params_.numberOfPlanes_)
-         && configReader.lookupValue("sourceOffset", params_.sourceOffset_)
-         && configReader.lookupValue("detectorDiameter", params_.detectorDiameter_)
-         && configReader.lookupValue("imageCenterX", params_.imageCenterX_)
-         && configReader.lookupValue("imageCenterY", params_.imageCenterY_)
-         && configReader.lookupValue("imageWidth", params_.imageWidth_)
-         && configReader.lookupValue("blockSize1D_fan2Para",
-               blockSize1D_)
-         && configReader.lookupValue("blockSize2D_fan2Para", blockSize2D_)
-         && configReader.lookupValue("memPoolSize_fan2Para", memPoolSize_)) {
-      params_.numberOfFanProjections_ = samplingRate * 1000000 / scanRate;
-      params_.rDetector_ = params_.detectorDiameter_ / 2.0;
-      params_.numberOfParallelProjections_ *= 2;
-      for (auto i = 0; i < params_.numberOfPlanes_; i++) {
-         configReader.lookupValue("sourceDiameter", i, sourceDiam_[i]);
-         configReader.lookupValue("deltaX", i, deltaX_[i]);
-         configReader.lookupValue("deltaZ", i, deltaZ_[i]);
-         configReader.lookupValue("sourceAngle", i, sourceAngle_[i]);
-         rTarget_[i] = sourceDiam_[i] / 2.0;
-      }
-      return EXIT_SUCCESS;
-   }
+auto Fan2Para::readConfig(const read_json& config_reader) -> bool {
+	int scanRate, samplingRate;
+	try {
+		params_.numberOfParallelProjections_ = config_reader.get_value<int>("number_of_par_proj");
+		params_.numberOfParallelDetectors_ = config_reader.get_value<int>("number_of_par_det");
+		params_.numberOfFanDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+		samplingRate = config_reader.get_value<int>("sampling_rate");
+		scanRate = config_reader.get_value<int>("scan_rate");
+		params_.numberOfPlanes_ = config_reader.get_value<int>("number_of_planes");
+		params_.sourceOffset_ = config_reader.get_value<float>("source_offset");
+		params_.detectorDiameter_ = config_reader.get_value<float>("detector_diameter");
+		params_.imageCenterX_ = config_reader.get_value<float>("image_center_x");
+		params_.imageCenterY_ = config_reader.get_value<float>("image_center_y");
+		params_.imageWidth_ = config_reader.get_value<float>("image_width");
+		blockSize1D_ = config_reader.get_value<int>("blocksize_1d_fan2para");
+		blockSize2D_ = config_reader.get_value<int>("blocksize_2d_fan2para");
+		sourceDiam_ = config_reader.get_list_of_elements<float>("source_diameter");
+		deltaX_ = config_reader.get_list_of_elements<float>("delta_x");
+		deltaZ_ = config_reader.get_list_of_elements<float>("delta_z");
+		sourceAngle_ = config_reader.get_list_of_elements<float>("source_diameter");
+		memPoolSize_ = config_reader.get_value<int>("mempoolsize_fan2Para");
+	} catch (const boost::property_tree::ptree_error& e) {
+		BOOST_LOG_TRIVIAL(error) << "risa::cuda:Fan2Para: Failed to read config: " << e.what();
+		return EXIT_FAILURE;
+	}
+	params_.numberOfFanProjections_ = samplingRate * 1000000 / scanRate;
+	params_.rDetector_ = params_.detectorDiameter_ * 0.5;
+	params_.numberOfParallelProjections_ *= 2;
+	rTarget_ = sourceDiam_;
+	std::transform(rTarget_.begin(), rTarget_.end(), rTarget_.begin(), std::bind1st(std::multiplies<float>(), 0.5));
 
-   return EXIT_FAILURE;
+	return EXIT_SUCCESS;
 }
 
 }

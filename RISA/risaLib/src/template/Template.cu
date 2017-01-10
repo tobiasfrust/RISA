@@ -20,8 +20,8 @@
  * Authors: Tobias Frust (FWCC) <t.frust@hzdr.de>
  *
  */
-#include <risa/template/Template.h>
-#include <risa/ConfigReader/ConfigReader.h>
+
+#include "../../include/risa/template/Template.h"
 
 #include <glados/cuda/Check.h>
 #include <glados/MemoryPool.h>
@@ -38,7 +38,9 @@ namespace cuda {
 
 Template::Template(const std::string& configFile){
 
-   if (!readConfig(configFile)) {
+   read_json config_reader{};
+   config_reader.read(configFile);
+   if (!readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::Template: unable to read config file. Please check!");
    }
@@ -131,14 +133,14 @@ auto Template::processor(const int deviceID) -> void {
    }
 }
 
-auto Template::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
-   //e.g. reading the number of pixels in the reconstructed image from the given configuration file
-   if (configReader.lookupValue("numberOfPixels", numberOfPixels_))
-      return true;
-   else
-      return false;
-
+auto Template::readConfig(const read_json& config_reader) -> bool {
+	try {
+		numberOfPixels_ = config_reader.get_value<int>("number_of_pixels");
+	} catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda::Template: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
+	}
+	return EXIT_SUCCESS;
 }
 
 }

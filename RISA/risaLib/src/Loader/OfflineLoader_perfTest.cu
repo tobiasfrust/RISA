@@ -21,9 +21,8 @@
  *
  */
 
-#include <risa/ConfigReader/ConfigReader.h>
-#include <risa/Loader/OfflineLoader_perfTest.h>
-#include <risa/Basics/performance.h>
+#include "../../include/risa/Loader/OfflineLoader_perfTest.h"
+#include "../../include/risa/Basics/performance.h"
 
 #include <glados/MemoryPool.h>
 
@@ -36,7 +35,9 @@ namespace risa {
 OfflineLoaderPerfTest::OfflineLoaderPerfTest(const std::string& address,
       const std::string& configFile) :
       worstCaseTime_ { 0.0 }, bestCaseTime_ { std::numeric_limits<double>::max() } {
-   if (readConfig(configFile)) {
+   read_json config_reader{};
+   config_reader.read(configFile);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::OfflineLoader: Configuration file could not be loaded successfully. Please check!");
    }
@@ -139,25 +140,26 @@ auto OfflineLoaderPerfTest::readInput() -> void {
  *
  * @return returns true, if configuration file could be read successfully, else false
  */
-auto OfflineLoaderPerfTest::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(configFile.data());
-   int samplingRate, scanRate;
-   if (configReader.lookupValue("numberOfFanDetectors", numberOfDetectors_)
-         && configReader.lookupValue("numberOfDetectorModules",
-               numberOfDetectorModules_)
-         && configReader.lookupValue("dataInputPath", path_)
-         && configReader.lookupValue("dataFileName", fileName_)
-         && configReader.lookupValue("dataFileEnding", fileEnding_)
-         && configReader.lookupValue("numberOfPlanes", numberOfPlanes_)
-         && configReader.lookupValue("samplingRate", samplingRate)
-         && configReader.lookupValue("scanRate", scanRate)
-         && configReader.lookupValue("numberOfDataFrames", numberOfFrames_)) {
-      numberOfProjections_ = samplingRate * 1000000 / scanRate;
-      return EXIT_SUCCESS;
+auto OfflineLoaderPerfTest::readConfig(const read_json& config_reader) -> bool {
+   int sampling_rate, scan_rate;
+   try {
+	   numberOfDetectors_ = config_reader.get_value<int>("number_of_fan_detectors");
+	   numberOfDetectorModules_ = config_reader.get_value<int>("number_of_det_modules");
+	   path_ = config_reader.get_element_in_list<std::string, std::string>("inputs", "inputpath", std::make_pair("inputtype", "data"));
+	   fileName_ = config_reader.get_element_in_list<std::string, std::string>("inputs", "file_prefix", std::make_pair("inputtype", "data"));
+	   fileEnding_ = config_reader.get_element_in_list<std::string, std::string>("inputs", "file_ending", std::make_pair("inputtype", "data"));
+	   numberOfPlanes_ = config_reader.get_value<int>("number_of_planes");
+	   sampling_rate = config_reader.get_value<int>("sampling_rate");
+	   scan_rate = config_reader.get_value<int>("scan_rate");
+	   numberOfFrames_ = config_reader.get_value<int>("number_of_data_frames");
+   } catch (const boost::property_tree::ptree_error& e) {
+	   BOOST_LOG_TRIVIAL(error) << "risa::cuda:OfflineLoader: Failed to read config: " << e.what();
+	   return EXIT_FAILURE;
    }
-
-   return EXIT_FAILURE;
+   numberOfProjections_ = sampling_rate * 1000000 / scan_rate;
+   return EXIT_SUCCESS;
 }
+
 
 }
 

@@ -21,9 +21,8 @@
  *
  */
 
-#include <risa/Masking/Masking.h>
-#include <risa/ConfigReader/ConfigReader.h>
-#include <risa/Basics/performance.h>
+#include "../../include/risa/Masking/Masking.h"
+#include "../../include/risa/Basics/performance.h"
 
 #include <glados/cuda/Launch.h>
 #include <glados/cuda/Check.h>
@@ -54,7 +53,9 @@ __global__ void mask(float* __restrict__ img, const float value, const int numbe
 
 Masking::Masking(const std::string& configFile) {
 
-   if (readConfig(configFile)) {
+   read_json config_reader{};
+   config_reader.read(configFile);
+   if (readConfig(config_reader)) {
       throw std::runtime_error(
             "recoLib::cuda::CropImage: Configuration file could not be loaded successfully. Please check!");
    }
@@ -143,15 +144,16 @@ auto Masking::processor(const int deviceID) -> void {
    }
 }
 
-auto Masking::readConfig(const std::string& configFile) -> bool {
-   ConfigReader configReader = ConfigReader(
-         configFile.data());
-   if (configReader.lookupValue("numberOfPixels", numberOfPixels_)
-         && configReader.lookupValue("normalization", performNormalization_)
-         && configReader.lookupValue("maskingValue", maskingValue_))
-      return EXIT_SUCCESS;
-
-   return EXIT_FAILURE;
+auto Masking::readConfig(const read_json& config_reader) -> bool {
+   try {
+	   numberOfPixels_ = config_reader.get_value<int>("number_of_pixels");
+	   performNormalization_ = config_reader.get_value<bool>("normalization");
+	   maskingValue_ = config_reader.get_value<float>("masking_value");
+   } catch (const boost::property_tree::ptree_error& e) {
+		BOOST_LOG_TRIVIAL(error) << "risa::cuda::Masking: Failed to read config: " << e.what();
+		return EXIT_FAILURE;
+   }
+   return EXIT_SUCCESS;
 }
 
 __global__ void mask(float* __restrict__ img, const float value, const int numberOfPixels) {
