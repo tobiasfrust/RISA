@@ -26,7 +26,6 @@ include_directories(
 )
 
 set(SOURCES
-   "${CMAKE_SOURCE_DIR}/risaLib/src/ConfigReader/ConfigReader.cpp"
    "${CMAKE_SOURCE_DIR}/risaLib/src/DetectorInterpolation/DetectorInterpolation.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Reordering/Reordering.cu"
    "${CMAKE_SOURCE_DIR}/risaLib/src/Filter/Filter.cu"
