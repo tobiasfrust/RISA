@@ -7,13 +7,10 @@
 Prerequisites:
 - cmake (>= 3.5)
 - CUDA and compatible host compiler (e.g. gcc)
-- libconfig++
 - Boost (>= 1.58)
 - LibTiff
 
 Installation on Ubuntu 16.04
-- install libConfig:
-    ```sudo apt-get install libconfig++-dev```
 - install cmake:
     ```sudo apt-get install cmake cmake-curses-gui```
 - install boost:
