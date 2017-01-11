@@ -21,7 +21,6 @@ project(RISA)
 #define some speciel output paths for libraries and executables
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 #use c++11
 set(CMAKE_CXX_STANDARD 11)
@@ -34,7 +33,6 @@ add_definitions(-DBOOST_LOG_DYN_LINK=1)
 SET(CUDA_MIN_VERSION "7.5")
 
 #find required packages
-find_package(LibConfig REQUIRED)
 find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS system log filesystem program_options REQUIRED)
 find_package(CUDA ${CUDA_MIN_VERSION} REQUIRED)
 find_package(TIFF REQUIRED)

@@ -18,7 +18,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 include_directories(
-   ${LIBCONFIGPP_INCLUDE_DIR} 
    ${BOOST_INCLUDE_DIRS}
    ${TIFF_INCLUDE_DIR}
    "${CMAKE_SOURCE_DIR}/risaLib/include"
@@ -45,7 +44,7 @@ set(SOURCES
 )
 
 set(LINK_LIBRARIES ${LINK_LIBRARIES}
-   ${LIBCONFIGPP_LIBRARY}
+#   ${LIBCONFIGPP_LIBRARY}
    ${CUDA_cusparse_LIBRARY}
    ${Boost_LIBRARIES} 
    ${TIFF_LIBRARIES}
