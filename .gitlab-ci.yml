@@ -1,0 +1,17 @@
+before_script:
+  - apt-get update
+  - apt-get install -qy libconfig++-dev cmake libtiff5-dev libboost-all-dev
+  - mkdir build
+  - cd build
+
+build-cuda91:
+  image: nvidia/cuda:9.1-devel
+  script:
+    - cmake ../RISA/.
+    - make -j2
+
+build-cuda80:
+  image: nvidia/cuda:8.0-devel
+  script:
+    - cmake ../RISA/.
+    - make -j2
